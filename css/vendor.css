@@ -187,7 +187,7 @@ div.syntaxhighlighter {
 	font-family: Consolas, "Bitstream Vera Sans Mono", "Courier New", Courier, monospace !important;
 	font-weight: 400 !important;
 	font-style: normal !important;
-	font-size: 1em !important;
+	font-size: 14px;
 	min-height: inherit !important;
 	min-height: auto !important
 }
@@ -1277,6 +1277,9 @@ a.anchor:hover {
 }
 
 .transfer {
-	padding: 100px 0 500px 0;
+	padding: 100px 0 600px 0;
 	text-align: center;
 }
+
+h1.booktitle {
+	margin-top:200px;
