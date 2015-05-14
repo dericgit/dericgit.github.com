@@ -1,2 +1,1 @@
-# dericgit.github.com
-#test
+##Learn JavaScript Pattern
