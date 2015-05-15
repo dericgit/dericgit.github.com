@@ -92,7 +92,7 @@
 	<div class="contents-list derek-en">
 		<ul>
 			<li><a href="#introduction-en">Introduction</a></li>
-			<li><a href="">What is a Pattern?</a></li>
+			<li><a href="#whatisapattern-cn">What is a Pattern?</a></li>
 			<li><a href="#patternity">"Pattern"-ity Testing, Proto-Patterns &amp; The Rule Of Three</a></li>
 			<li><a href="#designpatternstructure">The Structure Of A Design Pattern</a></li>
 			<li><a href="#writingdesignpatterns">Writing Design Patterns</a></li>
@@ -152,7 +152,7 @@
 	<div class="contents-list derek-cn">
 		<ul>
 			<li><a href="#introduction-cn">简介</a></li>
-			<li><a href="">什么是设计模式?</a></li>
+			<li><a href="#whatisapattern-cn">什么是设计模式?</a></li>
 			<li><a href="#patternity">"Pattern"-ity Testing, Proto-Patterns &amp; The Rule Of Three</a></li>
 			<li><a href="#designpatternstructure">设计模式的结构</a></li>
 			<li><a href="#writingdesignpatterns">编写设计模式</a></li>
@@ -219,21 +219,34 @@
 	</h1>
 
 
-    <p>One of the most important aspects of writing maintainable code is being able to notice the recurring themes in that code and optimize them. This is an area where knowledge of design patterns can prove invaluable.</p>
+    <p class="derek-en">One of the most important aspects of writing maintainable code is being able to notice the recurring themes in that code and optimize them. This is an area where knowledge of design patterns can prove invaluable.</p>
+    <p class="derek-cn">写出可维护的代码的一个最重要的方面就是在代码中能够注意到重复出现的主题并对其进行优化,设计模式被证明是一个非常重要的领域。</p>
 
-    <p>In the first part of this book, we will explore the history and importance of design patterns which can really be applied to any programming language. If you're already sold on or are familiar with this history, feel free to skip to the chapter "<a href="">What is a Pattern?</a>" to continue reading.</p>
+    <p class="derek-en">In the first part of this book, we will explore the history and importance of design patterns which can really be applied to any programming language. If you're already sold on or are familiar with this history, feel free to skip to the chapter "<a href="">What is a Pattern?</a>" to continue reading.</p>
+    <p class="derek-cn">在本书的第一部分，我们将探索可以真正应用于任何编程语言的设计模式的历史和重要性。如果你已经熟悉这段历史，可以直接跳过"什么是模式？"这一章继续阅读。</p>
 
-    <p>Design patterns can be traced back to the early work of an architect named <a href="http://en.wikipedia.org/wiki/Christopher_Alexander">Christopher Alexander</a>. He would often write publications about his experience in solving design issues and how they related to buildings and towns. One day, it occurred to Alexander that when used time and time again, certain design constructs lead to a desired optimal effect. </p>
+    <p class="derek-en">Design patterns can be traced back to the early work of an architect named <a href="">Christopher Alexander</a>. He would often write publications about his experience in solving design issues and how they related to buildings and towns. One day, it occurred to Alexander that when used time and time again, certain design constructs lead to a desired optimal effect. </p>
+    <p class="derek-cn">设计模式可以追溯到早期的一名叫Christopher Alexander的架构师。他经常会发表一些他在处理设计问题时的经验、如何与建筑和城镇相联系的。有一天，当Alexander使用了一次又一次后，他发现某些设计结构效果最好。</p>
 
-    <p>In collaboration with Sara Ishikawa and Murray Silverstein, Alexander produced a pattern language that would help empower anyone wishing to design and build at any scale. This was published back in 1977 in a paper titled "A Pattern Language", which was later released as a complete hardcover <a href="#">book</a>. </p>
-    <p>Some 30 years ago, software engineers began to incorporate the principles Alexander had written about into the first documentation about design patterns, which was to be a guide for novice developers looking to improve their coding skills. It's important to note that the concepts behind design patterns have actually been around in the programming industry since its inception, albeit in a less formalized form. </p>
+    <p class="derek-en">In collaboration with Sara Ishikawa and Murray Silverstein, Alexander produced a pattern language that would help empower anyone wishing to design and build at any scale. This was published back in 1977 in a paper titled "A Pattern Language", which was later released as a complete hardcover <a href="#">book</a>. </p>
+    <p class="derek-cn">在Sara Ishikawa和Murray Silverstein的协作下，Alexander发明了一种可以帮助任何人去设计和构建希望的任何规模的模式语言。1977年一篇名为"模式语言"的论文中发表，后来又以精装书发表。</p>
+    <p class="derek-en">Some 30 years ago, software engineers began to incorporate the principles Alexander had written about into the first documentation about design patterns, which was to be a guide for novice developers looking to improve their coding skills. It's important to note that the concepts behind design patterns have actually been around in the programming industry since its inception, albeit in a less formalized form. </p>
+    <p class="derek-cn">30多年前，软件工程师开始将Alexander写过的原m则并入第一版的设计模式，这是一个用来对那些想要改善他们编码技巧的新手开发者的一个指南。要注意，这时设计模式背后的概念实际上已经在编程行业成立以来就有了，虽然不是那么正式的形式。</p>
+    <p class="derek-en">One of the first and arguably most iconic formal works published on design patterns in software engineering was a book in 1995 called <em>Design Patterns: Elements Of Reusable Object-Oriented Software</em>. This was written by <a href="#">Erich Gamma</a>,<a href="#"> Richard Helm</a>,<a href="#"> Ralph Johnson</a> and<a href="#"> John Vlissides</a> - a group that became known as the Gang of Four (or GoF for short). </p>
+    <p class="derek-cn">第一个也是最标志性的关于软件工程的设计模式的正式作品是在1995年一本叫Design Patterns: Elements Of Reusable Object-Oriented Software的书中发表，这是Erich Gamma, Richard Helm, Ralph Johnson和 John Vlissides - 一群被称为Gang of Four(简称GoF)的人写的。</p>
+    <p class="derek-en">The GoF's publication is considered quite instrumental to pushing the concept of design patterns further in our field as it describes a number of development techniques and pitfalls as well as providing twenty-three core Object-Oriented design patterns frequently used around the world today. We will be covering these patterns in more detail in the section "Categories of Design Patterns".</p>
+    <p class="derek-cn">GoF的出版物被认为是非常有助于推动设计模式的概念在我们的领域发展的，因为它描述了大量的开发技术和缺陷，而且还有在今天的世界中大量使用的23个核心的面向对象的设计模式。我们将详细地在"设计模式分类"这一章中介绍这些模式。</p>
+    <p class="derek-en">In this book, we will take a look at a number of popular JavaScript design patterns and explore why certain patterns may be more suitable for your projects than others. Remember that patterns can be applied not just to vanilla JavaScript (i.e standard JavaScript code), but also to abstracted libraries such as <a href="#">jQuery</a> or <a href="#">dojo</a> as well. Before we begin, let’s look at the exact definition of a "pattern" in software design.</p>
+    <p class="derek-cn">在本书中，我们将看到一些流行的JavaScript设计模式，并探索为什么一些特定的模式比其他的更适合你的项目。但请记住模式不仅仅可以应用在单纯的JavaScript (例如：标准JavaScript代码)里，也可以在一些像jQuery或dojo的抽象库里使用。在我们开始之前，让我们看看模式在软件设计中的确切定义。</p>
 
-    <p>One of the first and arguably most iconic formal works published on design patterns in software engineering was a book in 1995 called <em>Design Patterns: Elements Of Reusable Object-Oriented Software</em>. This was written by <a href="#">Erich Gamma</a>,<a href="#"> Richard Helm</a>,<a href="#"> Ralph Johnson</a> and<a href="#"> John Vlissides</a> - a group that became known as the Gang of Four (or GoF for short). </p>
-    <p>The GoF's publication is considered quite instrumental to pushing the concept of design patterns further in our field as it describes a number of development techniques and pitfalls as well as providing twenty-three core Object-Oriented design patterns frequently used around the world today. We will be covering these patterns in more detail in the section "Categories of Design Patterns".</p>
-    <p>In this book, we will take a look at a number of popular JavaScript design patterns and explore why certain patterns may be more suitable for your projects than others. Remember that patterns can be applied not just to vanilla JavaScript (i.e standard JavaScript code), but also to abstracted libraries such as <a href="#">jQuery</a> or <a href="#">dojo</a> as well. Before we begin, let’s look at the exact definition of a "pattern" in software design.</p>
-    <p>&nbsp;</p>
-    <p>&nbsp;</p>
-    <h1 id="whatisapattern">What is a Pattern?</h1>
+    <h1 class="derek-en">
+    	<a name="whatisapattern-en" class="subhead-link">#</a>
+    	What is a Pattern?
+    </h1>
+    <h1 class="derek-cn">
+    	<a name="whatisapattern-cn" class="subhead-link">#</a>
+    	什么是设计模式?
+    </h1>
     <p>A pattern is a reusable solution that can be applied to commonly occurring problems in software design - in our case - in writing JavaScript web applications. Another way of looking at patterns are as templates for how we solve problems - ones which can be used in quite a few different situations.</p>
 
     <p>So, why is it important to understand patterns and be familiar with them? Design patterns have three main benefits: </p>
@@ -392,14 +405,14 @@
     <a href="#categoriesofdesignpatterns" class="subhead-link">#</a>
     Categories Of Design Pattern
     </h1>
-    <p>&nbsp;</p>
+    
     <p>A glossary from the well-known design book, <em>Domain-Driven Terms</em>, rightly states that:</p>
     <p><i>“A design pattern names, abstracts, and identifies the key aspects of a common design structure that make it useful for creating a reusable object-oriented design. The design pattern identifies the participating classes and their instances, their roles and collaborations, and the distribution of responsibilities. </i></p>
     <p><i>Each design pattern focuses on a particular object-oriented design problem or issue. It describes when it applies, whether or not it can be applied in view of other design constraints, and the consequences and trade-offs of its use. Since we must eventually implement our designs, a design pattern also provides sample ... code to illustrate an implementation. </i></p>
     <p><i>Although design patterns describe object-oriented designs, they are based on practical solutions that have been implemented in mainstream object-oriented programming languages ....”</i></p>
     <p>Design patterns can be broken down into a number of different categories. In this section we’ll review three of these categories and briefly mention a few examples of the patterns that fall into these categories before exploring specific ones in more detail.
     </p>
-    <p>&nbsp;</p>
+    
     <h2>Creational Design Patterns</h2>
     <p>
     </p><p>Creational design patterns focus on handling object creation mechanisms where objects are created in a manner suitable for the situation we're working in. The basic approach to object creation might otherwise lead to added complexity in a project whilst these patterns aim to solve this problem by <em>controlling</em> the creation process.</p>
@@ -412,7 +425,7 @@
     <h2>Behavioral Design Patterns</h2>
     <p>Behavioral patterns focus on improving or streamlining the communication between disparate objects in a system.</p>
     <p>Some behavioral patterns include: Iterator, Mediator, Observer and Visitor.</p>
-    <p>&nbsp;</p>
+    
     <h1 id="summarytabledesignpatterns">
     <a href="#summarytabledesignpatterns" class="subhead-link">#</a>
     Design Pattern Categorization
@@ -575,46 +588,69 @@
     <td colspan="3">Adds a new operation to a class without changing the class.</td>
     </tr>
     </tbody></table><p></p>
-    <p>&nbsp;</p>
-    <p>&nbsp;</p>
-    <h1 id="designpatternsjavascript">
-    <a href="#designpatternsjavascript" class="subhead-link">#</a>
-    JavaScript Design Patterns
+
+    <h1 class="derek-en">
+    	<a name="designpatternsjavascript-en" class="subhead-link">#</a>
+    	JavaScript Design Patterns
     </h1>
-    <p>&nbsp;</p>
 
-    <p>In this section, we will explore JavaScript implementations of a number of both classic and modern design patterns.</p>
+    <h1 class="derek-cn">
+    	<a name="designpatternsjavascript-cn" class="subhead-link">#</a>
+    	第九章 JavaScript 设计模式
+    </h1>
 
-    <p>Developers commonly wonder whether there is an <em>ideal</em> pattern or set of patterns they should be using in their workflow. There isn't a true single answer to this question; each script and web application we work on is likely to have its own individual needs and we need to think about where we feel a pattern can offer real value to an implementation.</p>
+    <p class="derek-en">In this section, we will explore JavaScript implementations of a number of both classic and modern design patterns.</p>
+    <p class="derek-cn">在本节中，我们将探索JavaScript实现2个经典和现代的设计模式。</p>
 
-    <p>For example, some projects may benefit from the decoupling benefits offered by the Observer pattern (which reduces how dependent parts of an application are on one another) whilst others may simply be too small for decoupling to be a concern at all.</p>
+    <p class="derek-en">Developers commonly wonder whether there is an <em>ideal</em> pattern or set of patterns they should be using in their workflow. There isn't a true single answer to this question; each script and web application we work on is likely to have its own individual needs and we need to think about where we feel a pattern can offer real value to an implementation.</p>
+    <p class="derek-cn">开发人员通常想知道是否有一种理想模式或者他们应该在他们的工作流程中使用的设置模式。对这个问题没有正确的唯一的答案，我们从事的每个脚本和web应该程序有它自己的需求，我们需要想想哪种模式的实现能提供真正的价值。</p>
 
-    <p>That said, once we have a firm grasp of design patterns and the specific problems they are best suited to, it becomes much easier to integrate them into our application architectures.</p>
+    <p class="derek-en">For example, some projects may benefit from the decoupling benefits offered by the Observer pattern (which reduces how dependent parts of an application are on one another) whilst others may simply be too small for decoupling to be a concern at all.</p>
+    <p class="derek-cn">例如，一些项目可能受益于观察者模式所提供的解耦的好处（从而降低应用程序的依赖的部分在另一个上）虽然其他的只是太小，解耦是一直关注的问题。</p>
+    <p class="derek-en">That said, once we have a firm grasp of design patterns and the specific problems they are best suited to, it becomes much easier to integrate them into our application architectures.</p>
+    <p class="derek-cn">那就是说，一旦我们已经牢固掌握一个设计模式和他们适应的具体问题，它将非常容易应用到我们的程序结构中。</p>
 
-    <p>&nbsp;</p>
-    <p><strong>The patterns we will be exploring in this section are the:</strong></p>
-    <ul>
-
-    <li class="subitem"><a href="#constructorpatternjavascript">Constructor Pattern</a></li>
-    <li class="subitem"><a href="#modulepatternjavascript">Module Pattern</a></li>
-    <li class="subitem"><a href="#revealingmodulepatternjavascript">Revealing Module Pattern</a></li>
-    <li class="subitem"><a href="#singletonpatternjavascript">Singleton Pattern</a></li>
-    <li class="subitem"><a href="#observerpatternjavascript">Observer Pattern</a></li>
-    <li class="subitem"><a href="#mediatorpatternjavascript">Mediator Pattern</a></li>
-    <li class="subitem"><a href="#prototypepatternjavascript">Prototype Pattern</a></li>
-    <li class="subitem"><a href="#commandpatternjavascript">Command Pattern</a></li>
-    <li class="subitem"><a href="#facadepatternjavascript">Facade Pattern</a></li>
-    <li class="subitem"><a href="#factorypatternjavascript">Factory Pattern</a></li>
-    <li class="subitem"><a href="#mixinpatternjavascript">Mixin Pattern</a>
-    </li><li class="subitem"><a href="#decoratorpatternjavascript">Decorator Pattern</a></li>
-    <li class="subitem"><a href="#">Flyweight Pattern</a></li>
-
+    <p class="derek-en"><strong>The patterns we will be exploring in this section are the:</strong></p>
+    <p class="derek-cn"><strong>在本节中，我们将会探讨模式是：</strong></p>
+    <ul class="derek-en">
+	    <li class="subitem"><a href="#constructorpatternjavascript">Constructor Pattern</a></li>
+	    <li class="subitem"><a href="#modulepatternjavascript">Module Pattern</a></li>
+	    <li class="subitem"><a href="#revealingmodulepatternjavascript">Revealing Module Pattern</a></li>
+	    <li class="subitem"><a href="#singletonpatternjavascript">Singleton Pattern</a></li>
+	    <li class="subitem"><a href="#observerpatternjavascript">Observer Pattern</a></li>
+	    <li class="subitem"><a href="#mediatorpatternjavascript">Mediator Pattern</a></li>
+	    <li class="subitem"><a href="#prototypepatternjavascript">Prototype Pattern</a></li>
+	    <li class="subitem"><a href="#commandpatternjavascript">Command Pattern</a></li>
+	    <li class="subitem"><a href="#facadepatternjavascript">Facade Pattern</a></li>
+	    <li class="subitem"><a href="#factorypatternjavascript">Factory Pattern</a></li>
+	    <li class="subitem"><a href="#mixinpatternjavascript">Mixin Pattern</a>
+	    </li><li class="subitem"><a href="#decoratorpatternjavascript">Decorator Pattern</a></li>
+	    <li class="subitem"><a href="#">Flyweight Pattern</a></li>
     </ul>
+    <ul class="derek-Cn">
+	    <li class="subitem"><a href="#constructorpatternjavascript">构造函数模式</a></li>
+	    <li class="subitem"><a href="#modulepatternjavascript">模块模式</a></li>
+	    <li class="subitem"><a href="#revealingmodulepatternjavascript">暴露模块模式</a></li>
+	    <li class="subitem"><a href="#singletonpatternjavascript">单例模式</a></li>
+	    <li class="subitem"><a href="#observerpatternjavascript">观察者模式</a></li>
+	    <li class="subitem"><a href="#mediatorpatternjavascript">中介者模式</a></li>
+	    <li class="subitem"><a href="#prototypepatternjavascript">原型模式</a></li>
+	    <li class="subitem"><a href="#commandpatternjavascript">命令模式</a></li>
+	    <li class="subitem"><a href="#facadepatternjavascript">外观模式</a></li>
+	    <li class="subitem"><a href="#factorypatternjavascript">工厂模式</a></li>
+	    <li class="subitem"><a href="#mixinpatternjavascript">混合模式n</a>
+	    </li><li class="subitem"><a href="#decoratorpatternjavascript">装饰模式</a></li>
+	    <li class="subitem"><a href="#">享元模式</a></li>
+    </ul>
+    
+    <h2 class="derek-en">
+    	<a name="constructorpatternjavascript" class="subhead-link">#</a>
+    	The Constructor Pattern
+    </h2>
 
-    <p>&nbsp;</p>
-    <h2 id="constructorpatternjavascript">
-    <a href="#constructorpatternjavascript" class="subhead-link">#</a>
-    The Constructor Pattern
+    <h2 class="derek-cn">
+    	<a name="constructorpatternjavascript" class="subhead-link">#</a>
+    	构造函数模式
     </h2>
 
     <p>In classical object-oriented programming languages, a constructor is a special method used to initialize a newly created object once memory has been allocated for it. In JavaScript, as almost everything is an object, we're most often interested in <em>object</em> constructors.</p>
@@ -651,7 +687,7 @@
 
     <p>Thankfully as there are a number of both ES3 and ES5-compatible alternatives to constructing objects, it's trivial to work around this limitation.</p>
 
-    <p>&nbsp;</p>
+    
 
     <h3>Constructors With Prototypes</h3>
 
@@ -662,7 +698,7 @@
 
     <p>Above, a single instance of toString() will now be shared between all of the Car objects.</p>
 
-    <p>&nbsp;</p>
+    
 
     <h2 id="modulepatternjavascript">
     <a href="#modulepatternjavascript" class="subhead-link">#</a>
@@ -767,7 +803,7 @@
     <li>Given that functions are declared normally and are named, it can be easier to show call stacks in a debugger when we're attempting to discover what function(s) threw an exception.</li>
     <li>As T.J Crowder has pointed out in the past, it also enables us to return different functions depending on the environment. In the past, I've seen developers use this to perform UA testing in order to provide a code-path in their module specific to IE, but we can easily opt for feature detection these days to achieve a similar goal.</li>
     </ul>
-    <p>&nbsp;</p>
+    
 
 
 
@@ -807,7 +843,7 @@
     <p>Here, we see an example of how to define a namespace which can then be populated with a module containing both a private and public API. With the exception of some semantic differences, it's quite close to how the Module pattern is implemented in vanilla JavaScript: </p>
     <div><div id="highlighter_581071" class="syntaxhighlighter  js acodecode"><div class="toolbar"><span><a href="#" class="toolbar_item command_help help">?</a></span></div><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="gutter"><div class="line number1 index0 alt2">1</div><div class="line number2 index1 alt1">2</div><div class="line number3 index2 alt2">3</div><div class="line number4 index3 alt1">4</div><div class="line number5 index4 alt2">5</div><div class="line number6 index5 alt1">6</div><div class="line number7 index6 alt2">7</div><div class="line number8 index7 alt1">8</div><div class="line number9 index8 alt2">9</div><div class="line number10 index9 alt1">10</div><div class="line number11 index10 alt2">11</div><div class="line number12 index11 alt1">12</div><div class="line number13 index12 alt2">13</div><div class="line number14 index13 alt1">14</div><div class="line number15 index14 alt2">15</div><div class="line number16 index15 alt1">16</div><div class="line number17 index16 alt2">17</div><div class="line number18 index17 alt1">18</div><div class="line number19 index18 alt2">19</div><div class="line number20 index19 alt1">20</div><div class="line number21 index20 alt2">21</div><div class="line number22 index21 alt1">22</div><div class="line number23 index22 alt2">23</div><div class="line number24 index23 alt1">24</div><div class="line number25 index24 alt2">25</div><div class="line number26 index25 alt1">26</div><div class="line number27 index26 alt2">27</div><div class="line number28 index27 alt1">28</div><div class="line number29 index28 alt2">29</div><div class="line number30 index29 alt1">30</div><div class="line number31 index30 alt2">31</div><div class="line number32 index31 alt1">32</div><div class="line number33 index32 alt2">33</div><div class="line number34 index33 alt1">34</div><div class="line number35 index34 alt2">35</div><div class="line number36 index35 alt1">36</div><div class="line number37 index36 alt2">37</div><div class="line number38 index37 alt1">38</div><div class="line number39 index38 alt2">39</div><div class="line number40 index39 alt1">40</div><div class="line number41 index40 alt2">41</div><div class="line number42 index41 alt1">42</div><div class="line number43 index42 alt2">43</div><div class="line number44 index43 alt1">44</div><div class="line number45 index44 alt2">45</div></td><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="js comments">// create namespace</code></div><div class="line number2 index1 alt1"><code class="js plain">Ext.namespace(</code><code class="js string">"myNameSpace"</code><code class="js plain">);</code></div><div class="line number3 index2 alt2">&nbsp;</div><div class="line number4 index3 alt1"><code class="js comments">// create application</code></div><div class="line number5 index4 alt2"><code class="js plain">myNameSpace.app = </code><code class="js keyword">function</code> <code class="js plain">() {</code></div><div class="line number6 index5 alt1">&nbsp;</div><div class="line number7 index6 alt2"><code class="js spaces">&nbsp;&nbsp;</code><code class="js comments">// do NOT access DOM from here; elements don't exist yet</code></div><div class="line number8 index7 alt1"><code class="js spaces">&nbsp;&nbsp;</code><code class="js comments">// private variables</code></div><div class="line number9 index8 alt2">&nbsp;</div><div class="line number10 index9 alt1"><code class="js spaces">&nbsp;&nbsp;</code><code class="js keyword">var</code> <code class="js plain">btn1,</code></div><div class="line number11 index10 alt2"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="js plain">privVar1 = 11;</code></div><div class="line number12 index11 alt1">&nbsp;</div><div class="line number13 index12 alt2"><code class="js spaces">&nbsp;&nbsp;</code><code class="js comments">// private functions</code></div><div class="line number14 index13 alt1"><code class="js spaces">&nbsp;&nbsp;</code><code class="js keyword">var</code> <code class="js plain">btn1Handler = </code><code class="js keyword">function</code> <code class="js plain">( button, event ) {</code></div><div class="line number15 index14 alt2"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="js plain">console.log( </code><code class="js string">"privVar1="</code> <code class="js plain">+ privVar1 );</code></div><div class="line number16 index15 alt1"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="js plain">console.log( </code><code class="js string">"this.btn1Text="</code> <code class="js plain">+ </code><code class="js keyword">this</code><code class="js plain">.btn1Text );</code></div><div class="line number17 index16 alt2"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="js plain">};</code></div><div class="line number18 index17 alt1">&nbsp;</div><div class="line number19 index18 alt2"><code class="js spaces">&nbsp;&nbsp;</code><code class="js comments">// public space</code></div><div class="line number20 index19 alt1"><code class="js spaces">&nbsp;&nbsp;</code><code class="js keyword">return</code> <code class="js plain">{</code></div><div class="line number21 index20 alt2"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="js comments">// public properties, e.g. strings to translate</code></div><div class="line number22 index21 alt1"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="js plain">btn1Text: </code><code class="js string">"Button 1"</code><code class="js plain">,</code></div><div class="line number23 index22 alt2">&nbsp;</div><div class="line number24 index23 alt1"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="js comments">// public methods</code></div><div class="line number25 index24 alt2"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="js plain">init: </code><code class="js keyword">function</code> <code class="js plain">() {</code></div><div class="line number26 index25 alt1">&nbsp;</div><div class="line number27 index26 alt2"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="js keyword">if</code> <code class="js plain">( Ext.Ext2 ) {</code></div><div class="line number28 index27 alt1">&nbsp;</div><div class="line number29 index28 alt2"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="js plain">btn1 = </code><code class="js keyword">new</code> <code class="js plain">Ext.Button({</code></div><div class="line number30 index29 alt1"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="js plain">renderTo: </code><code class="js string">"btn1-ct"</code><code class="js plain">,</code></div><div class="line number31 index30 alt2"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="js plain">text: </code><code class="js keyword">this</code><code class="js plain">.btn1Text,</code></div><div class="line number32 index31 alt1"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="js plain">handler: btn1Handler</code></div><div class="line number33 index32 alt2"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="js plain">});</code></div><div class="line number34 index33 alt1">&nbsp;</div><div class="line number35 index34 alt2"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="js plain">} </code><code class="js keyword">else</code> <code class="js plain">{</code></div><div class="line number36 index35 alt1">&nbsp;</div><div class="line number37 index36 alt2"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="js plain">btn1 = </code><code class="js keyword">new</code> <code class="js plain">Ext.Button( </code><code class="js string">"btn1-ct"</code><code class="js plain">, {</code></div><div class="line number38 index37 alt1"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="js plain">text: </code><code class="js keyword">this</code><code class="js plain">.btn1Text,</code></div><div class="line number39 index38 alt2"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="js plain">handler: btn1Handler</code></div><div class="line number40 index39 alt1"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="js plain">});</code></div><div class="line number41 index40 alt2">&nbsp;</div><div class="line number42 index41 alt1"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="js plain">}</code></div><div class="line number43 index42 alt2"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="js plain">}</code></div><div class="line number44 index43 alt1"><code class="js spaces">&nbsp;&nbsp;</code><code class="js plain">};</code></div><div class="line number45 index44 alt2"><code class="js plain">}();</code></div></div></td></tr></tbody></table></div></div>
 
-    <p>&nbsp;</p>
+    
     <p>
     <strong>
     YUI
@@ -842,7 +878,7 @@
 
     <p>For further reading on the Module pattern, see Ben Cherry's excellent in-depth <a href="http://www.adequatelygood.com/2010/3/JavaScript-Module-Pattern-In-Depth">article</a> on it.</p>
 
-    <p>&nbsp;</p>
+    
 
 
 
@@ -874,7 +910,7 @@
     <p>Public object members which refer to private variables are also subject to the no-patch rule notes above.</p>
 
     <p>As a result of this, modules created with the Revealing Module pattern may be more fragile than those created with the original Module pattern, so care should be taken during usage.</p>
-    <p>&nbsp;</p>
+    
 
 
 
@@ -908,7 +944,7 @@
 
     <div><div id="highlighter_277534" class="syntaxhighlighter  js acodecode"><div class="toolbar"><span><a href="#" class="toolbar_item command_help help">?</a></span></div><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="gutter"><div class="line number1 index0 alt2">1</div><div class="line number2 index1 alt1">2</div><div class="line number3 index2 alt2">3</div><div class="line number4 index3 alt1">4</div><div class="line number5 index4 alt2">5</div><div class="line number6 index5 alt1">6</div><div class="line number7 index6 alt2">7</div><div class="line number8 index7 alt1">8</div><div class="line number9 index8 alt2">9</div><div class="line number10 index9 alt1">10</div></td><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="js plain">mySingleton.getInstance = </code><code class="js keyword">function</code><code class="js plain">(){</code></div><div class="line number2 index1 alt1"><code class="js spaces">&nbsp;&nbsp;</code><code class="js keyword">if</code> <code class="js plain">( </code><code class="js keyword">this</code><code class="js plain">._instance == </code><code class="js keyword">null</code> <code class="js plain">) {</code></div><div class="line number3 index2 alt2"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="js keyword">if</code> <code class="js plain">( isFoo() ) {</code></div><div class="line number4 index3 alt1"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="js keyword">this</code><code class="js plain">._instance = </code><code class="js keyword">new</code> <code class="js plain">FooSingleton();</code></div><div class="line number5 index4 alt2"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="js plain">} </code><code class="js keyword">else</code> <code class="js plain">{</code></div><div class="line number6 index5 alt1"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="js keyword">this</code><code class="js plain">._instance = </code><code class="js keyword">new</code> <code class="js plain">BasicSingleton();</code></div><div class="line number7 index6 alt2"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="js plain">}</code></div><div class="line number8 index7 alt1"><code class="js spaces">&nbsp;&nbsp;</code><code class="js plain">}</code></div><div class="line number9 index8 alt2"><code class="js spaces">&nbsp;&nbsp;</code><code class="js keyword">return</code> <code class="js keyword">this</code><code class="js plain">._instance;</code></div><div class="line number10 index9 alt1"><code class="js plain">};</code></div></div></td></tr></tbody></table></div></div>
 
-    <p>&nbsp;</p>
+    
     <p>Here, <code>getInstance</code> becomes a little like a Factory method and we don't need to update each point in our code accessing it. <code>FooSingleton</code> above would be a subclass of <code>BasicSingleton</code> and implement the same interface.</p>
 
     <p>Why is deferring execution considered important for a Singleton?:</p>
@@ -931,7 +967,7 @@
 
     <p>Miller Medeiros has previously recommended <a href="http://www.ibm.com/developerworks/webservices/library/co-single/index.html">this</a> excellent article on the Singleton and its various issues for further reading as well as the comments to <a href="http://misko.hevery.com/2008/10/21/dependency-injection-myth-reference-passing/">this</a> article, discussing how Singletons can increase tight coupling. I'm happy to second these recommendations as both pieces raise many important points about this pattern that are also worth noting.</p>
 
-    <p>&nbsp;</p>
+    
 
 
     <h2 id="observerpatternjavascript">
@@ -1139,7 +1175,7 @@
 
     <p>
     The Observer pattern is useful for decoupling a number of different scenarios in application design and if you haven't been using it, I recommend picking up one of the pre-written implementations mentioned today and just giving it a try out. It's one of the easier design patterns to get started with but also one of the most powerful.</p>
-    <p>&nbsp;</p>
+    
 
 
     <!--end tood-->
@@ -1268,8 +1304,8 @@ The Mediator centralizes communication between modules where it's explicitly ref
 </p>
 
 <p>
- </p><p>&nbsp;</p>
-  <p>&nbsp;</p>
+ </p>
+  
 <p></p>
 <h2 id="prototypepatternjavascript">
   <a href="#prototypepatternjavascript" class="subhead-link">#</a>
@@ -1303,7 +1339,7 @@ Here the properties can be initialized on the second argument of <code>Object.cr
 <p>It is worth noting that prototypal relationships can cause trouble when enumerating properties of objects and (as Crockford recommends) wrapping the contents of the loop in a <code>hasOwnProperty()</code> check.</p>
 
 <p>If we wish to implement the prototype pattern without directly using <code>Object.create</code>, we can simulate the pattern as per the above example as follows:</p>
-<p>&nbsp;</p>
+
 <p>
 </p><div><div id="highlighter_211266" class="syntaxhighlighter  js acodecode"><div class="toolbar"><span><a href="#" class="toolbar_item command_help help">?</a></span></div><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="gutter"><div class="line number1 index0 alt2">1</div><div class="line number2 index1 alt1">2</div><div class="line number3 index2 alt2">3</div><div class="line number4 index3 alt1">4</div><div class="line number5 index4 alt2">5</div><div class="line number6 index5 alt1">6</div><div class="line number7 index6 alt2">7</div><div class="line number8 index7 alt1">8</div><div class="line number9 index8 alt2">9</div><div class="line number10 index9 alt1">10</div><div class="line number11 index10 alt2">11</div><div class="line number12 index11 alt1">12</div><div class="line number13 index12 alt2">13</div><div class="line number14 index13 alt1">14</div><div class="line number15 index14 alt2">15</div><div class="line number16 index15 alt1">16</div><div class="line number17 index16 alt2">17</div><div class="line number18 index17 alt1">18</div><div class="line number19 index18 alt2">19</div><div class="line number20 index19 alt1">20</div><div class="line number21 index20 alt2">21</div><div class="line number22 index21 alt1">22</div><div class="line number23 index22 alt2">23</div><div class="line number24 index23 alt1">24</div><div class="line number25 index24 alt2">25</div><div class="line number26 index25 alt1">26</div></td><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="js keyword">var</code> <code class="js plain">vehiclePrototype = {</code></div><div class="line number2 index1 alt1">&nbsp;</div><div class="line number3 index2 alt2"><code class="js spaces">&nbsp;&nbsp;</code><code class="js plain">init: </code><code class="js keyword">function</code> <code class="js plain">( carModel ) {</code></div><div class="line number4 index3 alt1"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="js keyword">this</code><code class="js plain">.model = carModel;</code></div><div class="line number5 index4 alt2"><code class="js spaces">&nbsp;&nbsp;</code><code class="js plain">},</code></div><div class="line number6 index5 alt1">&nbsp;</div><div class="line number7 index6 alt2"><code class="js spaces">&nbsp;&nbsp;</code><code class="js plain">getModel: </code><code class="js keyword">function</code> <code class="js plain">() {</code></div><div class="line number8 index7 alt1"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="js plain">console.log( </code><code class="js string">"The model of this vehicle is.."</code> <code class="js plain">+ </code><code class="js keyword">this</code><code class="js plain">.model);</code></div><div class="line number9 index8 alt2"><code class="js spaces">&nbsp;&nbsp;</code><code class="js plain">}</code></div><div class="line number10 index9 alt1"><code class="js plain">};</code></div><div class="line number11 index10 alt2">&nbsp;</div><div class="line number12 index11 alt1">&nbsp;</div><div class="line number13 index12 alt2"><code class="js keyword">function</code> <code class="js plain">vehicle( model ) {</code></div><div class="line number14 index13 alt1">&nbsp;</div><div class="line number15 index14 alt2"><code class="js spaces">&nbsp;&nbsp;</code><code class="js keyword">function</code> <code class="js plain">F() {};</code></div><div class="line number16 index15 alt1"><code class="js spaces">&nbsp;&nbsp;</code><code class="js plain">F.prototype = vehiclePrototype;</code></div><div class="line number17 index16 alt2">&nbsp;</div><div class="line number18 index17 alt1"><code class="js spaces">&nbsp;&nbsp;</code><code class="js keyword">var</code> <code class="js plain">f = </code><code class="js keyword">new</code> <code class="js plain">F();</code></div><div class="line number19 index18 alt2">&nbsp;</div><div class="line number20 index19 alt1"><code class="js spaces">&nbsp;&nbsp;</code><code class="js plain">f.init( model );</code></div><div class="line number21 index20 alt2"><code class="js spaces">&nbsp;&nbsp;</code><code class="js keyword">return</code> <code class="js plain">f;</code></div><div class="line number22 index21 alt1">&nbsp;</div><div class="line number23 index22 alt2"><code class="js plain">}</code></div><div class="line number24 index23 alt1">&nbsp;</div><div class="line number25 index24 alt2"><code class="js keyword">var</code> <code class="js plain">car = vehicle( </code><code class="js string">"Ford Escort"</code> <code class="js plain">);</code></div><div class="line number26 index25 alt1"><code class="js plain">car.getModel();</code></div></div></td></tr></tbody></table></div></div>
 <p></p>
@@ -1316,7 +1352,7 @@ Here the properties can be initialized on the second argument of <code>Object.cr
 
 <p>One could reference this method from the <code>vehicle</code> function. Note, however that <code>vehicle</code> here is emulating a constructor, since the prototype pattern does not include any notion of initialization beyond linking an object to a prototype.</p>
 
-<p>&nbsp;</p>
+
 <h2 id="commandpatternjavascript">
   <a href="#commandpatternjavascript" class="subhead-link">#</a>
   The Command Pattern
@@ -1350,9 +1386,9 @@ As per this structure we should now add a definition for the <code>carManager.ex
 <p>Our final sample calls would thus look as follows:</p>
 
 <p></p><div><div id="highlighter_244116" class="syntaxhighlighter  js acodecode"><div class="toolbar"><span><a href="#" class="toolbar_item command_help help">?</a></span></div><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="gutter"><div class="line number1 index0 alt2">1</div><div class="line number2 index1 alt1">2</div><div class="line number3 index2 alt2">3</div><div class="line number4 index3 alt1">4</div></td><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="js plain">carManager.execute( </code><code class="js string">"arrangeViewing"</code><code class="js plain">, </code><code class="js string">"Ferrari"</code><code class="js plain">, </code><code class="js string">"14523"</code> <code class="js plain">);</code></div><div class="line number2 index1 alt1"><code class="js plain">carManager.execute( </code><code class="js string">"requestInfo"</code><code class="js plain">, </code><code class="js string">"Ford Mondeo"</code><code class="js plain">, </code><code class="js string">"54323"</code> <code class="js plain">);</code></div><div class="line number3 index2 alt2"><code class="js plain">carManager.execute( </code><code class="js string">"requestInfo"</code><code class="js plain">, </code><code class="js string">"Ford Escort"</code><code class="js plain">, </code><code class="js string">"34232"</code> <code class="js plain">);</code></div><div class="line number4 index3 alt1"><code class="js plain">carManager.execute( </code><code class="js string">"buyVehicle"</code><code class="js plain">, </code><code class="js string">"Ford Escort"</code><code class="js plain">, </code><code class="js string">"34232"</code> <code class="js plain">);</code></div></div></td></tr></tbody></table></div></div><p></p>
-<p>&nbsp;</p>
 
-<p>&nbsp;</p>
+
+
 <h2 id="facadepatternjavascript">
   <a href="#facadepatternjavascript" class="subhead-link">#</a>
   The Facade Pattern
@@ -1404,7 +1440,7 @@ In this example, calling <code>module.facade()</code> will actually trigger a se
 
 
 
-<p>&nbsp;</p>
+
 <h2 id="factorypatternjavascript">
   <a href="#factorypatternjavascript" class="subhead-link">#</a>
   The Factory Pattern
@@ -1432,7 +1468,7 @@ In this example, calling <code>module.facade()</code> will actually trigger a se
 
 <div><div id="highlighter_854533" class="syntaxhighlighter  js acodecode"><div class="toolbar"><span><a href="#" class="toolbar_item command_help help">?</a></span></div><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="gutter"><div class="line number1 index0 alt2">1</div><div class="line number2 index1 alt1">2</div><div class="line number3 index2 alt2">3</div><div class="line number4 index3 alt1">4</div><div class="line number5 index4 alt2">5</div><div class="line number6 index5 alt1">6</div><div class="line number7 index6 alt2">7</div><div class="line number8 index7 alt1">8</div><div class="line number9 index8 alt2">9</div><div class="line number10 index9 alt1">10</div><div class="line number11 index10 alt2">11</div><div class="line number12 index11 alt1">12</div><div class="line number13 index12 alt2">13</div><div class="line number14 index13 alt1">14</div><div class="line number15 index14 alt2">15</div><div class="line number16 index15 alt1">16</div><div class="line number17 index16 alt2">17</div></td><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="js keyword">function</code> <code class="js plain">TruckFactory () {}</code></div><div class="line number2 index1 alt1"><code class="js plain">TruckFactory.prototype = </code><code class="js keyword">new</code> <code class="js plain">VehicleFactory();</code></div><div class="line number3 index2 alt2"><code class="js plain">TruckFactory.prototype.vehicleClass = Truck;</code></div><div class="line number4 index3 alt1">&nbsp;</div><div class="line number5 index4 alt2"><code class="js keyword">var</code> <code class="js plain">truckFactory = </code><code class="js keyword">new</code> <code class="js plain">TruckFactory();</code></div><div class="line number6 index5 alt1"><code class="js keyword">var</code> <code class="js plain">myBigTruck = truckFactory.createVehicle( {</code></div><div class="line number7 index6 alt2"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="js plain">state: </code><code class="js string">"omg..so bad."</code><code class="js plain">,</code></div><div class="line number8 index7 alt1"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="js plain">color: </code><code class="js string">"pink"</code><code class="js plain">,</code></div><div class="line number9 index8 alt2"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="js plain">wheelSize: </code><code class="js string">"so big"</code> <code class="js plain">} );</code></div><div class="line number10 index9 alt1">&nbsp;</div><div class="line number11 index10 alt2"><code class="js comments">// Confirms that myBigTruck was created with the prototype Truck</code></div><div class="line number12 index11 alt1"><code class="js comments">// Outputs: true</code></div><div class="line number13 index12 alt2"><code class="js plain">console.log( myBigTruck </code><code class="js keyword">instanceof</code> <code class="js plain">Truck );</code></div><div class="line number14 index13 alt1">&nbsp;</div><div class="line number15 index14 alt2"><code class="js comments">// Outputs: Truck object with the color "pink", wheelSize "so big"</code></div><div class="line number16 index15 alt1"><code class="js comments">// and state "omg. so bad"</code></div><div class="line number17 index16 alt2"><code class="js plain">console.log( myBigTruck );</code></div></div></td></tr></tbody></table></div></div>
 
-<p>&nbsp;</p>
+
 <h3>When To Use The Factory Pattern</h3>
 
 <p>The Factory pattern can be especially useful when applied to the following situations:
@@ -1443,7 +1479,7 @@ In this example, calling <code>module.facade()</code> will actually trigger a se
   <li>When composing objects with instances of other objects that need only satisfy an API contract (aka, duck typing) to work. This is useful for decoupling.</li>
 </ul>
 <p></p>
-<p>&nbsp;</p>
+
 <h3>When Not To Use The Factory Pattern</h3>
 
 <p>
@@ -1524,7 +1560,7 @@ When applied to the wrong type of problem, this pattern can introduce an unneces
 
 <p>I would argue that strong documentation can assist in minimizing the amount of confusion regarding the source of mixed in functions, but as with every pattern, if care is taken during implementation we should be okay.</p>
 
-<p>&nbsp;</p>
+
 
 
 <h2 id="decoratorpatternjavascript">The Decorator Pattern</h2>
@@ -1635,15 +1671,15 @@ When applied to the wrong type of problem, this pattern can introduce an unneces
 
 <p>Sufficient commenting or pattern research should assist with the latter, however as long as we keep a handle on how widespread we use the decorator in our applications we should be fine on both counts.</p>
 
-<p>&nbsp;</p>
+
 <!--end detail-->
 
-<p>&nbsp;</p>
+
 <h1 id="detailflyweight">
   <a href="#detailflyweight" class="subhead-link">#</a>
   Flyweight
 </h1>
-<p>&nbsp;</p>
+
 
 
 <p>The Flyweight pattern is a classical structural solution for optimizing code that is repetitive, slow and inefficiently shares data. It aims to minimize the use of memory in an application by sharing as much data as possible with related objects (e.g application configuration, state and so on).</p>
@@ -1860,7 +1896,7 @@ Note: Although we may believe that simply caching our jQuery code may offer just
 
 
 
-<p>&nbsp;</p>
+
 
 <h1 id="detailmvcmvp">
   <a href="#detailmvcmvp" class="subhead-link">#</a>
@@ -2052,7 +2088,7 @@ Note: Although we may believe that simply caching our jQuery code may offer just
 
 <p>As regular Backbone blogger Derick Bailey has <a href="http://lostechies.com/derickbailey/2011/12/23/backbone-js-is-not-an-mvc-framework/">previously</a> put it, it's ultimately best not to force Backbone to fit any specific design patterns. Design patterns should be considered flexible guides to how applications may be structured and in this respect, Backbone fits neither MVC nor MVP. Instead, it borrows some of the best concepts from multiple architectural patterns and creates a flexible framework that just works well.</p>
 <p>It <em>is</em> however worth understanding where and why these concepts originated, so I hope that my explanations of MVC and MVP have been of help. Call it <strong>the Backbone way</strong>, MV* or whatever helps reference its flavor of application architecture. Most structural JavaScript frameworks will adopt their own take on classical patterns, either intentionally or by accident, but the important thing is that they help us develop applications which are organized, clean and can be easily maintained.</p>
-<p>&nbsp;</p>
+
 
 
 <h2 id="detailmvvm">
@@ -2104,7 +2140,7 @@ Note: Although we may believe that simply caching our jQuery code may offer just
   <li>There is also a remove button that will call the <code>$root.remove</code> callback when clicked.</li>
   <li>An input textbox used for editing mode also holds the value of the Todo item <code>content</code>. The <code>enterKey</code> event will set the <code>editing</code> property to true or false</li>
 </ul>
-<p>&nbsp;</p>
+
 <h3>ViewModel</h3>
 <p>The ViewModel can be considered a specialized Controller that acts as a data converter. It changes Model information into View information, passing commands from the View to the Model.</p>
 <p>For example, let us imagine that we have a model containing a date attribute in unix format (e.g 1333832407). Rather than our models being aware of a user's view of the date (e.g 04/07/2012 @ 5:00pm), where it would be necessary to convert the attribute to its display format, our model simply holds the raw format of the data. Our View contains the formatted date and our ViewModel acts as a middle-man between the two.</p>
@@ -2316,7 +2352,7 @@ There are a number of great loaders for handling module loading in the AMD and C
 
 
 
-<p>&nbsp;</p>
+
 <div class="hr"></div>
 
 <h3>AMD Modules With Dojo</h3>
@@ -2395,7 +2431,7 @@ by the loader specifying <code>define.amd.jQuery</code>. RequireJS and curl are 
 
 <p><strong>Note:</strong> Many of the above could be said about YUI's module loading strategy as well.</p>
 
-<p>&nbsp;</p>
+
   <div class="alert-message block-message info">
 <p><b>Related Reading</b></p>
 <p><a href="http://requirejs.org/docs/whyamd.html">The RequireJS Guide To AMD</a></p>
@@ -2426,7 +2462,7 @@ by the loader specifying <code>define.amd.jQuery</code>. RequireJS and curl are 
 <li>PINF <a href="http://github.com/pinf/loader-js">http://github.com/pinf/loader-js</a></li>
 </ul>
 
-<p>&nbsp;</p>
+
 <h3>AMD Conclusions</h3>
 
 <p>Having used AMD for a number of projects, my conclusions are that it ticks a lot of the checkboxes developers creating serious applications might desire from a better module format. It avoids the need to worry about globals, supports named modules, doesn't require server transformation to function and is a pleasure to use for dependency management.</p>
@@ -2438,8 +2474,8 @@ by the loader specifying <code>define.amd.jQuery</code>. RequireJS and curl are 
 <p>That said, there are still areas where AMD could be improved. Developers who have used the format for some time may feel the AMD boilerplate/wrapper-code is an annoying overhead. Whilst I share this concern, there are tools such as <a href="https://github.com/volojs/volo">Volo</a> that can help work around these issues and I would argue that on the whole, the pros with using AMD far outweigh the cons.</p>
 
 
-<p>&nbsp;</p>
-<p>&nbsp;</p>
+
+
 
 <div class="hr"></div>
 <div>
@@ -2503,7 +2539,7 @@ by the loader specifying <code>define.amd.jQuery</code>. RequireJS and curl are 
 
 
 
-<p>&nbsp;</p>
+
 <h4>Is CommonJS Suitable For The Browser?</h4>
 
 <p>There are developers that feel CommonJS is better suited to server-side development which is one reason there's currently a level of <strong>disagreement</strong> over which format should and will be used as the de facto standard in the pre-Harmony age moving forward. Some of the arguments against CommonJS include a note that many CommonJS APIs address server-oriented features which one would simply not be able to implement at a browser-level in JavaScript - for example, <em>io</em>, <em>system</em> and <em>js</em> could be considered unimplementable by the nature of their functionality.</p>
@@ -2527,13 +2563,13 @@ by the loader specifying <code>define.amd.jQuery</code>. RequireJS and curl are 
    </div>
 
 <div class="hr"></div>
-<p>&nbsp;</p>
 
 
 
 
 
-<p>&nbsp;</p>
+
+
 
 
 <div>
@@ -2615,7 +2651,7 @@ by the loader specifying <code>define.amd.jQuery</code>. RequireJS and curl are 
 
 
 <div class="hr"></div>
-<p>&nbsp;</p>
+
 <div>
     <h2 id="detailharmony">
       <a href="#detailharmony" class="subhead-link">#</a>
@@ -2695,14 +2731,14 @@ At present, our best options for using Harmony syntax in today's browsers is thr
 
 
 
-<p>&nbsp;</p>
+
 <h1 id="designpatternsjquery">
   <a href="#designpatternsjquery" class="subhead-link">#</a>
   Design Patterns In jQuery
 </h1>
 
 
-<p>&nbsp;</p>
+
 <p>jQuery is currently the most popular JavaScript DOM manipulation library and provides an abstracted layer for interacting with the DOM in a safe, cross-browser manner. Interestingly, the library also serves as an example of how design patterns can be effectively used to create an API which is both readable and easy to use.</p>
 
 <p>Whilst in many cases the core contributors that wrote jQuery didn't set out to use specific patterns, they exist there regardless and are useful to learn from. Let's take a look at what some of these patterns are and how they are used in the API.
@@ -2710,7 +2746,7 @@ At present, our best options for using Harmony syntax in today's browsers is thr
 
 
 
-<p>&nbsp;</p>
+
 <h2 id="compositepatternjquery">
   <a href="#compositepatternjquery" class="subhead-link">#</a>
   The Composite Pattern
@@ -2725,7 +2761,7 @@ At present, our best options for using Harmony syntax in today's browsers is thr
   <p>This is demonstrated by the code sample using the jQuery selector below. Here it's possible to add an <code>active</code> class to both selections for a single element (e.g an element with a unique ID) or a group of elements with the same tag name or class, without additional effort:</p>
 
 <div><div id="highlighter_96169" class="syntaxhighlighter  js acodecode"><div class="toolbar"><span><a href="#" class="toolbar_item command_help help">?</a></span></div><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="gutter"><div class="line number1 index0 alt2">1</div><div class="line number2 index1 alt1">2</div><div class="line number3 index2 alt2">3</div><div class="line number4 index3 alt1">4</div><div class="line number5 index4 alt2">5</div><div class="line number6 index5 alt1">6</div><div class="line number7 index6 alt2">7</div><div class="line number8 index7 alt1">8</div></td><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="js comments">// Single elements</code></div><div class="line number2 index1 alt1"><code class="js plain">$( </code><code class="js string">"#singleItem"</code> <code class="js plain">).addClass( </code><code class="js string">"active"</code> <code class="js plain">);</code></div><div class="line number3 index2 alt2"><code class="js plain">$( </code><code class="js string">"#container"</code> <code class="js plain">).addClass( </code><code class="js string">"active"</code> <code class="js plain">);</code></div><div class="line number4 index3 alt1">&nbsp;</div><div class="line number5 index4 alt2"><code class="js comments">// Collections of elements</code></div><div class="line number6 index5 alt1"><code class="js plain">$( </code><code class="js string">"div"</code> <code class="js plain">).addClass( </code><code class="js string">"active"</code> <code class="js plain">);</code></div><div class="line number7 index6 alt2"><code class="js plain">$( </code><code class="js string">".item"</code> <code class="js plain">).addClass( </code><code class="js string">"active"</code> <code class="js plain">);</code></div><div class="line number8 index7 alt1"><code class="js plain">$( </code><code class="js string">"input"</code> <code class="js plain">).addClass( </code><code class="js string">"active"</code> <code class="js plain">);</code></div></div></td></tr></tbody></table></div></div>
-<p>&nbsp;</p>
+
 
 <p>The jQuery <code>addClass()</code> implementation could either directly use native <em>for</em> loops (or jQuery's <code>jQuery.each()</code>/<code>jQuery.fn.each()</code>) to iterate through a collection in order to apply the method to both single items or groups. Looking through the source we can see this is indeed the case:</p>
 
@@ -2741,7 +2777,7 @@ At present, our best options for using Harmony syntax in today's browsers is thr
 <p>One example of an adapter we may have used is the jQuery <code>jQuery.fn.css()</code> method. It helps normalize the interfaces to how styles can be applied across a number of browsers, making it trivial for us to use a simple syntax which is adapted to use what the browser actually supports behind the scenes:</p>
 
 <div><div id="highlighter_757284" class="syntaxhighlighter  js acodecode"><div class="toolbar"><span><a href="#" class="toolbar_item command_help help">?</a></span></div><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="gutter"><div class="line number1 index0 alt2">1</div><div class="line number2 index1 alt1">2</div><div class="line number3 index2 alt2">3</div><div class="line number4 index3 alt1">4</div><div class="line number5 index4 alt2">5</div><div class="line number6 index5 alt1">6</div><div class="line number7 index6 alt2">7</div><div class="line number8 index7 alt1">8</div><div class="line number9 index8 alt2">9</div></td><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="js comments">// Cross browser opacity:</code></div><div class="line number2 index1 alt1"><code class="js comments">// opacity: 0.9; Chrome 4+, FF2+, Saf3.1+, Opera 9+, IE9, iOS 3.2+, Android 2.1+</code></div><div class="line number3 index2 alt2"><code class="js comments">// filter: alpha(opacity=90); IE6-IE8</code></div><div class="line number4 index3 alt1">&nbsp;</div><div class="line number5 index4 alt2"><code class="js comments">// Setting opacity</code></div><div class="line number6 index5 alt1"><code class="js plain">$( </code><code class="js string">".container"</code> <code class="js plain">).css( { opacity: .5 } );</code></div><div class="line number7 index6 alt2">&nbsp;</div><div class="line number8 index7 alt1"><code class="js comments">// Getting opacity</code></div><div class="line number9 index8 alt2"><code class="js keyword">var</code> <code class="js plain">currentOpacity = $( </code><code class="js string">".container"</code> <code class="js plain">).css(</code><code class="js string">'opacity'</code><code class="js plain">);</code></div></div></td></tr></tbody></table></div></div>
-<p>&nbsp;</p>
+
 
 <p>The corresponding jQuery core cssHook which makes the above possible can be seen below:</p>
 <div><div id="highlighter_984823" class="syntaxhighlighter  js acodecode"><div class="toolbar"><span><a href="#" class="toolbar_item command_help help">?</a></span></div><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="gutter"><div class="line number1 index0 alt2">1</div><div class="line number2 index1 alt1">2</div><div class="line number3 index2 alt2">3</div><div class="line number4 index3 alt1">4</div><div class="line number5 index4 alt2">5</div><div class="line number6 index5 alt1">6</div><div class="line number7 index6 alt2">7</div><div class="line number8 index7 alt1">8</div><div class="line number9 index8 alt2">9</div><div class="line number10 index9 alt1">10</div><div class="line number11 index10 alt2">11</div><div class="line number12 index11 alt1">12</div><div class="line number13 index12 alt2">13</div><div class="line number14 index13 alt1">14</div><div class="line number15 index14 alt2">15</div><div class="line number16 index15 alt1">16</div><div class="line number17 index16 alt2">17</div><div class="line number18 index17 alt1">18</div><div class="line number19 index18 alt2">19</div><div class="line number20 index19 alt1">20</div><div class="line number21 index20 alt2">21</div><div class="line number22 index21 alt1">22</div><div class="line number23 index22 alt2">23</div><div class="line number24 index23 alt1">24</div><div class="line number25 index24 alt2">25</div><div class="line number26 index25 alt1">26</div><div class="line number27 index26 alt2">27</div><div class="line number28 index27 alt1">28</div><div class="line number29 index28 alt2">29</div><div class="line number30 index29 alt1">30</div><div class="line number31 index30 alt2">31</div><div class="line number32 index31 alt1">32</div><div class="line number33 index32 alt2">33</div><div class="line number34 index33 alt1">34</div><div class="line number35 index34 alt2">35</div><div class="line number36 index35 alt1">36</div><div class="line number37 index36 alt2">37</div><div class="line number38 index37 alt1">38</div><div class="line number39 index38 alt2">39</div><div class="line number40 index39 alt1">40</div><div class="line number41 index40 alt2">41</div><div class="line number42 index41 alt1">42</div></td><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="js plain">get: </code><code class="js keyword">function</code><code class="js plain">( elem, computed ) {</code></div><div class="line number2 index1 alt1"><code class="js spaces">&nbsp;&nbsp;</code><code class="js comments">// IE uses filters for opacity</code></div><div class="line number3 index2 alt2"><code class="js spaces">&nbsp;&nbsp;</code><code class="js keyword">return</code> <code class="js plain">ropacity.test( (</code></div><div class="line number4 index3 alt1"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="js plain">computed &amp;&amp; elem.currentStyle ?</code></div><div class="line number5 index4 alt2"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="js plain">elem.currentStyle.filter : elem.style.filter) || </code><code class="js string">""</code> <code class="js plain">) ?</code></div><div class="line number6 index5 alt1"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="js plain">( parseFloat( RegExp.$1 ) / 100 ) + </code><code class="js string">""</code> <code class="js plain">:</code></div><div class="line number7 index6 alt2"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="js plain">computed ? </code><code class="js string">"1"</code> <code class="js plain">: </code><code class="js string">""</code><code class="js plain">;</code></div><div class="line number8 index7 alt1"><code class="js plain">},</code></div><div class="line number9 index8 alt2">&nbsp;</div><div class="line number10 index9 alt1"><code class="js plain">set: </code><code class="js keyword">function</code><code class="js plain">( elem, value ) {</code></div><div class="line number11 index10 alt2"><code class="js spaces">&nbsp;&nbsp;</code><code class="js keyword">var</code> <code class="js plain">style = elem.style,</code></div><div class="line number12 index11 alt1"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="js plain">currentStyle = elem.currentStyle,</code></div><div class="line number13 index12 alt2"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="js plain">opacity = jQuery.isNumeric( value ) ?</code></div><div class="line number14 index13 alt1"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="js string">"alpha(opacity="</code> <code class="js plain">+ value * 100 + </code><code class="js string">")"</code> <code class="js plain">: </code><code class="js string">""</code><code class="js plain">,</code></div><div class="line number15 index14 alt2"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="js plain">filter = currentStyle &amp;&amp; currentStyle.filter || style.filter || </code><code class="js string">""</code><code class="js plain">;</code></div><div class="line number16 index15 alt1">&nbsp;</div><div class="line number17 index16 alt2"><code class="js spaces">&nbsp;&nbsp;</code><code class="js comments">// IE has trouble with opacity if it does not have layout</code></div><div class="line number18 index17 alt1"><code class="js spaces">&nbsp;&nbsp;</code><code class="js comments">// Force it by setting the zoom level</code></div><div class="line number19 index18 alt2"><code class="js spaces">&nbsp;&nbsp;</code><code class="js plain">style.zoom = 1;</code></div><div class="line number20 index19 alt1">&nbsp;</div><div class="line number21 index20 alt2"><code class="js spaces">&nbsp;&nbsp;</code><code class="js comments">// if setting opacity to 1, and no other filters</code></div><div class="line number22 index21 alt1"><code class="js spaces">&nbsp;&nbsp;</code><code class="js comments">//exist - attempt to remove filter attribute #6652</code></div><div class="line number23 index22 alt2"><code class="js spaces">&nbsp;&nbsp;</code><code class="js keyword">if</code> <code class="js plain">( value &gt;= 1 &amp;&amp; jQuery.trim( filter.replace( ralpha, </code><code class="js string">""</code> <code class="js plain">) ) === </code><code class="js string">""</code> <code class="js plain">) {</code></div><div class="line number24 index23 alt1">&nbsp;</div><div class="line number25 index24 alt2"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="js comments">// Setting style.filter to null, "" &amp; " " still leave</code></div><div class="line number26 index25 alt1"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="js comments">// "filter:" in the cssText if "filter:" is present at all,</code></div><div class="line number27 index26 alt2"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="js comments">// clearType is disabled, we want to avoid this style.removeAttribute</code></div><div class="line number28 index27 alt1"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="js comments">// is IE Only, but so apparently is this code path...</code></div><div class="line number29 index28 alt2"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="js plain">style.removeAttribute( </code><code class="js string">"filter"</code> <code class="js plain">);</code></div><div class="line number30 index29 alt1">&nbsp;</div><div class="line number31 index30 alt2"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="js comments">// if there there is no filter style applied in a css rule, we are done</code></div><div class="line number32 index31 alt1"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="js keyword">if</code> <code class="js plain">( currentStyle &amp;&amp; !currentStyle.filter ) {</code></div><div class="line number33 index32 alt2"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="js keyword">return</code><code class="js plain">;</code></div><div class="line number34 index33 alt1"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="js plain">}</code></div><div class="line number35 index34 alt2"><code class="js spaces">&nbsp;&nbsp;</code><code class="js plain">}</code></div><div class="line number36 index35 alt1">&nbsp;</div><div class="line number37 index36 alt2"><code class="js spaces">&nbsp;&nbsp;</code><code class="js comments">// otherwise, set new filter values</code></div><div class="line number38 index37 alt1"><code class="js spaces">&nbsp;&nbsp;</code><code class="js plain">style.filter = ralpha.test( filter ) ?</code></div><div class="line number39 index38 alt2"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="js plain">filter.replace( ralpha, opacity ) :</code></div><div class="line number40 index39 alt1"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="js plain">filter + </code><code class="js string">" "</code> <code class="js plain">+ opacity;</code></div><div class="line number41 index40 alt2"><code class="js plain">}</code></div><div class="line number42 index41 alt1"><code class="js plain">};</code></div></div></td></tr></tbody></table></div></div>
@@ -2775,7 +2811,7 @@ At present, our best options for using Harmony syntax in today's browsers is thr
 
 <div><div id="highlighter_355024" class="syntaxhighlighter  js acodecode"><div class="toolbar"><span><a href="#" class="toolbar_item command_help help">?</a></span></div><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="gutter"><div class="line number1 index0 alt2">1</div><div class="line number2 index1 alt1">2</div><div class="line number3 index2 alt2">3</div><div class="line number4 index3 alt1">4</div><div class="line number5 index4 alt2">5</div><div class="line number6 index5 alt1">6</div><div class="line number7 index6 alt2">7</div><div class="line number8 index7 alt1">8</div><div class="line number9 index8 alt2">9</div><div class="line number10 index9 alt1">10</div><div class="line number11 index10 alt2">11</div><div class="line number12 index11 alt1">12</div><div class="line number13 index12 alt2">13</div><div class="line number14 index13 alt1">14</div><div class="line number15 index14 alt2">15</div><div class="line number16 index15 alt1">16</div><div class="line number17 index16 alt2">17</div><div class="line number18 index17 alt1">18</div><div class="line number19 index18 alt2">19</div><div class="line number20 index19 alt1">20</div><div class="line number21 index20 alt2">21</div><div class="line number22 index21 alt1">22</div><div class="line number23 index22 alt2">23</div><div class="line number24 index23 alt1">24</div><div class="line number25 index24 alt2">25</div><div class="line number26 index25 alt1">26</div><div class="line number27 index26 alt2">27</div><div class="line number28 index27 alt1">28</div><div class="line number29 index28 alt2">29</div><div class="line number30 index29 alt1">30</div><div class="line number31 index30 alt2">31</div><div class="line number32 index31 alt1">32</div><div class="line number33 index32 alt2">33</div><div class="line number34 index33 alt1">34</div><div class="line number35 index34 alt2">35</div><div class="line number36 index35 alt1">36</div><div class="line number37 index36 alt2">37</div><div class="line number38 index37 alt1">38</div><div class="line number39 index38 alt2">39</div><div class="line number40 index39 alt1">40</div><div class="line number41 index40 alt2">41</div></td><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="js comments">// Request the remote document</code></div><div class="line number2 index1 alt1"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="js plain">jQuery.ajax({</code></div><div class="line number3 index2 alt2"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="js plain">url: url,</code></div><div class="line number4 index3 alt1"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="js plain">type: type,</code></div><div class="line number5 index4 alt2"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="js plain">dataType: </code><code class="js string">"html"</code><code class="js plain">,</code></div><div class="line number6 index5 alt1"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="js plain">data: params,</code></div><div class="line number7 index6 alt2"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="js comments">// Complete callback (responseText is used internally)</code></div><div class="line number8 index7 alt1"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="js plain">complete: </code><code class="js keyword">function</code><code class="js plain">( jqXHR, status, responseText ) {</code></div><div class="line number9 index8 alt2"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="js comments">// Store the response as specified by the jqXHR object</code></div><div class="line number10 index9 alt1"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="js plain">responseText = jqXHR.responseText;</code></div><div class="line number11 index10 alt2"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="js comments">// If successful, inject the HTML into all the matched elements</code></div><div class="line number12 index11 alt1"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="js keyword">if</code> <code class="js plain">( jqXHR.isResolved() ) {</code></div><div class="line number13 index12 alt2"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="js comments">// Get the actual response in case</code></div><div class="line number14 index13 alt1"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="js comments">// a dataFilter is present in ajaxSettings</code></div><div class="line number15 index14 alt2"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="js plain">jqXHR.done(</code><code class="js keyword">function</code><code class="js plain">( r ) {</code></div><div class="line number16 index15 alt1"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="js plain">responseText = r;</code></div><div class="line number17 index16 alt2"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="js plain">});</code></div><div class="line number18 index17 alt1"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="js comments">// See if a selector was specified</code></div><div class="line number19 index18 alt2"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="js plain">self.html( selector ?</code></div><div class="line number20 index19 alt1"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="js comments">// Create a dummy div to hold the results</code></div><div class="line number21 index20 alt2"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="js plain">jQuery(</code><code class="js string">"&lt;div&gt;"</code><code class="js plain">)</code></div><div class="line number22 index21 alt1"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="js comments">// inject the contents of the document in, removing the scripts</code></div><div class="line number23 index22 alt2"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="js comments">// to avoid any 'Permission Denied' errors in IE</code></div><div class="line number24 index23 alt1"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="js plain">.append(responseText.replace(rscript, </code><code class="js string">""</code><code class="js plain">))</code></div><div class="line number25 index24 alt2">&nbsp;</div><div class="line number26 index25 alt1"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="js comments">// Locate the specified elements</code></div><div class="line number27 index26 alt2"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="js plain">.find(selector) :</code></div><div class="line number28 index27 alt1">&nbsp;</div><div class="line number29 index28 alt2"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="js comments">// If not, just inject the full result</code></div><div class="line number30 index29 alt1"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="js plain">responseText );</code></div><div class="line number31 index30 alt2"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="js plain">}</code></div><div class="line number32 index31 alt1">&nbsp;</div><div class="line number33 index32 alt2"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="js keyword">if</code> <code class="js plain">( callback ) {</code></div><div class="line number34 index33 alt1"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="js plain">self.each( callback, [ responseText, status, jqXHR ] );</code></div><div class="line number35 index34 alt2"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="js plain">}</code></div><div class="line number36 index35 alt1"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="js plain">}</code></div><div class="line number37 index36 alt2"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="js plain">});</code></div><div class="line number38 index37 alt1">&nbsp;</div><div class="line number39 index38 alt2"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="js keyword">return</code> <code class="js keyword">this</code><code class="js plain">;</code></div><div class="line number40 index39 alt1"><code class="js spaces">&nbsp;&nbsp;</code><code class="js plain">}</code></div><div class="line number41 index40 alt2"><code class="js plain">&lt;/div&gt;</code></div></div></td></tr></tbody></table></div></div>
 
-<p>&nbsp;</p>
+
 <h2 id="observerpatternjquery">
   <a href="#observerpatternjquery" class="subhead-link">#</a>
   The Observer Pattern
@@ -2809,7 +2845,7 @@ jQuery core has come with built-in support for a publish/subscribe-like system f
 which can then be used as follows:
 <div><div id="highlighter_368769" class="syntaxhighlighter  js acodecode"><div class="toolbar"><span><a href="#" class="toolbar_item command_help help">?</a></span></div><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="gutter"><div class="line number1 index0 alt2">1</div><div class="line number2 index1 alt1">2</div><div class="line number3 index2 alt2">3</div><div class="line number4 index3 alt1">4</div><div class="line number5 index4 alt2">5</div><div class="line number6 index5 alt1">6</div><div class="line number7 index6 alt2">7</div><div class="line number8 index7 alt1">8</div><div class="line number9 index8 alt2">9</div><div class="line number10 index9 alt1">10</div><div class="line number11 index10 alt2">11</div><div class="line number12 index11 alt1">12</div><div class="line number13 index12 alt2">13</div><div class="line number14 index13 alt1">14</div><div class="line number15 index14 alt2">15</div><div class="line number16 index15 alt1">16</div><div class="line number17 index16 alt2">17</div><div class="line number18 index17 alt1">18</div></td><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="js comments">// Subscribers</code></div><div class="line number2 index1 alt1"><code class="js plain">$.Topic( </code><code class="js string">"mailArrived"</code> <code class="js plain">).subscribe( fn1 );</code></div><div class="line number3 index2 alt2"><code class="js plain">$.Topic( </code><code class="js string">"mailArrived"</code> <code class="js plain">).subscribe( fn2 );</code></div><div class="line number4 index3 alt1"><code class="js plain">$.Topic( </code><code class="js string">"mailSent"</code> <code class="js plain">).subscribe( fn1 );</code></div><div class="line number5 index4 alt2">&nbsp;</div><div class="line number6 index5 alt1"><code class="js comments">// Publisher</code></div><div class="line number7 index6 alt2"><code class="js plain">$.Topic( </code><code class="js string">"mailArrived"</code> <code class="js plain">).publish( </code><code class="js string">"hello world!"</code> <code class="js plain">);</code></div><div class="line number8 index7 alt1"><code class="js plain">$.Topic( </code><code class="js string">"mailSent"</code> <code class="js plain">).publish( </code><code class="js string">"woo! mail!"</code> <code class="js plain">);</code></div><div class="line number9 index8 alt2">&nbsp;</div><div class="line number10 index9 alt1"><code class="js comments">// Here, "hello world!" gets pushed to fn1 and fn2</code></div><div class="line number11 index10 alt2"><code class="js comments">// when the "mailArrived" notification is published</code></div><div class="line number12 index11 alt1"><code class="js comments">// with "woo! mail!" also being pushed to fn1 when</code></div><div class="line number13 index12 alt2"><code class="js comments">// the "mailSent" notification is published.</code></div><div class="line number14 index13 alt1">&nbsp;</div><div class="line number15 index14 alt2"><code class="js comments">// Outputs:</code></div><div class="line number16 index15 alt1"><code class="js comments">// hello world!</code></div><div class="line number17 index16 alt2"><code class="js comments">// fn2 says: hello world!</code></div><div class="line number18 index17 alt1"><code class="js comments">// woo! mail!</code></div></div></td></tr></tbody></table></div></div>
 
-<p>&nbsp;</p>
+
 <h2 id="iteratorpatternjquery">
   <a href="#iteratorpatternjquery" class="subhead-link">#</a>
   The Iterator Pattern
@@ -2833,7 +2869,7 @@ which can then be used as follows:
 
 <div><div id="highlighter_519525" class="syntaxhighlighter  js acodecode"><div class="toolbar"><span><a href="#" class="toolbar_item command_help help">?</a></span></div><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="gutter"><div class="line number1 index0 alt2">1</div><div class="line number2 index1 alt1">2</div><div class="line number3 index2 alt2">3</div><div class="line number4 index3 alt1">4</div><div class="line number5 index4 alt2">5</div><div class="line number6 index5 alt1">6</div><div class="line number7 index6 alt2">7</div><div class="line number8 index7 alt1">8</div><div class="line number9 index8 alt2">9</div><div class="line number10 index9 alt1">10</div><div class="line number11 index10 alt2">11</div><div class="line number12 index11 alt1">12</div><div class="line number13 index12 alt2">13</div><div class="line number14 index13 alt1">14</div><div class="line number15 index14 alt2">15</div><div class="line number16 index15 alt1">16</div><div class="line number17 index16 alt2">17</div><div class="line number18 index17 alt1">18</div><div class="line number19 index18 alt2">19</div><div class="line number20 index19 alt1">20</div><div class="line number21 index20 alt2">21</div><div class="line number22 index21 alt1">22</div><div class="line number23 index22 alt2">23</div><div class="line number24 index23 alt1">24</div><div class="line number25 index24 alt2">25</div><div class="line number26 index25 alt1">26</div><div class="line number27 index26 alt2">27</div><div class="line number28 index27 alt1">28</div><div class="line number29 index28 alt2">29</div><div class="line number30 index29 alt1">30</div><div class="line number31 index30 alt2">31</div><div class="line number32 index31 alt1">32</div><div class="line number33 index32 alt2">33</div><div class="line number34 index33 alt1">34</div><div class="line number35 index34 alt2">35</div><div class="line number36 index35 alt1">36</div><div class="line number37 index36 alt2">37</div><div class="line number38 index37 alt1">38</div><div class="line number39 index38 alt2">39</div></td><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="js plain">each: </code><code class="js keyword">function</code><code class="js plain">( object, callback, args ) {</code></div><div class="line number2 index1 alt1"><code class="js spaces">&nbsp;&nbsp;</code><code class="js keyword">var</code> <code class="js plain">name, i = 0,</code></div><div class="line number3 index2 alt2"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="js plain">length = object.length,</code></div><div class="line number4 index3 alt1"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="js plain">isObj = length === undefined || jQuery.isFunction( object );</code></div><div class="line number5 index4 alt2">&nbsp;</div><div class="line number6 index5 alt1"><code class="js spaces">&nbsp;&nbsp;</code><code class="js keyword">if</code> <code class="js plain">( args ) {</code></div><div class="line number7 index6 alt2"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="js keyword">if</code> <code class="js plain">( isObj ) {</code></div><div class="line number8 index7 alt1"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="js keyword">for</code> <code class="js plain">( name </code><code class="js keyword">in</code> <code class="js plain">object ) {</code></div><div class="line number9 index8 alt2"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="js keyword">if</code> <code class="js plain">( callback.apply( object[ name ], args ) === </code><code class="js keyword">false</code> <code class="js plain">) {</code></div><div class="line number10 index9 alt1"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="js keyword">break</code><code class="js plain">;</code></div><div class="line number11 index10 alt2"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="js plain">}</code></div><div class="line number12 index11 alt1"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="js plain">}</code></div><div class="line number13 index12 alt2"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="js plain">} </code><code class="js keyword">else</code> <code class="js plain">{</code></div><div class="line number14 index13 alt1"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="js keyword">for</code> <code class="js plain">( ; i &lt; length; ) {</code></div><div class="line number15 index14 alt2"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="js keyword">if</code> <code class="js plain">( callback.apply( object[ i++ ], args ) === </code><code class="js keyword">false</code> <code class="js plain">) {</code></div><div class="line number16 index15 alt1"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="js keyword">break</code><code class="js plain">;</code></div><div class="line number17 index16 alt2"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="js plain">}</code></div><div class="line number18 index17 alt1"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="js plain">}</code></div><div class="line number19 index18 alt2"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="js plain">}</code></div><div class="line number20 index19 alt1">&nbsp;</div><div class="line number21 index20 alt2"><code class="js spaces">&nbsp;&nbsp;</code><code class="js comments">// A special, fast, case for the most common use of each</code></div><div class="line number22 index21 alt1"><code class="js spaces">&nbsp;&nbsp;</code><code class="js plain">} </code><code class="js keyword">else</code> <code class="js plain">{</code></div><div class="line number23 index22 alt2"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="js keyword">if</code> <code class="js plain">( isObj ) {</code></div><div class="line number24 index23 alt1"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="js keyword">for</code> <code class="js plain">( name </code><code class="js keyword">in</code> <code class="js plain">object ) {</code></div><div class="line number25 index24 alt2"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="js keyword">if</code> <code class="js plain">( callback.call( object[ name ], name, object[ name ] ) === </code><code class="js keyword">false</code> <code class="js plain">) {</code></div><div class="line number26 index25 alt1"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="js keyword">break</code><code class="js plain">;</code></div><div class="line number27 index26 alt2"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="js plain">}</code></div><div class="line number28 index27 alt1"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="js plain">}</code></div><div class="line number29 index28 alt2"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="js plain">} </code><code class="js keyword">else</code> <code class="js plain">{</code></div><div class="line number30 index29 alt1"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="js keyword">for</code> <code class="js plain">( ; i &lt; length; ) {</code></div><div class="line number31 index30 alt2"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="js keyword">if</code> <code class="js plain">( callback.call( object[ i ], i, object[ i++ ] ) === </code><code class="js keyword">false</code> <code class="js plain">) {</code></div><div class="line number32 index31 alt1"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="js keyword">break</code><code class="js plain">;</code></div><div class="line number33 index32 alt2"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="js plain">}</code></div><div class="line number34 index33 alt1"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="js plain">}</code></div><div class="line number35 index34 alt2"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="js plain">}</code></div><div class="line number36 index35 alt1"><code class="js spaces">&nbsp;&nbsp;</code><code class="js plain">}</code></div><div class="line number37 index36 alt2">&nbsp;</div><div class="line number38 index37 alt1"><code class="js spaces">&nbsp;&nbsp;</code><code class="js keyword">return</code> <code class="js plain">object;</code></div><div class="line number39 index38 alt2"><code class="js plain">};</code></div></div></td></tr></tbody></table></div></div>
 
-<p>&nbsp;</p>
+
 <h2 id="lazyinitialisationjquery">The Lazy Initialization Pattern</h2>
 <p>
   <strong>Lazy Initialization </strong>is a design pattern which allows us to delay expensive processes until the first instance they are needed. An example of this is the <code>.ready()</code> function in jQuery that only executes a callback once the DOM is ready.</p>
@@ -2849,7 +2885,7 @@ which can then be used as follows:
 
 <p>LazyLoading is effectively the same as Lazy initialization and is a technique whereby additional data on a page is loaded when needed (e.g. when a user has scrolled to the end of the page). In recent years this pattern has become quite prominent and can be currently be found in both the Twitter and Facebook UIs.</p>
 
-<p>&nbsp;</p>
+
 
 
 
@@ -2898,7 +2934,7 @@ which can then be used as follows:
 
 <div><div id="highlighter_23044" class="syntaxhighlighter  js acodecode"><div class="toolbar"><span><a href="#" class="toolbar_item command_help help">?</a></span></div><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="gutter"><div class="line number1 index0 alt2">1</div><div class="line number2 index1 alt1">2</div><div class="line number3 index2 alt2">3</div><div class="line number4 index3 alt1">4</div><div class="line number5 index4 alt2">5</div><div class="line number6 index5 alt1">6</div><div class="line number7 index6 alt2">7</div><div class="line number8 index7 alt1">8</div><div class="line number9 index8 alt2">9</div></td><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="js plain">$( </code><code class="js string">'&lt;div class="foo"&gt;bar&lt;/div&gt;'</code> <code class="js plain">);</code></div><div class="line number2 index1 alt1">&nbsp;</div><div class="line number3 index2 alt2"><code class="js plain">$( </code><code class="js string">'&lt;p id="test"&gt;foo &lt;em&gt;bar&lt;/em&gt;&lt;/p&gt;'</code><code class="js plain">).appendTo(</code><code class="js string">"body"</code><code class="js plain">);</code></div><div class="line number4 index3 alt1">&nbsp;</div><div class="line number5 index4 alt2"><code class="js keyword">var</code> <code class="js plain">newParagraph = $( </code><code class="js string">"&lt;p /&gt;"</code> <code class="js plain">).text( </code><code class="js string">"Hello world"</code> <code class="js plain">);</code></div><div class="line number6 index5 alt1">&nbsp;</div><div class="line number7 index6 alt2"><code class="js plain">$( </code><code class="js string">"&lt;input /&gt;"</code> <code class="js plain">)</code></div><div class="line number8 index7 alt1"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="js plain">.attr({ </code><code class="js string">"type"</code><code class="js plain">: </code><code class="js string">"text"</code><code class="js plain">, </code><code class="js string">"id"</code><code class="js plain">:</code><code class="js string">"sample"</code><code class="js plain">})</code></div><div class="line number9 index8 alt2"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="js plain">.appendTo(</code><code class="js string">"#container"</code><code class="js plain">);</code></div></div></td></tr></tbody></table></div></div>
 <p></p>
-<p>&nbsp;</p>
+
 
 <p>Below is a snippet from jQuery core's internal <code>jQuery.prototype</code> method which assists with the construction of jQuery objects from markup passed to the <code>jQuery()</code> selector. Regardless of whether or not <code>document.createElement</code> is used to create a new element, a reference to the element (found or created) is injected into the returned object so further methods such as <code>.attr()</code> can be easily used on it right after.</p>
 
@@ -2906,7 +2942,7 @@ which can then be used as follows:
 
 
 
-<p>&nbsp;</p>
+
 <h1 id="jquerypluginpatterns">
   <a href="#jquerypluginpatterns" class="subhead-link">#</a>
   jQuery Plugin Design Patterns
@@ -2954,8 +2990,8 @@ which can then be used as follows:
 
 <p>I should also mention that none of this would be possible without the previous work, input and advice of other members of the jQuery community. I’ve listed them inline with each pattern so that one can read up on their individual work if interested.</p>
 
-<p>&nbsp;</p>
-<p>&nbsp;</p>
+
+
 <h3>'A Lightweight Start' Pattern</h3>
 
 <p>Let’s begin our deeper look at plugin patterns with something basic that follows best practices (including those in the jQuery plugin-authoring guide). This pattern is ideal for developers who are either new to plugin development or who just want to achieve something simple (such as a utility plugin). <em>A Lightweight Start</em> uses the following:</p>
@@ -2996,8 +3032,8 @@ which can then be used as follows:
 <li>“<a href="http://enterprisejquery.com/2010/07/create-your-first-jquery-plugin-part-2-revising-your-plugin/">Create Your First jQuery Plugin, Part 2</a>,” Andrew Wirick</li>
 </ul>
 
-<p>&nbsp;</p>
-<p>&nbsp;</p>
+
+
 <h3>“Complete” Widget Factory Pattern</h3>
 
 <p>While the jQuery plugin authoring guide is a great introduction to plugin development, it doesn't help obscure away common plugin plumbing tasks that we have to deal with on a regular basis.</p>
@@ -3028,8 +3064,8 @@ which can then be used as follows:
 <li>“<a href="http://bililite.com/blog/understanding-jquery-ui-widgets-a-tutorial/">Understanding jQuery UI Widgets: A Tutorial</a>,” Hacking at 0300</li>
 </ul>
 
-<p>&nbsp;</p>
-<p>&nbsp;</p>
+
+
 
 <h3>Nested Namespacing Plugin Pattern</h3>
 
@@ -3056,8 +3092,8 @@ which can then be used as follows:
 <li>“<a href="http://www.2ality.com/2011/04/modules-and-namespaces-in-javascript.html">Modules and namespaces in JavaScript</a>,” Axel Rauschmayer</li>
 </ul>
 
-<p>&nbsp;</p>
-<p>&nbsp;</p>
+
+
 <h3>Custom Events Plugin Pattern (With The Widget factory)</h3>
 
 <p>In the <em>JavaScript Design Patterns</em> section of the book, we discussed the Observer pattern and later went on to cover jQuery's support for custom events, which offer a similar solution for implementing Publish/Subscribe. This same pattern can be used when writing jQuery plugins.</p>
@@ -3078,8 +3114,8 @@ which can then be used as follows:
 <li>“<a href="http://www.devpatch.com/articles/2010-03-22-communication-between-jquery-ui-widgets/">Communication Between jQuery UI Widgets</a>,” Benjamin Sternthal</li>
 </ul>
 
-<p>&nbsp;</p>
-<p>&nbsp;</p>
+
+
 <h3>Prototypal Inheritance With The DOM-To-Object Bridge Pattern</h3>
 
 <p>As covered earlier, in JavaScript, we don’t have the traditional notion of classes that we would find in other classical programming languages, but we do have prototypal inheritance. With prototypal inheritance, an object inherits from another object. We can apply this concept to jQuery plugin development.</p>
@@ -3111,8 +3147,8 @@ which can then be used as follows:
 </ul>
 
 
-<p>&nbsp;</p>
-<p>&nbsp;</p>
+
+
 <h3>jQuery UI Widget Factory Bridge Pattern</h3>
 
 <p>If you liked the idea of generating plugins based on objects in the last design pattern, then you might be interested in a method found in the jQuery UI Widget Factory called <code>$.widget.bridge</code>.</p>
@@ -3144,8 +3180,8 @@ which can then be used as follows:
 <li>“<a href="http://erichynds.com/jquery/using-jquery-ui-widget-factory-bridge/">Using $.widget.bridge Outside of the Widget Factory</a>,” Eric Hynds</li>
 </ul>
 
-<p>&nbsp;</p>
-<p>&nbsp;</p>
+
+
 <h3>jQuery Mobile Widgets With The Widget factory</h3>
 
 <p>jQuery mobile is a jQuery project framework that encourages the design of ubiquitous web applications that work both on popular mobile devices and platforms and on the desktop. Rather than writing unique applications for each device or OS, we simply write the code once and it should ideally run on many of the A-, B- and C-grade browsers out there at the moment.</p>
@@ -3174,8 +3210,8 @@ which can then be used as follows:
 <p></p><div><div id="highlighter_287417" class="syntaxhighlighter  js acodecode"><div class="toolbar"><span><a href="#" class="toolbar_item command_help help">?</a></span></div><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="gutter"><div class="line number1 index0 alt2">1</div><div class="line number2 index1 alt1">2</div><div class="line number3 index2 alt2">3</div><div class="line number4 index3 alt1">4</div><div class="line number5 index4 alt2">5</div><div class="line number6 index5 alt1">6</div><div class="line number7 index6 alt2">7</div><div class="line number8 index7 alt1">8</div><div class="line number9 index8 alt2">9</div><div class="line number10 index9 alt1">10</div><div class="line number11 index10 alt2">11</div><div class="line number12 index11 alt1">12</div><div class="line number13 index12 alt2">13</div></td><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="js plain">$(document).on(</code><code class="js string">"pagecreate"</code><code class="js plain">, </code><code class="js keyword">function</code> <code class="js plain">( e ) {</code></div><div class="line number2 index1 alt1"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="js comments">// In here, e.target refers to the page that was created</code></div><div class="line number3 index2 alt2"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="js comments">// (it's the target of the pagecreate event)</code></div><div class="line number4 index3 alt1"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="js comments">// So, we can simply find elements on this page that match a</code></div><div class="line number5 index4 alt2"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="js comments">// selector of our choosing, and call our plugin on them.</code></div><div class="line number6 index5 alt1"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="js comments">// Here's how we'd call our "foo" plugin on any element with a</code></div><div class="line number7 index6 alt2"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="js comments">// data-role attribute of "foo":</code></div><div class="line number8 index7 alt1"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="js plain">$(e.target).find( </code><code class="js string">"[data-role="</code><code class="js plain">foo</code><code class="js string">"]"</code> <code class="js plain">).foo( options );</code></div><div class="line number9 index8 alt2">&nbsp;</div><div class="line number10 index9 alt1"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="js comments">// Or, better yet, let's write the selector accounting for the configurable</code></div><div class="line number11 index10 alt2"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="js comments">// data-attribute namespace</code></div><div class="line number12 index11 alt1"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="js plain">$( e.target ).find( </code><code class="js string">":jqmData(role="</code><code class="js plain">foo</code><code class="js string">")"</code> <code class="js plain">).foo( options );</code></div><div class="line number13 index12 alt2"><code class="js plain">});</code></div></div></td></tr></tbody></table></div></div><p></p>
 
 <p>We can now simply reference the script containing our widget and <code>pagecreate</code> binding in a page running jQuery Mobile site, and it will automatically run like any other jQuery Mobile plugin.</p>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
+
+
 
 
 <h3>RequireJS And The jQuery UI Widget Factory</h3>
@@ -3214,8 +3250,8 @@ which can then be used as follows:
 <li>“<a href="http://www.angrycoding.com/2011/09/managing-dependencies-with-requirejs.html">Managing Dependencies With RequireJS</a>,” Ruslan Matveev</li>
 </ul>
 
-<p>&nbsp;</p>
-<p>&nbsp;</p>
+
+
 <h3>Globally And Per-Call Overridable Options (Best Options Pattern)</h3>
 
 <p>For our next pattern, we’ll look at an optimal approach to configuring options and defaults for a plugin. The way most of us are probably familiar with defining plugin options is to pass through an object literal of defaults to <code>$.extend()</code>, as demonstrated in our basic plugin boilerplate.</p>
@@ -3236,8 +3272,8 @@ which can then be used as follows:
 <li><a href="http://benalman.com/talks/jquery-pluginization.html">jQuery Pluginization</a> and the <a href="https://gist.github.com/472783/e8bf47340413129a8abe5fac55c83336efb5d4e1">accompanying gist</a>, Ben Alman</li>
 </ul>
 
-<p>&nbsp;</p>
-<p>&nbsp;</p>
+
+
 <h3>A Highly Configurable And Mutable Plugin Pattern</h3>
 
 <p>In this pattern, similar to Alex Sexton's prototypal inheritance plugin pattern, logic for our plugin isn’t nested in a jQuery plugin itself. We instead define our plugin logic using a constructor and an object literal defined on its prototype. jQuery is then used for the actual instantiation of the plugin object.</p>
@@ -3275,7 +3311,7 @@ which can then be used as follows:
 <li>“<a href="http://markdalgleish.com/2011/09/html5data-creating-highly-configurable-jquery-plugins-part-2/">Writing Highly Configurable jQuery Plugins, Part 2</a>,” Mark Dalgleish</li>
 </ul>
 
-<p>&nbsp;</p>
+
 
 
 <h3>What Makes A Good Plugin Beyond Patterns?</h3>
@@ -3479,7 +3515,7 @@ which can then be used as follows:
 <p>I would also recommend trying out some of the suggested advanced utility methods for namespace extension as they really can save us time in the long-run.</p>
 
 
-<p>&nbsp;</p>
+
 <h1 id="conclusions">Conclusions</h1>
 <p>That's it for this introductory adventure into the world of design patterns in JavaScript and jQuery - I hope you've found it beneficial.</p>
 
@@ -3495,14 +3531,14 @@ which can then be used as follows:
   <li>"<a href="http://www.amazon.com/Patterns-Enterprise-Application-Architecture-Martin/dp/0321127420">Patterns Of Enterprise Application Architecture</a>" by Martin Fowler</li>
   <li>"<a href="http://www.amazon.com/JavaScript-Patterns-Stoyan-Stefanov/dp/0596806752/ref=sr_1_1?ie=UTF8&s=books&qid=1289759956&sr=1-1">JavaScript Patterns</a>" by Stoyan Stefanov</li>
 </ol>
-<p>&nbsp;</p>
+
 
 <p>Thanks for reading <em>Learning JavaScript Design Patterns</em>. For more educational material on learning JavaScript, please feel free to read more from me on my blog at <a href="http://addyosmani.com/">http://addyosmani.com</a> or on Twitter <a href="http://twitter.com/addyosmani">@addyosmani</a>.</p>
-<p>&nbsp;</p>
+
 
 <p>Until next time, the very best of luck with your adventures in JavaScript!</p>
 
-<p>&nbsp;</p>
+
 <h1 id="references"><span id="internal-source-marker_0.05095413855216446">References</span>
 </h1>
 <ol id="references-list">
