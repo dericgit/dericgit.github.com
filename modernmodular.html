@@ -1,0 +1,728 @@
+<h1 id="modularjavascript">
+<a href="#modularjavascript" class="subhead-link">#</a>
+Modern Modular JavaScript Design Patterns
+</h1>
+<div>
+<h2>The Importance Of Decoupling Applications </h2>
+</div>
+<p>In the world of scalable JavaScript, when we say an application is <strong>modular</strong>, we often mean it's composed of a set of highly decoupled, distinct pieces of functionality stored in modules. <a href="http://arguments.callee.info/2009/05/18/javascript-design-patterns--mediator/">Loose coupling</a> facilitates easier maintainability of apps by removing <i>dependencies</i> where possible. When this is implemented efficiently, it's quite easy to see how changes to one part of a system may affect another.</p>
+<p>Unlike some more traditional programming languages however, the current iteration of JavaScript (<a href="http://www.ecma-international.org/publications/standards/Ecma-262.htm">ECMA-262</a>) doesn't provide developers with the means to import such modules of code in a clean, organized manner. It's one of the concerns with specifications that haven't required great thought until more recent years where the need for more organized JavaScript applications became apparent.</p>
+<p>Instead, developers at present are left to fall back on variations of the <a href="http://www.adequatelygood.com/2010/3/JavaScript-Module-Pattern-In-Depth">module</a> or <a href="http://rmurphey.com/2009/10/15/using-objects-to-organize-your-code">object literal</a> patterns, which we covered earlier in the book. With many of these, module scripts are strung together in the DOM with namespaces being described by a single global object where it's still possible to incur naming collisions in our architecture. There's also no clean way to handle dependency management without some manual effort or third party tools.</p>
+<p>Whilst native solutions to these problems will be arriving in <a href="http://wiki.ecmascript.org/doku.php?id=harmony:modules">ES Harmony</a> (likely to be the next version of JavaScript), the good news is that writing modular JavaScript has never been easier and we can start doing it today.</p>
+<p>In this section, we're going to look at three formats for writing modular JavaScript: <strong>AMD</strong>, <strong>CommonJS</strong> and proposals for the next version of JavaScript, <strong>Harmony</strong>.</p>
+<div class="hr"></div>
+<div>
+<h2><small>A Note On Script Loaders </small></h2>
+</div>
+<p>It's difficult to discuss AMD and CommonJS modules without talking about the elephant in the room - <a href="http://msdn.microsoft.com/en-us/scriptjunkie/hh227261">script loaders</a>. At the time of writing this book, script loading is a means to a goal, that goal being modular JavaScript that can be used in applications today - for this, use of a compatible script loader is unfortunately necessary. In order to get the most out of this section, I recommend gaining a <strong>basic understanding</strong> of how popular script loading tools work so the explanations of module formats make sense in context.</p>
+<p>
+There are a number of great loaders for handling module loading in the AMD and CommonJS formats, but my personal preferences are <a href="http://requirejs.org">RequireJS</a> and <a href="https://github.com/unscriptable/curl">curl.js</a>. Complete tutorials on these tools are outside the scope of this book, but I can recommend reading John Hann's article about <a href="http://unscriptable.com/index.php/2011/03/30/curl-js-yet-another-amd-loader/">curl.js</a> and James Burke's <a href="http://requirejs.org/docs/api.html">RequireJS</a> API documentation for more.</p>
+<p>From a production perspective, the use of optimization tools (like the RequireJS optimizer) to concatenate scripts is recommended for deployment when working with such modules. Interestingly, with the <a href="https://github.com/jrburke/almond">Almond</a> AMD shim, RequireJS doesn't need to be rolled in the deployed site and what one might consider a script loader can be easily shifted outside of development.</p>
+<p>That said, James Burke would probably say that being able to dynamically load scripts after page load still has its use cases and RequireJS can assist with this too. With these notes in mind, let's get started.</p>
+<div class="hr"></div>
+<div>
+<h2 id="detailamd">AMD</h2>
+</div>
+<h3>A Format For Writing Modular JavaScript In The Browser</h3>
+<p>The overall goal for the AMD (Asynchronous Module Definition) format is to provide a solution for modular JavaScript that developers can use today. It was born out of Dojo's real world experience using XHR+eval and proponents of this format wanted to avoid any future solutions suffering from the weaknesses of those in the past.</p>
+<p>The AMD module format itself is a proposal for defining modules where both the module and dependencies can be <a href="http://dictionary.reference.com/browse/asynchronous">asynchronously</a> loaded. It has a number of distinct advantages including being both asynchronous and highly flexible by nature which removes the tight coupling one might commonly find between code and module identity. Many developers enjoy using it and one could consider it a reliable stepping stone towards the <a href="http://wiki.ecmascript.org/doku.php?id=harmony:modules">module system</a> proposed for ES Harmony.</p>
+<p>AMD began as a draft specification for a module format on the CommonJS list but as it wasn't able to reach full consensus, further development of the format moved to the <a href="https://github.com/amdjs">amdjs</a> group.</p>
+<p>Today it's embraced by projects including Dojo, MooTools, Firebug and even jQuery. Although the term <i>CommonJS AMD format</i> has been seen in the wild on occasion, it's best to refer to it as just AMD or Async Module support as not all participants on the CommonJS list wished to pursue it.</p>
+<p></p><div class="alert-message"><strong>Note:</strong> There was a time when the proposal was referred to as Modules Transport/C, however as the spec wasn't geared towards transporting existing CommonJS modules, but rather - for defining modules - it made more sense to opt for the AMD naming convention.</div><p></p>
+<div class="hr"></div>
+<h3>Getting Started With Modules</h3>
+<p>The first two concepts worth noting about AMD are the idea of a <code>define</code> method for facilitating module definition and a <code>require</code> method for handling dependency loading. <em>define</em> is used to define named or unnamed modules based using the following signature:</p>
+<pre class="brush: js">define(
+    module_id /*optional*/,
+    [dependencies] /*optional*/,
+    definition function /*function for instantiating the module or object*/
+);
+</pre>
+<p>As we can tell by the inline comments, the <code>module_id</code> is an optional argument which is typically only required when non-AMD concatenation tools are being used (there may be some other edge cases where it's useful too). When this argument is left out, we refer to the module as <em>anonymous</em>.</p>
+<p>When working with anonymous modules, the idea of a module's identity is DRY, making it trivial to avoid duplication of filenames and code. Because the code is more portable, it can be easily moved to other locations (or around the file-system) without needing to alter the code itself or change its module ID. Consider the <code>module_id</code> similar to the concept of folder paths.</p>
+<p>Note: Developers can run this same code on multiple environments just by using an AMD optimizer that works with a CommonJS environment such as <a href="https://github.com/jrburke/r.js/">r.js</a>. </p>
+<p>Back to the <code>define</code> signature, the dependencies argument represents an array of dependencies which are required by the module we are defining and the third argument ("definition function" or "factory function") is a function that's executed to instantiate our module. A bare bone module could be defined as follows: </p>
+<h4>Understanding AMD: define()</h4>
+<pre class="brush: js">
+// A module_id (myModule) is used here for demonstration purposes only
+define( "myModule",
+    ["foo", "bar"],
+    // module definition function
+    // dependencies (foo and bar) are mapped to function parameters
+    function ( foo, bar ) {
+        // return a value that defines the module export
+        // (i.e the functionality we want to expose for consumption)
+        // create your module here
+        var myModule = {
+            doStuff:function () {
+                console.log( "Yay! Stuff" );
+            }
+        };
+    return myModule;
+});
+// An alternative version could be..
+define( "myModule",
+    ["math", "graph"],
+    function ( math, graph ) {
+        // Note that this is a slightly different pattern
+        // With AMD, it's possible to define modules in a few
+        // different ways due to it's flexibility with
+        // certain aspects of the syntax
+        return {
+            plot: function( x, y ){
+                return graph.drawPie( math.randomGrid( x, y ) );
+            }
+        };
+});
+</pre>
+<p><em>require</em> on the other hand is typically used to load code in a top-level JavaScript file or within a module should we wish to dynamically fetch dependencies. An example of its usage is:</p>
+<h4>Understanding AMD: require()</h4>
+<pre class="brush: js">// Consider "foo" and "bar" are two external modules
+// In this example, the "exports" from the two modules
+// loaded are passed as function arguments to the
+// callback (foo and bar) so that they can similarly be accessed
+require(["foo", "bar"], function ( foo, bar ) {
+        // rest of your code here
+        foo.doSomething();
+});
+</pre>
+<h4>Dynamically-loaded Dependencies</h4>
+<pre class="brush: js">
+define(function ( require ) {
+    var isReady = false, foobar;
+    // note the inline require within our module definition
+    require(["foo", "bar"], function ( foo, bar ) {
+        isReady = true;
+        foobar = foo() + bar();
+    });
+    // we can still return a module
+    return {
+        isReady: isReady,
+        foobar: foobar
+    };
+});
+</pre>
+<h4>Understanding AMD: plugins</h4>
+<p>The following is an example of defining an AMD-compatible plugin:</p>
+<pre class="brush: js">// With AMD, it's possible to load in assets of almost any kind
+// including text-files and HTML. This enables us to have template
+// dependencies which can be used to skin components either on
+// page-load or dynamically.
+define( ["./templates", "text!./template.md","css!./template.css" ],
+    function( templates, template ){
+        console.log( templates );
+        // do something with our templates here
+    }
+});
+</pre>
+<p></p><div class="alert-message"><strong>Note:</strong> Although css! is included for loading CSS dependencies in the above example, it's important to remember that this approach has some caveats such as it not being fully possible to establish when the CSS is fully loaded. Depending on how we approach our build process, it may also result in CSS being included as a dependency in the optimized file, so use CSS as a loaded dependency in such cases with caution. If interested in doing the above, we can also explore @VIISON's RequireJS CSS plugin further here: https://github.com/VIISON/RequireCSS</div><p></p>
+<h4>Loading AMD Modules Using RequireJS</h4>
+<pre class="brush: js">require(["app/myModule"],
+    function( myModule ){
+        // start the main module which in-turn
+        // loads other modules
+        var module = new myModule();
+        module.doStuff();
+});
+</pre>
+<p>This example could simply be looked at as <code>requirejs(["app/myModule"], function(){})</code> which indicates the loader's top level globals are being used. This is how to kick off top-level loading of modules with different AMD loaders however with a <code>define()</code> function, if it's passed a local require all <code>require([])</code> examples apply to both types of loader (curl.js and RequireJS).</p>
+<h4>Loading AMD Modules Using curl.js</h4>
+<pre class="brush: js">curl(["app/myModule.js"],
+    function( myModule ){
+        // start the main module which in-turn
+        // loads other modules
+        var module = new myModule();
+        module.doStuff();
+});
+</pre>
+<h4>Modules With Deferred Dependencies</h4>
+<pre class="brush: js">// This could be compatible with jQuery's Deferred implementation,
+// futures.js (slightly different syntax) or any one of a number
+// of other implementations
+define(["lib/Deferred"], function( Deferred ){
+    var defer = new Deferred();
+    require(["lib/templates/?index.html","lib/data/?stats"],
+        function( template, data ){
+            defer.resolve( { template: template, data:data } );
+        }
+    );
+    return defer.promise();
+});
+</pre>
+<p>&nbsp;</p>
+<div class="hr"></div>
+<h3>AMD Modules With Dojo</h3>
+<p>Defining AMD-compatible modules using Dojo is fairly straight-forward. As per above, define any module dependencies in an array as the first argument and provide a callback (factory) which will execute the module once the dependencies have been loaded. e.g:</p>
+<pre class="brush: js">define(["dijit/Tooltip"], function( Tooltip ){
+    //Our dijit tooltip is now available for local use
+    new Tooltip(...);
+});
+</pre>
+<p>Note the anonymous nature of the module, which can now be both consumed by a Dojo asynchronous loader, RequireJS or the standard <a href="http://livedocs.dojotoolkit.org/dojo/require">dojo.require()</a> module loader.</p>
+<p>There are some interesting gotchas with module referencing that are useful to know here. Although the AMD-advocated way of referencing modules declares them in the dependency list with a set of matching arguments, this isn't supported by the older Dojo 1.6 build system - it really only works for AMD-compliant loaders. e.g:</p>
+<pre class="brush: js">define(["dojo/cookie", "dijit/Tooltip"], function( cookie, Tooltip ){
+    var cookieValue = cookie( "cookieName" );
+    new Tooltip(...);
+});
+</pre>
+<p>This has many advantages over nested namespacing as modules no longer need to directly reference complete namespaces every time - all we require is the "dojo/cookie" path in dependencies, which once aliased to an argument, can be referenced by that variable. This removes the need to repeatedly type out "dojo." in our applications.</p>
+<p>The final gotcha to be aware of is that if we wish to continue using the older Dojo build system or wish to migrate older modules to this newer AMD-style, the following more verbose version enables easier migration. Notice that dojo and dijit and referenced as dependencies too:</p>
+<pre class="brush: js">define(["dojo", "dijit', "dojo/cookie", "dijit/Tooltip"], function( dojo, dijit ){
+    var cookieValue = dojo.cookie( "cookieName" );
+    new dijit.Tooltip(...);
+});
+</pre>
+<div class="hr"></div>
+<h3>AMD Module Design Patterns (Dojo)</h3>
+<p>As we've seen in previous sections, design patterns can be highly effective in improving how we approach structuring solutions to common development problems. <a href="http://twitter.com/unscriptable">John Hann</a> has given some excellent presentations about AMD module design patterns covering the Singleton, Decorator, Mediator and others and I highly recommend checking out his <a href="http://unscriptable.com/code/AMD-module-patterns/">slides</a> if we get a chance.</p>
+<p>A selection of AMD design patterns can be found below.</p>
+<p><strong>Decorator pattern:</strong></p>
+<pre class="brush: js">// mylib/UpdatableObservable: a Decorator for dojo/store/Observable
+define(["dojo", "dojo/store/Observable"], function ( dojo, Observable ) {
+    return function UpdatableObservable ( store ) {
+        var observable = dojo.isFunction( store.notify ) ? store :
+                new Observable(store);
+        observable.updated = function( object ) {
+            dojo.when( object, function ( itemOrArray) {
+                dojo.forEach( [].concat(itemOrArray), this.notify, this );
+            });
+        };
+        return observable;
+    };
+});
+// Decorator consumer
+// a consumer for mylib/UpdatableObservable
+define(["mylib/UpdatableObservable"], function ( makeUpdatable ) {
+    var observable,
+        updatable,
+        someItem;
+    // make the observable store updatable
+    updatable = makeUpdatable( observable ); // `new` is optional!
+    // we can then call .updated() later on if we wish to pass
+    // on data that has changed
+    //updatable.updated( updatedItem );
+});
+</pre>
+<p><strong>Adapter pattern</strong></p>
+<pre class="brush: js">
+// "mylib/Array" adapts `each` function to mimic jQuerys:
+define(["dojo/_base/lang", "dojo/_base/array"], function ( lang, array ) {
+    return lang.delegate( array, {
+        each: function ( arr, lambda ) {
+            array.forEach( arr, function ( item, i ) {
+                lambda.call( item, i, item ); // like jQuery's each
+            });
+        }
+    });
+});
+// Adapter consumer
+// "myapp/my-module":
+define(["mylib/Array"], function ( array ) {
+    array.each( ["uno", "dos", "tres"], function ( i, esp ) {
+        // here, `this` == item
+    });
+});
+</pre>
+<div class="hr"></div>
+<h3>AMD Modules With jQuery</h3>
+<p>Unlike Dojo, jQuery really only comes with one file, however given the plugin-based nature of the library, we can demonstrate how straight-forward it is to define an AMD module that uses it below.</p>
+<pre class="brush: js">define(["js/jquery.js","js/jquery.color.js","js/underscore.js"],
+    function( $, colorPlugin, _ ){
+        // Here we've passed in jQuery, the color plugin and Underscore
+        // None of these will be accessible in the global scope, but we
+        // can easily reference them below.
+        // Pseudo-randomize an array of colors, selecting the first
+        // item in the shuffled array
+        var shuffleColor = _.first( _.shuffle( "#666","#333","#111"] ) );
+        // Animate the background-color of any elements with the class
+        // "item" on the page using the shuffled color
+        $( ".item" ).animate( {"backgroundColor": shuffleColor } );
+        // What we return can be used by other modules
+        return {};
+    });
+</pre>
+<p>There is however something missing from this example and it's the concept of registration.</p>
+<h4>Registering jQuery As An Async-compatible Module</h4>
+<p>One of the key features that landed in jQuery 1.7 was support for registering jQuery as an asynchronous module. There are a number of compatible script loaders (including RequireJS and curl) which are capable of loading modules using an asynchronous module format and this means fewer hacks are required to get things working.</p>
+<p>If a developer wants to use AMD and does not want their jQuery
+version leaking into the global space, they should call <code>noConflict</code> in their top level module that uses jQuery. In addition, since multiple
+versions of jQuery can be on a page there are special considerations
+that an AMD loader must account for, and so jQuery only registers with
+AMD loaders that have recognized these concerns, which are indicated
+by the loader specifying <code>define.amd.jQuery</code>. RequireJS and curl are two loaders that do so</p>
+<p>The named AMD provides a safety blanket of being both robust and safe for most use-cases.</p>
+<pre class="brush: js">// Account for the existence of more than one global
+// instances of jQuery in the document, cater for testing
+// .noConflict()
+var jQuery = this.jQuery || "jQuery",
+$ = this.$ || "$",
+originaljQuery = jQuery,
+original$ = $;
+define(["jquery"], function ( $ ) {
+    $( ".items" ).css( "background","green" );
+    return function () {};
+});
+</pre>
+<h4>Why Is AMD A Better Choice For Writing Modular JavaScript?</h4>
+<ul>
+<li>Provides a clear proposal for how to approach defining flexible modules. </li>
+<li>Significantly cleaner than the present global namespace and <code>&lt;script&gt;</code> tag solutions many of us rely on. There's a clean way to declare stand-alone modules and dependencies they may have.</li>
+<li>Module definitions are encapsulated, helping us to avoid pollution of the global namespace.</li>
+<li>Arguably works better than some alternative solutions (e.g. CommonJS, which we'll be looking at shortly). It doesn't have issues with cross-domain, local or debugging and doesn't have a reliance on server-side tools to be used. Most AMD loaders support loading modules in the browser without a build process.</li>
+<li>Provides a "transport" approach for including multiple modules in a single file. Other approaches like CommonJS have yet to agree on a transport format.</li>
+<li>It's possible to lazy load scripts if this is needed.</li>
+</ul>
+<p><strong>Note:</strong> Many of the above could be said about YUI's module loading strategy as well.</p>
+<p>&nbsp;</p>
+<div class="alert-message block-message info">
+<p><b>Related Reading</b></p>
+<p><a href="http://requirejs.org/docs/whyamd.html">The RequireJS Guide To AMD</a></p>
+<p><a href="http://unscriptable.com/index.php/2011/09/21/what-is-the-fastest-way-to-load-amd-modules/">What's the fastest way to load AMD modules?</a></p>
+<p><a href="http://unscriptable.com/index.php/2011/09/30/amd-versus-cjs-whats-the-best-format/">AMD vs. CommonJS, what's the better format?</a></p>
+<p><a href="http://blog.millermedeiros.com/2011/09/amd-is-better-for-the-web-than-commonjs-modules/">AMD Is Better For The Web Than CommonJS Modules</a></p>
+<p><a href="http://unscriptable.com/code/Modules-Frameworks/">The Future Is Modules Not Frameworks</a></p>
+<p><a href="http://groups.google.com/group/commonjs/browse_thread/thread/96a0963bcb4ca78f/cf73db49ce267ce1?lnk=gst#">AMD No Longer A CommonJS Specification</a></p>
+<p><a href="http://tagneto.blogspot.com/2011/04/on-inventing-js-module-formats-and.html">On Inventing JavaScript Module Formats And Script Loaders</a></p>
+<p><a href="http://groups.google.com/group/amd-implement">The AMD Mailing List</a></p>
+</div>
+<h4>What Script Loaders &amp; Frameworks Support AMD?</h4>
+<h5>In-browser:</h5>
+<ul>
+<li>RequireJS <a href="http://requirejs.org">http://requirejs.org</a></li>
+<li>curl.js <a href="http://github.com/unscriptable/curl">http://github.com/unscriptable/curl</a></li>
+<li>bdLoad <a href="http://bdframework.com/bdLoad">http://bdframework.com/bdLoad</a></li>
+<li>Yabble <a href="http://github.com/jbrantly/yabble">http://github.com/jbrantly/yabble</a></li>
+<li>PINF <a href="http://github.com/pinf/loader-js">http://github.com/pinf/loader-js</a></li>
+<li>(and more)</li>
+</ul>
+<h5>Server-side:</h5>
+<ul>
+<li>RequireJS <a href="http://requirejs.org">http://requirejs.org</a></li>
+<li>PINF <a href="http://github.com/pinf/loader-js">http://github.com/pinf/loader-js</a></li>
+</ul>
+<p>&nbsp;</p>
+<h3>AMD Conclusions</h3>
+<p>Having used AMD for a number of projects, my conclusions are that it ticks a lot of the checkboxes developers creating serious applications might desire from a better module format. It avoids the need to worry about globals, supports named modules, doesn't require server transformation to function and is a pleasure to use for dependency management.</p>
+<p>It's also an excellent addition for modular development using Backbone.js, ember.js or any number of other structural frameworks for keeping applications organized. </p>
+<p>As AMD has been heavily discussed for almost two years within the Dojo and CommonJS worlds, we know it's had time to mature and evolve. We also know it's been battle-tested in the wild by a number of large companies to build non-trivial applications (IBM, BBC iPlayer) and so, if it didn't work, chances are they would have abandoned it by now, but haven't.</p>
+<p>That said, there are still areas where AMD could be improved. Developers who have used the format for some time may feel the AMD boilerplate/wrapper-code is an annoying overhead. Whilst I share this concern, there are tools such as <a href="https://github.com/volojs/volo">Volo</a> that can help work around these issues and I would argue that on the whole, the pros with using AMD far outweigh the cons.</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<div class="hr"></div>
+<div>
+<h2 id="detailcommonjs">CommonJS</h2>
+</div>
+<h3>A Module Format Optimized For The Server</h3>
+<p>The CommonJS module proposal specifies a simple API for declaring modules server-side and unlike AMD attempts to cover a broader set of concerns such as io, file-system, promises and more.</p>
+<p>The format was proposed by <a href="http://www.commonjs.org/">CommonJS</a> - a volunteer working group which aim to design, prototype and standardize JavaScript APIs. To date they've attempted to ratify standards for both <a href="http://www.commonjs.org/specs/modules/1.0/">modules</a> and <a href="http://wiki.commonjs.org/wiki/Packages/1.0">packages</a>.</p>
+<h3>Getting Started</h3>
+<p>From a structure perspective, a CommonJS module is a reusable piece of JavaScript which exports specific objects made available to any dependent code. Unlike AMD, there are typically no function wrappers around such modules (so we won't see <code>define</code> here for example).</p>
+<p>CommonJS modules basically contain two primary parts: a free variable named <code>exports</code> which contains the objects a module wishes to make available to other modules and a <code>require</code> function that modules can use to import the exports of other modules.
+</p>
+<h4>Understanding CommonJS: require() and exports</h4>
+<pre class="brush: js">// package/lib is a dependency we require
+var lib = require( "package/lib" );
+// behaviour for our module
+function foo(){
+    lib.log( "hello world!" );
+}
+// export (expose) foo to other modules
+exports.foo = foo;
+</pre>
+<h4>Basic consumption of exports</h4>
+<pre class="brush: js">
+// define more behaviour we would like to expose
+function foobar(){
+  this.foo = function(){
+    console.log( "Hello foo" );
+  }
+  this.bar = function(){
+    console.log( "Hello bar" );
+  }
+}
+// expose foobar to other modules
+exports.foobar = foobar;
+// an application consuming "foobar"
+// access the module relative to the path
+// where both usage and module files exist
+// in the same directory
+var foobar = require("./foobar").foobar,
+    test   = new foobar();
+// Outputs: "Hello bar"
+test.bar();
+</pre>
+<h4>AMD-equivalent Of The First CommonJS Example</h4>
+<pre class="brush: js">define(function(require){
+   var lib = require( "package/lib" );
+    // some behaviour for our module
+    function foo(){
+        lib.log( "hello world!" );
+    }
+    // export (expose) foo for other modules
+    return {
+        foobar: foo
+    };
+});
+</pre>
+<p>This can be done as AMD supports a <a href="http://requirejs.org/docs/whyamd.html#sugar">simplified CommonJS wrapping</a> feature.</p>
+<h4>Consuming Multiple Dependencies</h4>
+<h5>app.js</h5>
+<pre class="brush: js">var modA = require( "./foo" );
+var modB = require( "./bar" );
+exports.app = function(){
+    console.log( "Im an application!" );
+}
+exports.foo = function(){
+    return modA.helloWorld();
+}
+</pre>
+<h5>bar.js</h5>
+<pre class="brush: js">exports.name = "bar";
+</pre>
+<h5>foo.js</h5>
+<pre class="brush: js">require( "./bar" );
+exports.helloWorld = function(){
+    return "Hello World!!"
+}
+</pre>
+<h4>What Loaders &amp; Frameworks Support CommonJS?</h4>
+<h5>In-browser:</h5>
+<ul>
+<li>curl.js <a href="http://github.com/unscriptable/curl">http://github.com/unscriptable/curl</a></li>
+<li>SproutCore 1.1 <a href="http://sproutcore.com">http://sproutcore.com</a></li>
+<li>PINF <a href="http://github.com/pinf/loader-js">http://github.com/pinf/loader-js</a></li>
+</ul>
+<h5>Server-side:</h5>
+<ul>
+<li>Node<a href="http://nodejs.org">http://nodejs.org</a></li>
+<li>Narwhal <a href="https://github.com/tlrobinson/narwhal">https://github.com/tlrobinson/narwhal</a></li>
+<li>Persevere <a href="http://www.persvr.org/">http://www.persvr.org/</a></li>
+<li>Wakanda <a href="http://www.wakandasoft.com/">http://www.wakandasoft.com/</a></li>
+</ul>
+<p>&nbsp;</p>
+<h4>Is CommonJS Suitable For The Browser?</h4>
+<p>There are developers that feel CommonJS is better suited to server-side development which is one reason there's currently a level of <strong>disagreement</strong> over which format should and will be used as the de facto standard in the pre-Harmony age moving forward. Some of the arguments against CommonJS include a note that many CommonJS APIs address server-oriented features which one would simply not be able to implement at a browser-level in JavaScript - for example, <em>io</em>, <em>system</em> and <em>js</em> could be considered unimplementable by the nature of their functionality.</p>
+<p>That said, it's useful to know how to structure CommonJS modules regardless so that we can better appreciate how they fit in when defining modules which may be used everywhere. Modules which have applications on both the client and server include validation, conversion and templating engines. The way some developers are approaching choosing which format to use is opting for CommonJS when a module can be used in a server-side environment and using AMD if this is not the case. </p>
+<p>As AMD modules are capable of using plugins and can define more granular things like constructors and functions this makes sense. CommonJS modules are only able to define objects which can be tedious to work with if we're trying to obtain constructors out of them.</p>
+<p>Although it's beyond the scope of this section, one may have also noticed that there were different types of "require" methods mentioned when discussing AMD and CommonJS. The concern with a similar naming convention is of course confusion and the community are currently split on the merits of a global require function. John Hann's suggestion here is that rather than calling it "require", which would probably fail to achieve the goal of informing users about the different between a global and inner require, it may make more sense to rename the global loader method something else (e.g. the name of the library). It's for this reason that a loader like curl.js uses <code>curl()</code> as opposed to <code>require</code>. </p>
+<p></p>
+<div class="alert-message block-message info">
+<p><b>Related Reading</b></p>
+<p><a href="http://dailyjs.com/2010/10/18/modules/">Demystifying CommonJS Modules</a></p>
+<p><a href="http://www.slideshare.net/davidpadbury/javascript-growing-up">JavaScript Growing Up</a></p>
+<p><a href="http://requirejs.org/docs/commonjs.html">The RequireJS Notes On CommonJS</a></p>
+<p><a href="http://elegantcode.com/2011/02/04/taking-baby-steps-with-node-js-commonjs-and-creating-custom-modules/
+">Taking Baby Steps With Node.js And CommonJS - Creating Custom Modules</a></p>
+<p><a href="http://www.sitepen.com/blog/2010/07/16/asynchronous-commonjs-modules-for-the-browser-and-introducing-transporter/">Asynchronous CommonJS Modules for the Browser</a></p>
+<p><a href="http://groups.google.com/group/commonjs">The CommonJS Mailing List</a></p>
+</div>
+<div class="hr"></div>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<div>
+<h2>AMD &amp;&amp; CommonJS <small>Competing, But Equally Valid Standards</small></h2>
+</div>
+<p>Both AMD and CommonJS are valid module formats with different end-goals.</p>
+<p>AMD adopts a browser-first approach to development, opting for asynchronous behavior and simplified backwards compatibility but it doesn't have any concept of File I/O. It supports objects, functions, constructors, strings, JSON and many other types of modules, running natively in the browser. It's incredibly flexible.</p>
+<p>CommonJS on the other hand takes a server-first approach, assuming synchronous behavior, no global <i>baggage</i> and attempts to cater for the future (on the server). What we mean by this is that because CommonJS supports unwrapped modules, it can feel a little more close to the ES.next/Harmony specifications, freeing us of the <code>define()</code> wrapper that AMD enforces. CommonJS modules however only support objects as modules.</p>
+<h3>UMD: AMD And CommonJS-Compatible Modules For Plugins</h3>
+<p>For developers wishing to create modules that can work in both browser and server-side environments, existing solutions could be considered little lacking. To help alleviate this, James Burke, I and a number of other developers created UMD (Universal Module Definition) <a href="https://github.com/umdjs/umd">https://github.com/umdjs/umd</a>.</p>
+<p>UMD is an experimental module format that allows the definition of modules that work in both client and server environments with all or most of the popular script-loading techniques available at the time of writing. Although the idea of (yet) another module format may be daunting, we will cover UMD briefly for the sake of thoroughness.</p>We originally began defining UMD by taking a look at the simplified CommonJS wrapper supported in the AMD specification. For developers wishing to write modules as if they were CommonJS modules, the following CommonJS-compatible format could be used:<p></p>
+<h4>Basic AMD Hybrid Format</h4>
+<pre class="brush: js">define( function ( require, exports, module ){
+    var shuffler = require( "lib/shuffle" );
+    exports.randomize = function( input ){
+        return shuffler.shuffle( input );
+    }
+});
+</pre>
+<p>It's important however to note that a module is really only treated as a CommonJS module if it doesn't contain a dependency array and the definition function contains one parameter at minimum. This also won't work correctly on some devices (e.g the PS3). For further information about the above wrapper, see <a href="http://requirejs.org/docs/api.html#cjsmodule">http://requirejs.org/docs/api.html#cjsmodule</a>.</p>
+<p>Taking this further, we wanted to provide a number of different patterns that not just worked with AMD and CommonJS, but also solved common compatibility problems developers wishing to develop such modules had with other environments.</p>
+<p>One such variation we can see below allows us to use CommonJS, AMD or browser globals to create a module.</p>
+<h4>Using CommonJS, AMD or browser globals to create a module</h4>
+<p>Define a module <code>commonJsStrict</code>, which depends on another module called <code>b</code>. The name of the module is implied by the file name and its best practice for the file name and the exported global to have the same name.</p>
+<p>If the module <code>b</code> also uses the same type of boilerplate in the browser, it will create a global <code>.b</code> that is used. If we don't wish to support the browser global patch, we can remove the <code>root</code> and the passing <code>this</code> as the first argument to the top function.</p>
+<pre class="brush: js">
+(function ( root, factory ) {
+    if ( typeof exports === 'object' ) {
+        // CommonJS
+        factory( exports, require('b') );
+    } else if ( typeof define === 'function' &amp;&amp; define.amd ) {
+        // AMD. Register as an anonymous module.
+        define( ['exports', 'b'], factory);
+    } else {
+        // Browser globals
+        factory( (root.commonJsStrict = {}), root.b );
+    }
+}(this, function ( exports, b ) {
+    //use b in some fashion.
+    // attach properties to the exports object to define
+    // the exported module properties.
+    exports.action = function () {};
+}));
+</pre>
+<p>The UMD repository contains variations covering modules that work optimally in the browser, those best for providing exports, those optimal for CommonJS runtimes and even those that work best for defining jQuery plugins, which we will look at next.</p>
+<h4>jQuery plugins that function in all environments</h4>
+<p>UMD provides two patterns for working with jQuery plugins - one which defines plugins that work well with AMD and browser globals and another which can also work in CommonJS environments. jQuery is not likely to be used in most CommonJS environments so keep this in mind unless we're working with an environment which does play well with it.</p>
+<p>We will now define a plugin composed of a core and an extension to that core. The core plugin is loaded into a <code>$.core</code> namespace, which can then be easily extended using plugin extensions via the namespacing pattern. Plugins loaded via script tags automatically populate a <code>plugin</code> namespace under <code>core</code> (i.e. <code>$.core.plugin.methodName()</code>).</p>
+<p>The pattern can be quite nice to work with because plugin extensions can access properties and methods defined in the base or, with a little tweaking, override default behavior so that it can be extended to do more. A loader is also not required to make any of this fully functional.</p>
+<p>For more details of what is being done, please see the inline comments in the code samples below.</p>
+<p><strong>usage.html</strong></p>
+<pre class="brush: js">&lt;script type="text/javascript" src="jquery-1.7.2.min.js"&gt;&lt;/script&gt;
+&lt;script type="text/javascript" src="pluginCore.js"&gt;&lt;/script&gt;
+&lt;script type="text/javascript" src="pluginExtension.js"&gt;&lt;/script&gt;
+&lt;script type="text/javascript"&gt;
+$(function(){
+    // Our plugin "core" is exposed under a core namespace in
+    // this example, which we first cache
+    var core = $.core;
+    // Then use use some of the built-in core functionality to
+    // highlight all divs in the page yellow
+    core.highlightAll();
+    // Access the plugins (extensions) loaded into the "plugin"
+    // namespace of our core module:
+    // Set the first div in the page to have a green background.
+    core.plugin.setGreen( "div:first");
+    // Here we're making use of the core's "highlight" method
+    // under the hood from a plugin loaded in after it
+    // Set the last div to the "errorColor" property defined in
+    // our core module/plugin. If we review the code further down,
+    // we can see how easy it is to consume properties and methods
+    // between the core and other plugins
+    core.plugin.setRed("div:last");
+});
+&lt;/script&gt;</pre>
+<p><strong>pluginCore.js</strong></p>
+<pre class="brush: js">// Module/Plugin core
+// Note: the wrapper code we see around the module is what enables
+// us to support multiple module formats and specifications by
+// mapping the arguments defined to what a specific format expects
+// to be present. Our actual module functionality is defined lower
+// down, where a named module and exports are demonstrated.
+//
+// Note that dependencies can just as easily be declared if required
+// and should work as demonstrated earlier with the AMD module examples.
+(function ( name, definition ){
+  var theModule = definition(),
+      // this is considered "safe":
+      hasDefine = typeof define === "function" &amp;&amp; define.amd,
+      // hasDefine = typeof define === "function",
+      hasExports = typeof module !== "undefined" &amp;&amp; module.exports;
+  if ( hasDefine ){ // AMD Module
+    define(theModule);
+  } else if ( hasExports ) { // Node.js Module
+    module.exports = theModule;
+  } else { // Assign to common namespaces or simply the global object (window)
+    ( this.jQuery || this.ender || this.$ || this)[name] = theModule;
+  }
+})( "core", function () {
+    var module = this;
+    module.plugins = [];
+    module.highlightColor = "yellow";
+    module.errorColor = "red";
+  // define the core module here and return the public API
+  // This is the highlight method used by the core highlightAll()
+  // method and all of the plugins highlighting elements different
+  // colors
+  module.highlight = function( el,strColor ){
+    if( this.jQuery ){
+      jQuery(el).css( "background", strColor );
+    }
+  }
+  return {
+      highlightAll:function(){
+        module.highlight("div", module.highlightColor);
+      }
+  };
+});</pre>
+<p><strong>pluginExtension.js</strong></p>
+<pre class="brush: js">// Extension to module core
+(function ( name, definition ) {
+    var theModule = definition(),
+        hasDefine = typeof define === "function",
+        hasExports = typeof module !== "undefined" &amp;&amp; module.exports;
+    if ( hasDefine ) { // AMD Module
+        define(theModule);
+    } else if ( hasExports ) { // Node.js Module
+        module.exports = theModule;
+    } else {
+        // Assign to common namespaces or simply the global object (window)
+        // account for for flat-file/global module extensions
+        var obj = null,
+            namespaces,
+            scope;
+        obj = null;
+        namespaces = name.split(".");
+        scope = ( this.jQuery || this.ender || this.$ || this );
+        for ( var i = 0; i &lt; namespaces.length; i++ ) {
+            var packageName = namespaces[i];
+            if ( obj &amp;&amp; i == namespaces.length - 1 ) {
+                obj[packageName] = theModule;
+            } else if ( typeof scope[packageName] === "undefined" ) {
+                scope[packageName] = {};
+            }
+            obj = scope[packageName];
+        }
+    }
+})( "core.plugin", function () {
+    // Define our module here and return the public API.
+    // This code could be easily adapted with the core to
+    // allow for methods that overwrite and extend core functionality
+    // in order to expand the highlight method to do more if we wish.
+    return {
+        setGreen: function ( el ) {
+            highlight(el, "green");
+        },
+        setRed: function ( el ) {
+            highlight(el, errorColor);
+        }
+    };
+});
+</pre>
+<p>UMD doesn't aim to replace AMD nor CommonJS but merely offers some supplemental assistance for developers wishing to get their code working in more environments today. For further information or to contribute suggestions towards this experimental format, see <a href="https://github.com/umdjs/umd">https://github.com/umdjs/umd</a>.</p>
+<h4>Further Reading</h4>
+<ul>
+<li>“<a href="http://unscriptable.com/code/Using-AMD-loaders/#0">Using AMD Loaders to Write and Manage Modular JavaScript</a>,” John Hann</li>
+<li>“<a href="http://dailyjs.com/2010/10/18/modules/">Demystifying CommonJS Modules</a>,” Alex Young</li>
+<li>“<a href="http://unscriptable.com/index.php/2011/09/22/amd-module-patterns-singleton/">AMD Module Patterns: Singleton</a>,” John Hann</li>
+<li>“<a href="http://www.sitepen.com/blog/2010/09/30/run-anywhere-javascript-modules-boilerplate-code/">Run-Anywhere JavaScript Modules Boilerplate Code</a>,” Kris Zyp</li>
+<li>“<a href="http://tagneto.blogspot.com/2010/12/standards-and-proposals-for-javascript.html">Standards And Proposals for JavaScript Modules And jQuery</a>,” James Burke</li>
+</ul>
+<div class="hr"></div>
+<p>&nbsp;</p>
+<div>
+<h2 id="detailharmony">
+<a href="#detailharmony" class="subhead-link">#</a>
+ES Harmony
+</h2>
+</div>
+<h3>Modules Of The Future</h3>
+<p><a href="http://www.ecma-international.org/memento/TC39.htm">TC39</a>, the standards body charged with defining the syntax and semantics of ECMAScript and its future iterations is composed of a number of very intelligent developers. Some of these developers (such as <a href="http://twitter.com/slightlylate">Alex Russell</a>) have been keeping a close eye on the evolution of JavaScript usage for large-scale development over the past few years and are acutely aware of the need for better language features for writing more modular JS.</p>
+<p>For this reason, there are currently proposals for a number of exciting additions to the language including flexible <a href="http://wiki.ecmascript.org/doku.php?id=harmony:modules">modules</a> that can work on both the client and server, a <a href="http://wiki.ecmascript.org/doku.php?id=harmony:module_loaders">module loader</a> and <a href="http://wiki.ecmascript.org/doku.php?id=harmony:proposals">more</a>. In this section, we'll explore code samples using the syntax proposed for modules in ES.next so we can get a taste of what's to come.</p>
+<p></p><div class="alert-message"><strong>Note: </strong> Although Harmony is still in the proposal phases, we can already try out (partial) features of ES.next that address native support for writing modular JavaScript thanks to Google's <a href="http://code.google.com/p/traceur-compiler/">Traceur</a> compiler. To get up and running with Traceur in under a minute, read this <a href="http://code.google.com/p/traceur-compiler/wiki/GettingStarted">getting started</a> guide. There's also a JSConf <a href="http://traceur-compiler.googlecode.com/svn/branches/v0.10/presentation/index.html">presentation</a> about it that's worth looking at if interested in learning more about the project.</div><p></p>
+<h3>Modules With Imports And Exports</h3>
+<p>Having read through the sections on AMD and CommonJS modules you may be familiar with the concept of module dependencies (imports) and module exports (or, the public API/variables we allow other modules to consume). In ES.next, these concepts have been proposed in a slightly more succinct manner with dependencies being specified using an <code>import</code> keyword. <code>export</code> isn't greatly different to what we might expect and many developers will look at the code samples lower down and instantly grab them.</p>
+<p></p><ul><li><strong>import</strong> declarations bind a modules exports as local variables and may be renamed to avoid name collisions/conflicts.</li>
+<li><strong>export</strong> declarations declare that a local-binding of a module is externally visible such that other modules may read the exports but can't modify them. Interestingly, modules may export child modules but can't export modules that have been defined elsewhere. We can also rename exports so their external name differs from their local names.</li></ul><p></p>
+<pre class="brush: js">
+module staff{
+    // specify (public) exports that can be consumed by
+    // other modules
+    export var baker = {
+        bake: function( item ){
+            console.log( "Woo! I just baked " + item );
+        }
+    }
+}
+module skills{
+    export var specialty = "baking";
+    export var experience = "5 years";
+}
+module cakeFactory{
+    // specify dependencies
+    import baker from staff;
+    // import everything with wildcards
+    import * from skills;
+    export var oven = {
+        makeCupcake: function( toppings ){
+            baker.bake( "cupcake", toppings );
+        },
+        makeMuffin: function( mSize ){
+            baker.bake( "muffin", size );
+        }
+    }
+}
+</pre>
+<h3>Modules Loaded From Remote Sources</h3>
+<p>The module proposals also cater for modules which are remotely based (e.g. a third-party libraries) making it simplistic to load modules in from external locations. Here's an example of pulling in the module we defined above and utilizing it:</p>
+<pre class="brush: js">module cakeFactory from "http://addyosmani.com/factory/cakes.js";
+cakeFactory.oven.makeCupcake( "sprinkles" );
+cakeFactory.oven.makeMuffin( "large" );
+</pre>
+<h3>Module Loader API</h3>
+<p>The module loader proposed describes a dynamic API for loading modules in highly controlled contexts. Signatures supported on the loader include <code>load(url, moduleInstance, error) </code> for loading modules, <code>createModule(object, globalModuleReferences)</code> and <a href="http://wiki.ecmascript.org/doku.php?id=harmony:module_loaders">others</a>.</p>
+<p>Here's another example for dynamically loading in the module we initially defined. Note that unlike the last example where we pulled in a module from a remote source, the module loader API is better suited to dynamic contexts.</p>
+<pre class="brush: js">Loader.load( "http://addyosmani.com/factory/cakes.js",
+    function( cakeFactory ){
+        cakeFactory.oven.makeCupcake( "chocolate" );
+    });
+</pre>
+<h3>CommonJS-like Modules For The Server</h3>
+<p>For developers who are more interested in server environments, the module system proposed for ES.next isn't just constrained to looking at modules in the browser. Below for example, we can see a CommonJS-like module proposed for use on the server:</p>
+<pre class="brush: js">// io/File.js
+export function open( path ) { ... };
+export function close( hnd ) { ... };
+</pre>
+<pre class="brush: js">// compiler/LexicalHandler.js
+module file from "io/File";
+import { open, close } from file;
+export function scan( in ) {
+    try {
+        var h = open( in ) ...
+    }
+    finally { close( h ) }
+}
+</pre>
+<pre class="brush: js">module lexer from "compiler/LexicalHandler";
+module stdlib from "@std";
+//... scan(cmdline[0]) ...
+</pre>
+<h3>Classes With Constructors, Getters &amp; Setters</h3>
+<p>The notion of a class has always been a contentious issue with purists and we've so far got along with either falling back on JavaScript's <a href="http://javascript.crockford.com/prototypal.html">prototypal</a> nature or through using frameworks or abstractions that offer the ability to use <i>class</i> definitions in a form that de-sugars to the same prototypal behavior.</p>
+<p>In Harmony, classes have been proposed for the language along with constructors and (finally) some sense of true privacy. In the following examples, inline comments are provided to help explain how classes are structured.</p>
+<p>Reading through, one may also notice the lack of the word "function" in here. This isn't a typo error: TC39 have been making a conscious effort to decrease our abuse of the <code>function</code> keyword for everything and the hope is that this will help simplify how we write code.</p>
+<pre class="brush: js">class Cake{
+    // We can define the body of a class" constructor
+    // function by using the keyword "constructor" followed
+    // by an argument list of public and private declarations.
+    constructor( name, toppings, price, cakeSize ){
+        public name = name;
+        public cakeSize = cakeSize;
+        public toppings = toppings;
+        private price = price;
+    }
+    // As a part of ES.next's efforts to decrease the unnecessary
+    // use of "function" for everything, you'll notice that it's
+    // dropped for cases such as the following. Here an identifier
+    // followed by an argument list and a body defines a new method
+    addTopping( topping ){
+        public( this ).toppings.push( topping );
+    }
+    // Getters can be defined by declaring get before
+    // an identifier/method name and a curly body.
+    get allToppings(){
+        return public( this ).toppings;
+    }
+    get qualifiesForDiscount(){
+        return private( this ).price &gt; 5;
+    }
+    // Similar to getters, setters can be defined by using
+    // the "set" keyword before an identifier
+    set cakeSize( cSize ){
+        if( cSize &lt; 0 ){
+            throw new Error( "Cake must be a valid size -
+            either small, medium or large" );
+        }
+        public( this ).cakeSize = cSize;
+    }
+}
+</pre>
+<h3>ES Harmony Conclusions</h3>
+<p>As we've seen, Harmony might come with some exciting new additions that will ease the development of modular applications and handling concerns such as dependency management.</p>
+At present, our best options for using Harmony syntax in today's browsers is through a transpiler such as <a href="http://code.google.com/p/traceur-compiler/">Google Traceur</a> or<a href="http://esprima.googlecode.com">Esprima</a>. There are also projects such as <a href="https://github.com/addyosmani/require-hm">Require HM</a> which allow us to use Harmony modules with AMD. Our best bets however until we have specification finalization are AMD (for in-browser modules) and CommonJS (for those on the server).<p></p>
+<div class="alert-message block-message info">
+<p><b>Related Reading</b></p>
+<p><a href="http://www.2ality.com/2011/03/first-look-at-upcoming-javascript.html">A First Look At The Upcoming JavaScript Modules</a></p>
+<p><a href="http://blog.mozilla.com/dherman/2011/02/23/my-js-meetup-talk/">David Herman On JavaScript/ES.Next (Video)</a></p>
+<p><a href="http://wiki.ecmascript.org/doku.php?id=harmony:modules">ES Harmony Module Proposals</a></p>
+<p><a href="http://wiki.ecmascript.org/doku.php?id=harmony:modules_rationale">ES Harmony Module Semantics/Structure Rationale</a></p>
+<p><a href="http://wiki.ecmascript.org/doku.php?id=harmony:classes">ES Harmony Class Proposals</a></p>
+<p></p>
+</div>
+<div class="hr"></div>
+<div>
+<h2>Conclusions</h2>
+</div>
+<p>In this section we reviewed several of the options available for writing modular JavaScript using modern module formats.</p>
+<p>These formats have a number of advantages over using the module pattern alone including: avoiding the need to manage global variables, better support for static and dynamic dependency management, improved compatibility with script loaders, better compatibility for modules on the server and more.</p>
+<p>In short, I recommend trying out what's been suggested in this chapter as these formats offer a great deal of power and flexibility that can significantly assist with better organizing our applications.</p>

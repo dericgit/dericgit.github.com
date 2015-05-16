@@ -1,0 +1,543 @@
+<h1 id="designpatternsjquery">
+<a href="#designpatternsjquery" class="subhead-link">#</a>
+Design Patterns In jQuery
+</h1>
+<p>&nbsp;</p>
+<p>jQuery is currently the most popular JavaScript DOM manipulation library and provides an abstracted layer for interacting with the DOM in a safe, cross-browser manner. Interestingly, the library also serves as an example of how design patterns can be effectively used to create an API which is both readable and easy to use.</p>
+<p>Whilst in many cases the core contributors that wrote jQuery didn't set out to use specific patterns, they exist there regardless and are useful to learn from. Let's take a look at what some of these patterns are and how they are used in the API.
+</p>
+<p>&nbsp;</p>
+<h2 id="compositepatternjquery">
+<a href="#compositepatternjquery" class="subhead-link">#</a>
+The Composite Pattern
+</h2>
+<p>
+<strong>The Composite Pattern</strong> describes a group of objects that can be treated in the same way a single instance of an object may be.</p>
+<p>This allows us to treat both individual objects and compositions in a uniform manner, meaning that the same behavior will be applied regardless of whether we're working with one item or a thousand.</p>
+<p>In jQuery, when we're applying methods to an element or collection of elements, we can treat both sets in a uniform manner as both selections return a jQuery object.</p>
+<p>This is demonstrated by the code sample using the jQuery selector below. Here it's possible to add an <code>active</code> class to both selections for a single element (e.g an element with a unique ID) or a group of elements with the same tag name or class, without additional effort:</p>
+<pre class="brush: js">// Single elements
+$( "#singleItem" ).addClass( "active" );
+$( "#container" ).addClass( "active" );
+// Collections of elements
+$( "div" ).addClass( "active" );
+$( ".item" ).addClass( "active" );
+$( "input" ).addClass( "active" );
+</pre>
+<p>&nbsp;</p>
+<p>The jQuery <code>addClass()</code> implementation could either directly use native <em>for</em> loops (or jQuery's <code>jQuery.each()</code>/<code>jQuery.fn.each()</code>) to iterate through a collection in order to apply the method to both single items or groups. Looking through the source we can see this is indeed the case:</p>
+<pre class="brush: js">    addClass: function( value ) {
+    var classNames, i, l, elem,
+      setClass, c, cl;
+    if ( jQuery.isFunction( value ) ) {
+      return this.each(function( j ) {
+        jQuery( this ).addClass( value.call(this, j, this.className) );
+      });
+    }
+    if ( value &amp;&amp; typeof value === "string" ) {
+      classNames = value.split( rspace );
+      for ( i = 0, l = this.length; i &lt; l; i++ ) {
+        elem = this[ i ];
+        if ( elem.nodeType === 1 ) {
+          if ( !elem.className &amp;&amp; classNames.length === 1 ) {
+            elem.className = value;
+          } else {
+            setClass = " " + elem.className + " ";
+            for ( c = 0, cl = classNames.length; c &lt; cl; c++ ) {
+              if ( !~setClass.indexOf( " " + classNames[ c ] + " " ) ) {
+                setClass += classNames[ c ] + " ";
+              }
+            }
+            elem.className = jQuery.trim( setClass );
+          }
+        }
+      }
+    }
+    return this;
+  }
+</pre>
+<h2 id="wrapperpatternjquery"><strong>The Adapter Pattern</strong></h2>
+<p>
+<strong>The Adapter Pattern</strong> translates an <em>interface</em> for an object or class into an interface compatible with a specific system.</p>
+<p>Adapters basically allow objects or classes to function together which normally couldn't due to their incompatible interfaces. The adapter translates calls to its interface into calls to the original interface and the code required to achieve this is usually quite minimal.
+</p>
+<p>One example of an adapter we may have used is the jQuery <code>jQuery.fn.css()</code> method. It helps normalize the interfaces to how styles can be applied across a number of browsers, making it trivial for us to use a simple syntax which is adapted to use what the browser actually supports behind the scenes:</p>
+<pre class="brush: js">
+// Cross browser opacity:
+// opacity: 0.9; Chrome 4+, FF2+, Saf3.1+, Opera 9+, IE9, iOS 3.2+, Android 2.1+
+// filter: alpha(opacity=90); IE6-IE8
+// Setting opacity
+$( ".container" ).css( { opacity: .5 } );
+// Getting opacity
+var currentOpacity = $( ".container" ).css('opacity');
+</pre>
+<p>&nbsp;</p>
+<p>The corresponding jQuery core cssHook which makes the above possible can be seen below:</p>
+<pre class="brush: js">get: function( elem, computed ) {
+  // IE uses filters for opacity
+  return ropacity.test( (
+        computed &amp;&amp; elem.currentStyle ?
+            elem.currentStyle.filter : elem.style.filter) || "" ) ?
+    ( parseFloat( RegExp.$1 ) / 100 ) + "" :
+    computed ? "1" : "";
+},
+set: function( elem, value ) {
+  var style = elem.style,
+    currentStyle = elem.currentStyle,
+    opacity = jQuery.isNumeric( value ) ?
+          "alpha(opacity=" + value * 100 + ")" : "",
+    filter = currentStyle &amp;&amp; currentStyle.filter || style.filter || "";
+  // IE has trouble with opacity if it does not have layout
+  // Force it by setting the zoom level
+  style.zoom = 1;
+  // if setting opacity to 1, and no other filters
+  //exist - attempt to remove filter attribute #6652
+  if ( value &gt;= 1 &amp;&amp; jQuery.trim( filter.replace( ralpha, "" ) ) === "" ) {
+    // Setting style.filter to null, "" &amp; " " still leave
+    // "filter:" in the cssText if "filter:" is present at all,
+    // clearType is disabled, we want to avoid this style.removeAttribute
+    // is IE Only, but so apparently is this code path...
+    style.removeAttribute( "filter" );
+    // if there there is no filter style applied in a css rule, we are done
+    if ( currentStyle &amp;&amp; !currentStyle.filter ) {
+      return;
+    }
+  }
+  // otherwise, set new filter values
+  style.filter = ralpha.test( filter ) ?
+    filter.replace( ralpha, opacity ) :
+    filter + " " + opacity;
+}
+};
+</pre>
+<h2 id="facadepatternjquery">
+<a href="#facadepatternjquery" class="subhead-link">#</a>
+The Facade Pattern
+</h2>
+<p>As we reviewed earlier in the book, the <strong>Facade Pattern</strong> provides a simpler abstracted interface to a larger (potentially more complex) body of code.</p>
+<p>Facades can be frequently found across the jQuery library and provide developers easy access to implementations for handling DOM manipulation, animation and of particular interest, cross-browser Ajax.</p>
+<p>The following are facades for jQuery's <code>$.ajax()</code>:</p>
+<pre class="brush: js">$.get( url, data, callback, dataType );
+$.post( url, data, callback, dataType );
+$.getJSON( url, data, callback );
+$.getScript( url, callback );
+</pre>
+<p></p>
+<p>These are translated behind the scenes to:</p>
+<pre class="brush: js">// $.get()
+$.ajax({
+  url: url,
+  data: data,
+  dataType: dataType
+}).done( callback );
+// $.post
+$.ajax({
+  type: "POST",
+  url: url,
+  data: data,
+  dataType: dataType
+}).done( callback );
+// $.getJSON()
+$.ajax({
+  url: url,
+  dataType: "json",
+  data: data,
+}).done( callback );
+// $.getScript()
+$.ajax({
+  url: url,
+  dataType: "script",
+}).done( callback );
+</pre>
+<p>What's even more interesting is that the above facades are actually facades in their own right, hiding a great deal of complexity behind the scenes.</p>
+<p>This is because the <code>jQuery.ajax()</code> implementation in jQuery core is a non-trivial piece of code to say the least. At minimum it normalizes the cross-browser differences between XHR (XMLHttpRequest) and makes it trivial for us to perform common HTTP actions (e.g <code>get</code>, <code>post</code> etc), work with Deferreds and so on.</p>
+<p>As it would take an entire chapter to show all of the code related to the above facades, here is instead the code in jQuery core normalizing XHR:</p>
+<pre class="brush: js">// Functions to create xhrs
+function createStandardXHR() {
+  try {
+    return new window.XMLHttpRequest();
+  } catch( e ) {}
+}
+function createActiveXHR() {
+  try {
+    return new window.ActiveXObject( "Microsoft.XMLHTTP" );
+  } catch( e ) {}
+}
+// Create the request object
+jQuery.ajaxSettings.xhr = window.ActiveXObject ?
+  /* Microsoft failed to properly
+   * implement the XMLHttpRequest in IE7 (can't request local files),
+   * so we use the ActiveXObject when it is available
+   * Additionally XMLHttpRequest can be disabled in IE7/IE8 so
+   * we need a fallback.
+   */
+  function() {
+    return !this.isLocal &amp;&amp; createStandardXHR() || createActiveXHR();
+  } :
+  // For all other browsers, use the standard XMLHttpRequest object
+  createStandardXHR;
+  ...
+</pre>
+<p>Whilst the following block of code is also a level above the actual jQuery XHR (<code>jqXHR</code>) implementation, it's the convenience facade that we actually most commonly interact with:</p>
+<pre class="brush: js">    // Request the remote document
+    jQuery.ajax({
+      url: url,
+      type: type,
+      dataType: "html",
+      data: params,
+      // Complete callback (responseText is used internally)
+      complete: function( jqXHR, status, responseText ) {
+        // Store the response as specified by the jqXHR object
+        responseText = jqXHR.responseText;
+        // If successful, inject the HTML into all the matched elements
+        if ( jqXHR.isResolved() ) {
+          // Get the actual response in case
+          // a dataFilter is present in ajaxSettings
+          jqXHR.done(function( r ) {
+            responseText = r;
+          });
+          // See if a selector was specified
+          self.html( selector ?
+            // Create a dummy div to hold the results
+            jQuery("<div>")
+              // inject the contents of the document in, removing the scripts
+              // to avoid any 'Permission Denied' errors in IE
+              .append(responseText.replace(rscript, ""))
+              // Locate the specified elements
+              .find(selector) :
+            // If not, just inject the full result
+            responseText );
+        }
+        if ( callback ) {
+          self.each( callback, [ responseText, status, jqXHR ] );
+        }
+      }
+    });
+    return this;
+  }
+</div></pre>
+<p>&nbsp;</p>
+<h2 id="observerpatternjquery">
+<a href="#observerpatternjquery" class="subhead-link">#</a>
+The Observer Pattern
+</h2>
+<p>
+Another pattern we reviewed earlier is the Observer (Publish/Subscribe) pattern. This is where the objects in a system may subscribe to other objects and be notified by them when an event of interest occurs.
+</p>
+<p>
+jQuery core has come with built-in support for a publish/subscribe-like system for a few years now, which it refers to as <em>custom events</em>.</p>
+<p>In earlier versions of the library, access to these custom events was possible using <code>jQuery.bind()</code> (subscribe), <code>jQuery.trigger()</code> (publish) and <code>jQuery.unbind()</code> (unsubscribe), but in recent versions this can be done using <code>jQuery.on()</code>, <code>jQuery.trigger()</code> and <code>jQuery.off()</code>.</p>
+<p>
+Below we can see an example of this being used in practice:
+</p>
+<p>
+</p><pre class="brush: js">
+// Equivalent to subscribe(topicName, callback)
+$( document ).on( "topicName", function () {
+    //..perform some behaviour
+});
+// Equivalent to publish(topicName)
+$( document ).trigger( "topicName" );
+// Equivalent to unsubscribe(topicName)
+$( document ).off( "topicName" );
+</pre>
+<p></p>
+<p>Calls to <code>jQuery.on()</code> and <code>jQuery.off()</code> eventually go through the jQuery events system. Similar to Ajax, as the implementation for this is relatively long, we can instead look at where and how the actual event handlers for custom events are attached:</p>
+<pre class="brush: js">jQuery.event = {
+  add: function( elem, types, handler, data, selector ) {
+    var elemData, eventHandle, events,
+      t, tns, type, namespaces, handleObj,
+      handleObjIn, quick, handlers, special;
+    ...
+    // Init the element's event structure and main handler,
+    //if this is the first
+    events = elemData.events;
+    if ( !events ) {
+      elemData.events = events = {};
+    }
+    ...
+    // Handle multiple events separated by a space
+    // jQuery(...).bind("mouseover mouseout", fn);
+    types = jQuery.trim( hoverHack(types) ).split( " " );
+    for ( t = 0; t &lt; types.length; t++ ) {
+      ...
+      // Init the event handler queue if we're the first
+      handlers = events[ type ];
+      if ( !handlers ) {
+        handlers = events[ type ] = [];
+        handlers.delegateCount = 0;
+        // Only use addEventListener/attachEvent if the special
+        // events handler returns false
+        if ( !special.setup || special.setup.call( elem, data,
+        //namespaces, eventHandle ) === false ) {
+          // Bind the global event handler to the element
+          if ( elem.addEventListener ) {
+            elem.addEventListener( type, eventHandle, false );
+          } else if ( elem.attachEvent ) {
+            elem.attachEvent( "on" + type, eventHandle );
+          }
+        }
+      }
+</pre>
+<p>For those that prefer to use the conventional naming scheme for the Observer pattern, <a href="https://gist.github.com/661855">Ben Alman</a> created a simple wrapper around the above methods which provides us access to <code>jQuery.publish()</code>, <code>jQuery.subscribe</code>, and <code>jQuery.unsubscribe</code> methods. I've previously linked to them earlier in the book, but we can see the wrapper in full below.</p>
+<pre class="brush: js">(function( $ ) {
+  var o = $({});
+  $.subscribe = function() {
+    o.on.apply(o, arguments);
+  };
+  $.unsubscribe = function() {
+    o.off.apply(o, arguments);
+  };
+  $.publish = function() {
+    o.trigger.apply(o, arguments);
+  };
+}( jQuery ));
+</pre>
+<p>In recent versions of jQuery, a multi-purpose callbacks object (<code>jQuery.Callbacks</code>) was made available to enable users to write new solutions based on callback lists. One such solution to write using this feature is another Publish/Subscribe system. An implementation of this is the following:</p>
+<pre class="brush: js">var topics = {};
+jQuery.Topic = function( id ) {
+    var callbacks,
+        topic = id &amp;&amp; topics[ id ];
+    if ( !topic ) {
+        callbacks = jQuery.Callbacks();
+        topic = {
+            publish: callbacks.fire,
+            subscribe: callbacks.add,
+            unsubscribe: callbacks.remove
+        };
+        if ( id ) {
+            topics[ id ] = topic;
+        }
+    }
+    return topic;
+};
+</pre>
+which can then be used as follows:
+<pre class="brush: js">// Subscribers
+$.Topic( "mailArrived" ).subscribe( fn1 );
+$.Topic( "mailArrived" ).subscribe( fn2 );
+$.Topic( "mailSent" ).subscribe( fn1 );
+// Publisher
+$.Topic( "mailArrived" ).publish( "hello world!" );
+$.Topic( "mailSent" ).publish( "woo! mail!" );
+// Here, "hello world!" gets pushed to fn1 and fn2
+// when the "mailArrived" notification is published
+// with "woo! mail!" also being pushed to fn1 when
+// the "mailSent" notification is published.
+// Outputs:
+// hello world!
+// fn2 says: hello world!
+// woo! mail!
+</pre>
+<p>&nbsp;</p>
+<h2 id="iteratorpatternjquery">
+<a href="#iteratorpatternjquery" class="subhead-link">#</a>
+The Iterator Pattern
+</h2>
+<p>
+The Iterator is a design pattern where iterators (objects that allow us to traverse through all the elements of a collection) access the elements of an aggregate object sequentially without needing to expose its underlying form.</p>
+<p>Iterators encapsulate the internal structure of how that particular iteration occurs. In the case of jQuery's <code>jQuery.fn.each()</code> iterator, we are actually able to use the underlying code behind <code>jQuery.each()</code> to iterate through a collection, without needing to see or understand the code working behind the scenes providing this capability.</p>
+<p>This is a pattern that could be considered a special case of the facade, where we explicitly deal with problems related to iteration.</p>
+<pre class="brush: js">$.each( ["john","dave","rick","julian"], function( index, value ) {
+  console.log( index + ": "" + value);
+});
+$( "li" ).each( function ( index ) {
+  console.log( index + ": " + $( this ).text());
+});
+</pre>
+<p>Here we can see the code for <code>jQuery.fn.each()</code>:</p>
+<pre class="brush: js">// Execute a callback for every element in the matched set.
+each: function( callback, args ) {
+  return jQuery.each( this, callback, args );
+}
+</pre>
+<p>Followed by the code behind <code>jQuery.each()</code> which handles two ways of iterating through objects:</p>
+<pre class="brush: js">  each: function( object, callback, args ) {
+    var name, i = 0,
+      length = object.length,
+      isObj = length === undefined || jQuery.isFunction( object );
+    if ( args ) {
+      if ( isObj ) {
+        for ( name in object ) {
+          if ( callback.apply( object[ name ], args ) === false ) {
+            break;
+          }
+        }
+      } else {
+        for ( ; i &lt; length; ) {
+          if ( callback.apply( object[ i++ ], args ) === false ) {
+            break;
+          }
+        }
+      }
+    // A special, fast, case for the most common use of each
+    } else {
+      if ( isObj ) {
+        for ( name in object ) {
+          if ( callback.call( object[ name ], name, object[ name ] ) === false ) {
+            break;
+          }
+        }
+      } else {
+        for ( ; i &lt; length; ) {
+          if ( callback.call( object[ i ], i, object[ i++ ] ) === false ) {
+            break;
+          }
+        }
+      }
+    }
+    return object;
+  };
+</pre>
+<p>&nbsp;</p>
+<h2 id="lazyinitialisationjquery">The Lazy Initialization Pattern</h2>
+<p>
+<strong>Lazy Initialization </strong>is a design pattern which allows us to delay expensive processes until the first instance they are needed. An example of this is the <code>.ready()</code> function in jQuery that only executes a callback once the DOM is ready.</p>
+<pre class="brush: js">$( document ).ready( function () {
+    // The ajax request won't attempt to execute until
+    // the DOM is ready
+    var jqxhr = $.ajax({
+      url: "http://domain.com/api/",
+      data: "display=latest&amp;order=ascending"
+    })
+    .done( function( data ) ){
+        $(".status").html( "content loaded" );
+        console.log( "Data output:" + data );
+    });
+});
+</pre>
+<p></p>
+<p><code>jQuery.fn.ready()</code> is powered by <code>jQuery.bindReady()</code>, seen below:</p>
+<pre class="brush: js">  bindReady: function() {
+    if ( readyList ) {
+      return;
+    }
+    readyList = jQuery.Callbacks( "once memory" );
+    // Catch cases where $(document).ready() is called after the
+    // browser event has already occurred.
+    if ( document.readyState === "complete" ) {
+      // Handle it asynchronously to allow scripts the opportunity to delay ready
+      return setTimeout( jQuery.ready, 1 );
+    }
+    // Mozilla, Opera and webkit support this event
+    if ( document.addEventListener ) {
+      // Use the handy event callback
+      document.addEventListener( "DOMContentLoaded", DOMContentLoaded, false );
+      // A fallback to window.onload, that will always work
+      window.addEventListener( "load", jQuery.ready, false );
+    // If IE event model is used
+    } else if ( document.attachEvent ) {
+      // ensure firing before onload,
+      // maybe late but safe also for iframes
+      document.attachEvent( "onreadystatechange", DOMContentLoaded );
+      // A fallback to window.onload, that will always work
+      window.attachEvent( "onload", jQuery.ready );
+      // If IE and not a frame
+      // continually check to see if the document is ready
+      var toplevel = false;
+      try {
+        toplevel = window.frameElement == null;
+      } catch(e) {}
+      if ( document.documentElement.doScroll &amp;&amp; toplevel ) {
+        doScrollCheck();
+      }
+    }
+  },
+</pre>
+<p>Whilst not directly used in jQuery core, some developers may also be familiar with the concept of LazyLoading via plugins such as <a href="http://www.appelsiini.net/projects/lazyload">this</a>.</p>
+<p>LazyLoading is effectively the same as Lazy initialization and is a technique whereby additional data on a page is loaded when needed (e.g. when a user has scrolled to the end of the page). In recent years this pattern has become quite prominent and can be currently be found in both the Twitter and Facebook UIs.</p>
+<p>&nbsp;</p>
+<h2 id="proxypatternjquery">
+<a href="#proxypatternjquery" class="subhead-link">#</a>
+The Proxy Pattern
+</h2>
+<p>There are times when it is necessary for us to control the access and context behind an object and this is where the Proxy pattern can be useful.</p>
+<p>It can help us control when an expensive object should be instantiated, provide advanced ways to reference the object or modify the object to function a particular way in specific contexts. </p>
+<p>In jQuery core, a <code>jQuery.proxy()</code> method exists which accepts as input a function and returns a new one which will always have a specific context. This ensures that the value of <code>this</code> within a function is the value we expect.</p>
+<p>An example of where this is useful is when we're making use of timers within a <code>click</code> event handler. Imagine we have the following handler prior to adding any timers:</p>
+<pre class="brush: js">$( "button" ).on( "click", function () {
+  // Within this function, "this" refers to the element that was clicked
+  $( this ).addClass( "active" );
+});
+</pre>
+<p>If we wished to add a hard delay before the <code>active</code> class was added, we <em>could</em> use <code>setTimeout()</code> to achieve this. Unfortunately there is a small problem with this solution: whatever function is passed to <code>setTimeout()</code> will have a different value for <code>this</code> within that function. It will instead refer to the <code>window</code> object, which is not what we desire.</p>
+<pre class="brush: js">$( "button" ).on( "click", function () {
+  setTimeout(function () {
+    // "this" doesn't refer to our element!
+    // It refers to window
+    $( this ).addClass( "active" );
+  });
+});
+</pre>
+<p>To work around this problem, we can use <code>jQuery.proxy()</code> to implement a type of proxy pattern. By calling it with the function and value we would like assigned to <code>this</code> it will actually return a function that retains the value we desire within the correct context. Here's how this would look:</p>
+<pre class="brush: js">$( "button" ).on( "click", function () {
+    setTimeout( $.proxy( function () {
+        // "this" now refers to our element as we wanted
+        $( this ).addClass( "active" );
+    }, this), 500);
+    // the last "this" we're passing tells $.proxy() that our DOM element
+    // is the value we want "this" to refer to.
+});
+</pre>
+<p>jQuery's implementation of <code>jQuery.proxy()</code> can be found below:</p>
+<pre class="brush: js">  // Bind a function to a context, optionally partially applying any
+  // arguments.
+  proxy: function( fn, context ) {
+    if ( typeof context === "string" ) {
+      var tmp = fn[ context ];
+      context = fn;
+      fn = tmp;
+    }
+    // Quick check to determine if target is callable, in the spec
+    // this throws a TypeError, but we will just return undefined.
+    if ( !jQuery.isFunction( fn ) ) {
+      return undefined;
+    }
+    // Simulated bind
+    var args = slice.call( arguments, 2 ),
+      proxy = function() {
+        return fn.apply( context, args.concat( slice.call( arguments ) ) );
+      };
+    // Set the guid of unique handler to the same of original handler, so it can be removed
+    proxy.guid = fn.guid = fn.guid || proxy.guid || jQuery.guid++;
+    return proxy;
+  }
+</pre>
+<h2 id="builderpatternjquery">
+<a href="#builderpatternjquery" class="subhead-link">#</a>
+The Builder Pattern
+</h2>
+<p>When working with the DOM, we often want to construct new elements dynamically - a process which can increase in complexity depending on the final markup, attributes and properties we wish our constructed elements to contain.</p>
+<p>Complex elements require special care when being defined, especially if we want the flexibility to either literally define the final markup for our elements (which can get messy) or take a more readable object-oriented route instead. Having a mechanism for building our complex DOM objects that is independent from the objects themselves gives us this flexibility and that is exactly what the Builder pattern provides.</p>
+<p>Builders allow us to construct complex objects by only specifying the type and content of the object, shielding us from the process of creating or representing the object explicitly.</p>
+<p>The jQuery dollar sign allows us to do just this as it provides a number of different means for dynamically building new jQuery (and DOM) objects, by either passing in the complete markup for an element, partial markup and content or using the jQuery for construction:</p>
+<pre class="brush: js">$( '&lt;div class="foo"&gt;bar&lt;/div&gt;' );
+$( '&lt;p id="test"&gt;foo &lt;em&gt;bar&lt;/em&gt;&lt;/p&gt;').appendTo("body");
+var newParagraph = $( "&lt;p /&gt;" ).text( "Hello world" );
+$( "&lt;input /&gt;" )
+      .attr({ "type": "text", "id":"sample"})
+      .appendTo("#container");
+</pre>
+<p></p>
+<p>&nbsp;</p>
+<p>Below is a snippet from jQuery core's internal <code>jQuery.prototype</code> method which assists with the construction of jQuery objects from markup passed to the <code>jQuery()</code> selector. Regardless of whether or not <code>document.createElement</code> is used to create a new element, a reference to the element (found or created) is injected into the returned object so further methods such as <code>.attr()</code> can be easily used on it right after.</p>
+<pre class="brush: js">  // HANDLE: $(html) -&gt; $(array)
+    if ( match[1] ) {
+      context = context instanceof jQuery ? context[0] : context;
+      doc = ( context ? context.ownerDocument || context : document );
+      // If a single string is passed in and it's a single tag
+      // just do a createElement and skip the rest
+      ret = rsingleTag.exec( selector );
+      if ( ret ) {
+        if ( jQuery.isPlainObject( context ) ) {
+          selector = [ document.createElement( ret[1] ) ];
+          jQuery.fn.attr.call( selector, context, true );
+        } else {
+          selector = [ doc.createElement( ret[1] ) ];
+        }
+      } else {
+        ret = jQuery.buildFragment( [ match[1] ], [ doc ] );
+        selector = ( ret.cacheable ? jQuery.clone(ret.fragment) : ret.fragment ).childNodes;
+      }
+      return jQuery.merge( this, selector );
+</pre>
