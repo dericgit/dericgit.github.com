@@ -15,7 +15,7 @@ learnPatternApp.config(function($stateProvider, $urlRouterProvider){
     $stateProvider
         .state('index', {
             url: '/index',
-            view: {
+            views: {
                 '': {
                     templateUrl: 'tpls/index.html'
                 },
@@ -33,9 +33,81 @@ learnPatternApp.config(function($stateProvider, $urlRouterProvider){
                 'main@index': {
                     templateUrl: 'tpls/jspatternlist.html',
                     controller: function($scope, $state) {
-                        $scope.addUserType = function() {
-                            //$state.go("index.usermng.addusertype");
-                        }
+
+                        $scope.contentsList = [
+                            {
+                                "name": "序言",
+                                "action": "preface"
+                            },
+                            {
+                                "name": "目录",
+                                "action": "contents"
+                            },
+                            {
+                                "name": "简介",
+                                "action": "introduction"
+                            },
+                            {
+                                "name": "什么是模式",
+                                "action": "whatspattern"
+                            },
+                            {
+                                "name": "patternitytest",
+                                "action": "patternitytest"
+                            },
+                            {
+                                "name": "设计模式的结构",
+                                "action": "structurepattern"
+                            },
+                            {
+                                "name": "编写设计模式",
+                                "action": "writepattern"
+                            },
+                            {
+                                "name": "反模式",
+                                "action": "antipattern"
+                            },
+                            {
+                                "name": "设计模式的分类",
+                                "action": "categoriespattern"
+                            },
+                            {
+                                "name": "设计模式分类概览表",
+                                "action": "designpatterncate"
+                            },
+                            {
+                                "name": "JavaScript设计模式",
+                                "action": "javascriptdesignpattern"
+                            },
+                            {
+                                "name": "JavaScript mv*模式",
+                                "action": "javascriptmvpattern"
+                            },
+                            {
+                                "name": "最新模块化JavaScript设计模式",
+                                "action": "modernmodular"
+                            },
+                            {
+                                "name": "jQuery中的设计模式",
+                                "action": "designpatterninjquery"
+                            },
+                            {
+                                "name": "jQuery插件设计模式",
+                                "action": "jqueryplugin"
+                            },
+                            {
+                                "name": "JavaScript空间命名模式",
+                                "action": "namespacingpattern"
+                            },
+                            {
+                                "name": "总结",
+                                "action": "conclusion"
+                            },
+                            {
+                                "name": "参考",
+                                "action": "references"
+                            }
+                        ];
                     }
                 }
             }
@@ -47,7 +119,76 @@ learnPatternApp.config(function($stateProvider, $urlRouterProvider){
         .state('index.jspattern.contents', {
             url: '/contents',
             templateUrl: 'tpls/contents.html'
-        });
+        })
+        .state('index.jspattern.introduction', {
+            url: '/introduction',
+            templateUrl: 'tpls/introduction.html'
+        })
+        .state('index.jspattern.whatspattern', {
+            url: '/whatspattern',
+            templateUrl: 'tpls/whatspattern.html'
+        })
+        .state('index.jspattern.patternitytest', {
+            url: '/patternitytest',
+            templateUrl: 'tpls/patternitytest.html'
+        })
+        .state('index.jspattern.structurepattern', {
+            url: '/structurepattern',
+            templateUrl: 'tpls/structurepattern.html'
+        })
+        .state('index.jspattern.writepattern', {
+            url: '/writepattern',
+            templateUrl: 'tpls/writepattern.html'
+        })
+        .state('index.jspattern.antipattern', {
+            url: '/antipattern',
+            templateUrl: 'tpls/antipattern.html'
+        })
+        .state('index.jspattern.categoriespattern', {
+            url: '/categoriespattern',
+            templateUrl: 'tpls/categoriespattern.html'
+        })
+        .state('index.jspattern.designpatterncate', {
+            url: '/designpatterncate',
+            templateUrl: 'tpls/designpatterncate.html'
+        })
+        .state('index.jspattern.javascriptdesignpattern', {
+            url: '/javascriptdesignpattern',
+            templateUrl: 'tpls/javascriptdesignpattern.html'
+        })
+        .state('index.jspattern.javascriptmvpattern', {
+            url: '/javascriptmvpattern',
+            templateUrl: 'tpls/javascriptmvpattern.html'
+        })
+        .state('index.jspattern.modernmodular', {
+            url: '/modernmodular',
+            templateUrl: 'tpls/modernmodular.html'
+        })
+        .state('index.jspattern.designpatterninjquery', {
+            url: '/designpatterninjquery',
+            templateUrl: 'tpls/designpatterninjquery.html'
+        })
+        .state('index.jspattern.jqueryplugin', {
+            url: '/jqueryplugin',
+            templateUrl: 'tpls/jqueryplugin.html'
+        })
+        .state('index.jspattern.namespacingpattern', {
+            url: '/namespacingpattern',
+            templateUrl: 'tpls/namespacingpattern.html'
+        })
+        .state('index.jspattern.conclusion', {
+            url: '/conclusion',
+            templateUrl: 'tpls/conclusion.html'
+        })
+        .state('index.jspattern.references', {
+            url: '/references',
+            templateUrl: 'tpls/references.html'
+        })
+
+
+
+
+
         //
         //.state('/index', {
         //    templateUrl: 'tpls/preface.html',
@@ -69,9 +210,9 @@ learnPatternApp.config(function($stateProvider, $urlRouterProvider){
         //    templateUrl: 'tpls/patternitytest.html',
         //    controller: 'PatternitytestCtrl'
         //})
-        //.state('/whitepattern', {
-        //    templateUrl: 'tpls/whitepattern.html',
-        //    controller: 'WhitepatternCtrl'
+        //.state('/writepattern', {
+        //    templateUrl: 'tpls/writepattern.html',
+        //    controller: 'WritepatternCtrl'
         //})
         //.state('/antipattern', {
         //    templateUrl: 'tpls/antipattern.html',
