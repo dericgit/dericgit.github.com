@@ -108,6 +108,8 @@ learnPatternApp.config(function($stateProvider, $urlRouterProvider){
                                 "action": "references"
                             }
                         ];
+
+                        $state.go("index.jspattern.preface");
                     }
                 }
             }
