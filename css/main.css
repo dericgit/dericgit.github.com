@@ -29,12 +29,22 @@
 .transfer-list td {
     text-align: left;
 }
-
+.ali-point {
+    margin-bottom: 15px;
+}
 .ali-support {
     display: none;
     margin-top: 50px;
 }
+.ali-contact {
 
+}
+.ali-contact span {
+    display: inline-block;
+    padding-right: 10px;
+    width: 50px;
+    text-align: right;
+}
 .jspattern-list {
     margin-bottom: 10px;
 }
