@@ -10,6 +10,27 @@
     box-shadow: 0 0 8px #999;
 }
 
+.container p {
+    text-indent: 24px;
+}
+
+.transfer-list {
+    margin: 0 auto;
+    width: 600px;
+}
+.transfer-list caption {
+    margin-bottom: 25px;
+    font-weight: bold;
+    font-size: 24px;
+}
+.transfer-list th {
+    text-align: right;
+}
+
+.jspattern-list {
+    margin-bottom: 10px;
+}
+
 .text-center {
     margin-bottom: 25px;
 }
@@ -18,7 +39,8 @@
     height:40px;
     line-height: 40px;
     text-align: center;
-    background:#fafafa;
+    background:#f8f8f8;
+    border: 1px solid #e7e7e7;
 }
 .footer p {
     margin: 0;

@@ -110,6 +110,7 @@ learnPatternApp.config(function($stateProvider, $urlRouterProvider){
                         ];
 
                         $state.go("index.jspattern.preface");
+
                     }
                 }
             }
@@ -156,7 +157,8 @@ learnPatternApp.config(function($stateProvider, $urlRouterProvider){
         })
         .state('index.jspattern.javascriptdesignpattern', {
             url: '/javascriptdesignpattern',
-            templateUrl: 'tpls/javascriptdesignpattern.html'
+            templateUrl: 'tpls/javascriptdesignpattern.html',
+            controller: function($scope, $state){}
         })
         .state('index.jspattern.javascriptmvpattern', {
             url: '/javascriptmvpattern',
@@ -185,7 +187,7 @@ learnPatternApp.config(function($stateProvider, $urlRouterProvider){
         .state('index.jspattern.references', {
             url: '/references',
             templateUrl: 'tpls/references.html'
-        })
+        });
 
 
 
@@ -260,6 +262,5 @@ learnPatternApp.config(function($stateProvider, $urlRouterProvider){
         //    templateUrl: 'tpls/references.html',
         //    controller: 'ReferencesCtrl'
         //});
-
 
 });
