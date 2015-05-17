@@ -26,6 +26,9 @@
 .transfer-list th {
     text-align: right;
 }
+.transfer-list td {
+    text-align: left;
+}
 
 .jspattern-list {
     margin-bottom: 10px;
