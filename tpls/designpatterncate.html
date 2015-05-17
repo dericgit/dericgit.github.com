@@ -1,34 +1,41 @@
 
 <h1 id="summarytabledesignpatterns">
-<a href="#summarytabledesignpatterns" class="subhead-link">#</a>
-Design Pattern Categorization
+    <a href="#summarytabledesignpatterns" class="subhead-link">#</a>Design Pattern Categorization
 </h1>
+
 <p>In my early experiences of learning about design patterns, I personally found the following table a very useful reminder of what a number of patterns has to offer - it covers the 23 Design Patterns mentioned by the GoF. The original table was summarized by Elyse Nielsen back in 2004
-and I've modified it where necessary to suit our discussion in this section of the book.
-</p><p>I recommend using this table as reference, but do remember that there are a number of additional patterns that are not mentioned here but will be discussed later in the book.</p>
+and I've modified it where necessary to suit our discussion in this section of the book.</p>
+
+<p>I recommend using this table as reference, but do remember that there are a number of additional patterns that are not mentioned here but will be discussed later in the book.</p>
+
 <h3>A brief note on classes</h3>
 <p>Keep in mind that there will be patterns in this table that reference the concept of "classes". JavaScript is a class-less language, however classes can be simulated using functions.</p>
 <p>The most common approach to achieving this is by defining a JavaScript function where we then create an object using the <code>new</code> keyword. <code>this</code> can be used to help define new properties and methods for the object as follows:</p>
-<pre class="brush: js">// A car "class"
-function Car( model ) {
-  this.model = model;
-  this.color = "silver";
-  this.year = "2012";
-  this.getInfo = function () {
-    return this.model + " " + this.year;
-  };
-}
+<pre class="brush: js">
+    // A car "class"
+    function Car( model ) {
+        this.model = model;
+        this.color = "silver";
+        this.year = "2012";
+        this.getInfo = function () {
+            return this.model + " " + this.year;
+        };
+    }
 </pre>
+
 <p>We can then instantiate the object using the Car constructor we defined above like this:</p>
-<pre class="brush: js">var myCar = new Car("ford");
-myCar.year = "2010";
-console.log( myCar.getInfo() );
+
+<pre class="brush: js">
+    var myCar = new Car("ford");
+    myCar.year = "2010";
+    console.log( myCar.getInfo() );
 </pre>
+
 <p>For more ways to define "classes" using JavaScript, see Stoyan Stefanov's useful <a href="http://www.phpied.com/3-ways-to-define-a-javascript-class/">post</a> on them.</p>
-<p>Let us now proceed to review the table.
-</p><p>
-</p><p>
-</p><table width="100%" border="0" align="center" cellpadding="1" cellspacing="1" bgcolor="white">
+
+<p>Let us now proceed to review the table.</p>
+
+<table width="100%" border="0" align="center" cellpadding="1" cellspacing="1" bgcolor="white">
 <tbody><tr bgcolor="#fff">
 <td colspan="4"><strong>&nbsp;&nbsp;<b>Creational</b></strong></td>
 <td colspan="4">&nbsp;&nbsp;Based on the concept of creating an object.</td>
