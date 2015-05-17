@@ -52,7 +52,7 @@ learnPatternApp.config(function($stateProvider, $urlRouterProvider){
                                 "action": "whatspattern"
                             },
                             {
-                                "name": "patternitytest",
+                                "name": "Pattern-ity",
                                 "action": "patternitytest"
                             },
                             {
