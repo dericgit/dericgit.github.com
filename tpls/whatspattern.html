@@ -1,43 +1,44 @@
-<h1 id="whatisapattern">What is a Pattern?</h1>
-<p>A pattern is a reusable solution that can be applied to commonly occurring problems in software design - in our case - in writing JavaScript web applications. Another way of looking at patterns are as templates for how we solve problems - ones which can be used in quite a few different situations.</p>
-<p>So, why is it important to understand patterns and be familiar with them? Design patterns have three main benefits: </p>
-<ol start="1" type="1">
+<h1>什么是模式?</h1>
+
+<p>模式是一种可重用解决方案，用来解决在软件设计中出现的普遍问题，以我们的角度来说，就是编写JavaScript网络应用程序。另外一种，就是把模式当做一种解决问题的模板，即能运用到各种情况中。</p>
+
+<p>那么，为什么了解并熟知这种模式如此的重要呢？设计模式有一下三个主要优势：</p>
+
 <ol>
-<ol>
-<li><strong>Patterns are proven solutions:</strong> They provide solid approaches to solving issues in software development using proven techniques that reflect the experience and insights the developers that helped define them bring to the pattern.</li>
-<li><strong>Patterns can be easily reused: </strong>A pattern usually reflects an out of the box solution that can be adapted to suit our own needs. This feature makes them quite robust.</li>
-<li><strong>Patterns can be expressive: </strong>When we look at a pattern there’s generally a set structure and <em>vocabulary</em> to the solution presented that can help express rather large solutions quite elegantly.</li>
+    <li><strong>模式是行之有效的解决方法：</strong> 他们为软件开发提供了可靠的解决方法 。有经验和远见的开发者运用成熟的技术帮忙定义并运用到这种模式中。</li>
+    <li><strong>模式易于被重复利用：</strong>：一种模式通常反映一种创造性的解决方案，，能恰到好处地满足我们的需要。这个特点让他们相当的稳健。</li>
+    <li><strong>模式善于表达：</strong>当我们看到一个提供某种解决方案的模式时，一般有一组结构和词汇可以非常优雅地帮助表达相当大的解决方案。</li>
 </ol>
-</ol>
-</ol>
-<p>Patterns are <strong>not</strong> an exact solution. It’s important that we remember the role of a pattern is merely to provide us with a solution scheme. Patterns don’t solve all design problems nor do they replace good software designers, however, they <strong>do</strong> support them. Next we’ll take a look at some of the other advantages patterns have to offer. </p>
+
+<p>模式并不是一种精确的解决方案。我们要记住模式的角色仅仅是给我们提供一个解决方案。模式不能解决所有的设计问题，也不能代替优秀的软件设计师。然而，它们在帮助我们。接下来我们将看看模式必须提供的其他的一些优势。</p>
 <ul>
-<li><strong>Reusing patterns assists in preventing minor issues that can cause major problems in the application development process. </strong>What this means is when code is built on proven patterns, we can afford to spend less time worrying about the structure of our code and more time focusing on the quality of our overall solution. This is because patterns can encourage us to code in a more structured and organized fashion avoiding the need to refactor it for cleanliness purposes in the future.</li>
-<li><strong>Patterns can provide generalized solutions which are documented in a fashion that doesn't require them to be tied to a specific problem.</strong> This generalized approach means that regardless of the application (and in many cases the programming language) we are working with, design patterns can be applied to improve the structure of our code.</li>
-<li><strong>Certain patterns can actually decrease the overall file-size footprint of our code by avoiding repetition. </strong>By encouraging developers to look more closely at their solutions for areas where instant reductions in <span id="internal-source-marker_0.982673292361492">repetition</span> can be made, e.g. reducing the number of functions performing similar processes in favor of a single generalized function, the overall size of our codebase can be decreased. This is also known as making code more <em>DRY</em>.</li>
-<li><strong>Patterns add to a developer's vocabulary, which makes communication faster.</strong></li>
-<li><strong>Patterns that are frequently used can be improved over time by harnessing the collective experiences other developers using those patterns contribute back to the design pattern community.</strong> In some cases this leads to the creation of entirely new design patterns whilst in others it can lead to the provision of improved guidelines on how specific patterns can be best used. This can ensure that pattern-based solutions continue to become more robust than ad-hoc solutions may be.</li>
+    <li><strong>模式的重用可以帮助防止在应用程序开发过程中出现的一些可能导致重大问题的小问题。</strong>这意味着当代码是建立在行之有效的模式上时，我们可以花更少的时间去关心我们的代码结构，从而能花更多的时间关注我们的解决方案的整体质量。这是因为模式可以鼓励我们在更好的结构化和有组织的方式下编码，这将避免在未来由于清洁的目的而去重构它。</li>
+    <li><strong>模式能提供通用的解决方案。</strong> 而不是局限在某个特定的问题上。这种通用方法意味着，无论我们从事于何种应用（任何编程语言）设计模式都能被用来改善我们编程的结构。</li>
+    <li><strong>某些模式实际上可以通过避免重复会降低我们的代码的沉余。</strong>通过鼓励开发者更仔细地看待他们的解决方案来减少重复的地方，如通过将类似的执行流程作为一个一般性的函数来减少函数的数量，这样我们就可以减小代码库的总体大小，这也成为使代码更DRY。</li>
+    <li><strong>模式能增加开发者的词汇量，让他们的交流更加顺畅。</strong></li>
+    <li><strong>模式随着时间不断地完善，通过整理其他开发者运用这种模式的经验，反过来促进设计模式体的发展。</strong>在某些情况下，这将导致全新模式的创建，同时也可以提供改进的指导大家如何使用特定的模式才是最好的。这可以确保基于模式的解决方案继续变得比特别的解决方案更健壮。</li>
 </ul>
-<p>&nbsp;</p>
-<h3>We already use patterns everyday</h3>
-<p>
-To understand how useful patterns can be, let's review a very simple element selection problem that the jQuery library solves for us. </p>
-<p>
-Imagine that we have a script where for each DOM element found on a page with class "foo" we wish to increment a counter. What's the most efficient way to query for this collection of elements? Well, there are a few different ways this problem could be tackled:</p>
-<p>
-</p><ol>
-<li>Select all of the elements in the page and then store references to them. Next, filter this collection and use regular expressions (or another means) to only store those with the class "foo".</li>
-<li>
-Use a modern native browser feature such as <code>querySelectorAll()</code> to select all of the elements with the class "foo".</li>
-<li>Use a native feature such as <code>getElementsByClassName()</code> to similarly get back the desired collection. </li>
+
+<h3>我们已经每天都在使用模式</h3>
+
+<p>为了明白模式能发挥多大的利用价值，让我们回顾一下， jQuery库为我们解决一个非常简单的元素选择问题。</p>
+
+<p>假设我们有一个为页面上每一个class为"foo"的DOM元素添加一个计数器的脚本。 那么，查询这类元素集最有效的途径是什么呢？下面是一些解决此类问题的各种方法：</p>
+
+<ol>
+    <li>选择页面中的所有元素并存储它们的引用。然后使用正则表达式 (或其他方式) 来过滤这个集合中那些class为"foo"的元素的引用。</li>
+    <li>使用高版本浏览器的特性，例如 <code>querySelectorAll()</code> 选择所有 class 为 'foo'的元素。</li>
+    <li>使用高版本浏览器的特性，例如 <code>getElementsByClassName()</code> 同样获得想要的集合。 </li>
 </ol>
-<p></p>
-<p>
-So, which of these options is the fastest? It's actually option 3. by a factor of 8-10 times the <a href="http://jsperf.com/getelementsbyclassname-vs-queryselectorall/5">alternatives</a>. In a real-world application however, 3. will not work in versions of Internet Explorer below 9 and thus it's necessary to use 1. where both 2. and 3. aren't supported.</p>
-<p>
-Developers using jQuery don't have to worry about this problem however, as it's luckily abstracted away for us using the <em>Facade</em> pattern. As we'll review in more detail later, this pattern provides a simple set of abstracted interfaces (e.g <code>$el.css()</code>, <code>$el.animate()</code>) to several more complex underlying bodies of code. As we've seen, this means less time having to be concerned about implementation level details.</p>
-<p>Behind the scenes, the library simply opts for the most optimal approach to selecting elements depending on what our current browser supports and we just consume the abstraction layer.</p>
-<p>We're probably all also familiar with jQuery's <code>$("selector")</code>. This is significantly more easy to use for selecting HTML elements on a page versus having to manually opt for <code>getElementById()</code>, <code>getElementsByClassName()</code>, <code>getElementByTagName()</code> and so on.</p>
-<p>Although we know that <code>querySelectorAll()</code> attempts to solve this problem, compare the effort involved in using jQuery's Facade interfaces vs. selecting the most optimal selection paths ourselves. There's no contest! Abstractions using patterns can offer real-world value.</p>
-<p>
-We'll be looking at this and more design patterns later on in the book.</p>
+
+<p>那么。以上哪一种方法是最快的呢？ 实际上第三个，比其他的 替代选择 快 8-10倍。但在实际的应用程序中，第三个选择无法在Internet Explorer 9以下的版本中使用，从而只能使用第一个，第二个和第三个都不支持。</p>
+
+<p>开发者使用 jQuery 就不用但心这个问题了, 幸运的是它使用 外观模式 把这个问题抽象了出来。稍后我们会更详细的讲解, 此模式提供了一套简单的抽象接口(e.g <code>$el.css()</code>, <code>$el.animate()</code>)向几个更复杂底层代码。正如我们所见，这意味着我们只会对实现级别的细节花费更少的时间。</p>
+
+<p>在其后，库会根据我们当前浏览器的支持自动选择最优的方法来选择元素，我们只使用抽象层。</p>
+
+<p>我们可能都熟悉 jQuery中的<code>$("selector")</code>.比用原生的方法 <code>getElementById()</code>, <code>getElementsByClassName()</code>, <code>getElementByTagName()</code>等等...显而更简单的先择页面中的HTML元素。</p>
+
+<p>虽然我们知道 <code>querySelectorAll()</code> 试图去解决这个问题, 但比比使用jQuery的Facade接口和自己来选择最优的方式时花费的精力，毫无疑问，使用模式可以提供真实世界的抽象价值。 </p>
+
+<p>我们关注和在本书的后面看到更多的设计模式。</p>
