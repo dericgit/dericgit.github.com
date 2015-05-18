@@ -33,7 +33,6 @@ learnPatternApp.config(function($stateProvider, $urlRouterProvider){
                 'main@index': {
                     templateUrl: 'tpls/jspatternlist.html',
                     controller: function($scope, $state) {
-
                         $scope.contentsList = [
                             {
                                 "name": "序言",
