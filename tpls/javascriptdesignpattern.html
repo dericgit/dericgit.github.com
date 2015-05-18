@@ -1,45 +1,41 @@
 
-<h1 id="designpatternsjavascript">
-    <a href="#designpatternsjavascript" class="subhead-link">#</a>JavaScript Design Patterns
-</h1>
+<h1>JavaScript 设计模式</h1>
 
-<p>In this section, we will explore JavaScript implementations of a number of both classic and modern design patterns.</p>
+<p>在本节中，我们将探索JavaScript实现2个经典和现代的设计模式。</p>
 
-<p>Developers commonly wonder whether there is an <em>ideal</em> pattern or set of patterns they should be using in their workflow. There isn't a true single answer to this question; each script and web application we work on is likely to have its own individual needs and we need to think about where we feel a pattern can offer real value to an implementation.</p>
+<p>开发人员通常想知道是否有一种理想模式或者他们应该在他们的工作流程中使用的设置模式。对这个问题没有正确的唯一的答案，我们从事的每个脚本和web应该程序有它自己的需求，我们需要想想哪种模式的实现能提供真正的价值。</p>
 
-<p>For example, some projects may benefit from the decoupling benefits offered by the Observer pattern (which reduces how dependent parts of an application are on one another) whilst others may simply be too small for decoupling to be a concern at all.</p>
+<p>例如，一些项目可能受益于观察者模式所提供的解耦的好处（从而降低应用程序的依赖的部分在另一个上）虽然其他的只是太小，解耦是一直关注的问题。</p>
 
-<p>That said, once we have a firm grasp of design patterns and the specific problems they are best suited to, it becomes much easier to integrate them into our application architectures.</p>
+<p>那就是说，一旦我们已经牢固掌握一个设计模式和他们适应的具体问题，它将非常容易应用到我们的程序结构中。</p>
 
-<p><strong>The patterns we will be exploring in this section are the:</strong></p>
+<p><strong>在本节中，我们将会探讨模式是：</strong></p>
 
 <ul>
-    <li class="subitem"><a href="#constructorpatternjavascript">Constructor Pattern</a></li>
-    <li class="subitem"><a href="#modulepatternjavascript">Module Pattern</a></li>
-    <li class="subitem"><a href="#revealingmodulepatternjavascript">Revealing Module Pattern</a></li>
-    <li class="subitem"><a href="#singletonpatternjavascript">Singleton Pattern</a></li>
-    <li class="subitem"><a href="#observerpatternjavascript">Observer Pattern</a></li>
-    <li class="subitem"><a href="#mediatorpatternjavascript">Mediator Pattern</a></li>
-    <li class="subitem"><a href="#prototypepatternjavascript">Prototype Pattern</a></li>
-    <li class="subitem"><a href="#commandpatternjavascript">Command Pattern</a></li>
-    <li class="subitem"><a href="#facadepatternjavascript">Facade Pattern</a></li>
-    <li class="subitem"><a href="#factorypatternjavascript">Factory Pattern</a></li>
-    <li class="subitem"><a href="#mixinpatternjavascript">Mixin Pattern</a></li>
-    <li class="subitem"><a href="#decoratorpatternjavascript">Decorator Pattern</a></li>
-    <li class="subitem"><a href="#">Flyweight Pattern</a></li>
+    <li><a href="#">构造函数模式</a></li>
+    <li><a href="#">模块模式</a></li>
+    <li><a href="#">暴露模块模式</a></li>
+    <li><a href="#">单例模式</a></li>
+    <li><a href="#">观察者模式</a></li>
+    <li><a href="#">中介者模式</a></li>
+    <li><a href="#">原型模式</a></li>
+    <li><a href="#">命令模式</a></li>
+    <li><a href="#">外观模式</a></li>
+    <li><a href="#">工厂模式</a></li>
+    <li><a href="#">混合模式</a></li>
+    <li><a href="#">装饰模式</a></li>
+    <li><a href="#">享元模式</a></li>
 </ul>
 
-<h2 id="constructorpatternjavascript">
-    <a href="#constructorpatternjavascript" class="subhead-link">#</a>The Constructor Pattern
-</h2>
+<h2>构造函数模式</h2>
 
-<p>In classical object-oriented programming languages, a constructor is a special method used to initialize a newly created object once memory has been allocated for it. In JavaScript, as almost everything is an object, we're most often interested in <em>object</em> constructors.</p>
+<p>在经典的面像对象程序语言中，构造函数是一种特殊的方法用于初始化新创建的对象并为它分配一次内存。在JavaScript中，几乎一切都是对象，我们最感兴趣对象的构造函数。</p>
 
-<p>Object constructors are used to create specific types of objects - both preparing the object for use and accepting arguments which a constructor can use to set the values of member properties and methods when the object is first created. </p>
+<p>对象的构造函数可以用于创建指定类型的对象--在初次创建时准备使用的对象和接受参数的构造函数用于初始化成员属性和方法以。</p>
 
-<h3>Object Creation</h3>
+<h3>创建对象</h3>
 
-<p>The three common ways to create new objects in JavaScript are as follows:</p>
+<p>在JavaScript中创建新对象的三种常见方法如下所示：</p>
 
 <pre class="brush: js">
     // Each of the following options will create a new empty object:
@@ -47,12 +43,12 @@
     // or
     var newObject = Object.create( Object.prototype );
     // or
-    var&nbsp;newObject&nbsp;=&nbsp;new&nbsp;Object();
+    var newObject = new Object();
 </pre>
 
-<p>Where the "Object" constructor in the final example creates an object wrapper for a specific value, or where no value is passed, it will create an empty object and return it.</p>
+<p>在最后一个示例中的“对象”构造函数创建对象来包装为一个特定的值，这里没有传值，它将创建并返回一个空对象。</p>
 
-<p>There are then four ways in which keys and values can then be assigned to an object:</p>
+<p>然后有四种方式将键值对赋值给一个对象:</p>
 
 <pre class="brush: js">
     // ECMAScript 3 compatible approaches
@@ -79,13 +75,13 @@
     // If the above feels a little difficult to read, a short-hand could
     // be written as follows:
     var defineProp = function ( obj, key, value ){
-      var config = {
-        value: value,
-        writable: true,
-        enumerable: true,
-        configurable: true
-      };
-      Object.defineProperty( obj, key, config );
+        var config = {
+            value: value,
+            writable: true,
+            enumerable: true,
+            configurable: true
+        };
+        Object.defineProperty( obj, key, config );
     };
     // To use, we then create a new empty "person" object
     var person = Object.create( Object.prototype );
@@ -98,20 +94,20 @@
     // 4. Object.defineProperties
     // Set properties
     Object.defineProperties( newObject, {
-      "someKey": {
-        value: "Hello World",
-        writable: true
-      },
-      "anotherKey": {
-        value: "Foo bar",
-        writable: false
-      }
+        "someKey": {
+            value: "Hello World",
+            writable: true
+        },
+        "anotherKey": {
+            value: "Foo bar",
+            writable: false
+        }
     });
     // Getting properties for 3. and 4. can be done using any of the
     // options in 1. and 2.
 </pre>
 
-<p>As we will see a little later in the book, these methods can even be used for inheritance, as follows:</p>
+<p>我们先看一点本书后面章节讲的内容，这些方法用于继承，如下:</p>
 
 <pre class="brush: js">
     // Usage:
@@ -125,11 +121,11 @@
     console.log( driver.topSpeed );
 </pre>
 
-<h3>Basic Constructors</h3>
+<h3>基础构造器</h3>
 
-<p>As we saw earlier, JavaScript doesn't support the concept of classes but it does support special constructor functions that work with objects. By simply prefixing a call to a constructor function with the keyword "new", we can tell JavaScript we would like the function to behave like a constructor and instantiate a new object with the members defined by that function.</p>
+<p>正如我们先前所看到的，Javascript不支持类的概念，但它支持与对象一起的特殊构造器函数。加前缀new关键字来调用该函数，我们可以告诉Javascript把这个函数当做一个构造器和用自己所定义的成员来实例化一个对象。</p>
 
-<p>Inside a constructor, the keyword <em>this</em> references the new object that's being created. Revisiting object creation, a basic constructor may look as follows:</p>
+<p>在这个构造器内部，关键字this引用到刚被创建的对象。回到对象创建，一个基本的构造函数看起来像这样:</p>
 
 <pre class="brush: js">
     function Car( model, year, miles ) {
@@ -151,9 +147,9 @@
     console.log( mondeo.toString() );
 </pre>
 
-<p>The above is a simple version of the constructor pattern but it does suffer from some problems. One is that it makes inheritance difficult and the other is that functions such as <code>toString()</code> are redefined for each of the new objects created using the Car constructor. This isn't very optimal as the function should ideally be shared between all of the instances of the Car type.</p>
+<p>上面这是个简单版本的构造器模式，但它还是有些问题。一个是难以继承，另一个是每个Car构造函数创建的对象中，toString()之类的函数都被重新定义。这样不太好，理想的情况是所有Car类型的对象都应该引用同一个函数。</p>
 
-<p>Thankfully as there are a number of both ES3 and ES5-compatible alternatives to constructing objects, it's trivial to work around this limitation.</p>
+<p>这要谢谢 ECMAScript3和ECMAScript5-兼容的构造对象，解决这样的限制，小菜一碟。</p>
 
 <h3>Constructors With Prototypes</h3>
 

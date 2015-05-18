@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html ng-app="ReadApp">
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>demo directive</title>
+    <script type="text/javascript" src="../framework/1.3.0.14/angular.js"></script>
+</head>
+<body>
+    <div ng-controller="MyCtrl">
+        <loader howToLoad="loadData()">swipe to load</loader>
+    </div>
+
+    <div ng-controller="MyCtrlOther">
+        <loader howToLoad="loadDataDate()">swipe to load</loader>
+    </div>
+
+    <superman strength>1</superman>
+    <superman strength speed>2</superman>
+    <superman strength speed light>3</superman>
+
+
+    <hello></hello>
+    <hello></hello>
+    <hello></hello>
+
+
+    <div ng-controller="MyScopeCtrl">
+        this is derek directive:
+        <derek first="{{qq}}"></derek>
+    </div>
+
+
+    <div ng-controller="MyStringCtrl">
+        <drinkstring much="test string"></drinkstring>
+        <drinkstring much="{{str2}}"></drinkstring>
+        <drinkstring much="test()"></drinkstring>
+    </div>
+
+    <div ng-controller="MyVarCtrl">
+        <input type="text" ng-model="testname"/>{{testname}}
+        <drinkvar flavor="testname"></drinkvar>
+    </div>
+
+    <div style="clear: both"></div>
+
+    <div ng-controller="myGreetCtrl">
+        <greeting greet="sayHello(name)"></greeting>
+        <greeting greet="sayHello(name)"></greeting>
+        <greeting greet="sayHello(name)"></greeting>
+    </div>
+    <script type="text/javascript" src="script/read_directive.js"></script>
+</body>
+</html>
