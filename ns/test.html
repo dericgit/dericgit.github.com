@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>test area</title>
+    <link rel="stylesheet" href="../framework/qunit/qunit-1.18.0.css"/>
+    <script type="text/javascript" src="../framework/qunit/qunit-1.18.0.js"></script>
+</head>
+<body>
+    qunit test
+    <div id="qunit"></div>
+    <div id="qunit-fixture"></div>
+    <script>
+        function add(a, b){
+            return a+b;
+        }
+
+        QUnit.test('test method 1', function(assert){
+            assert.ok(add(1,2)==3, "test method 1 passed!");
+        });
+
+        QUnit.test('hello 2', function(assert){
+            assert.ok(1=='1', 'test method 2 passed!');
+        });
+    </script>
+</body>
+</html>
