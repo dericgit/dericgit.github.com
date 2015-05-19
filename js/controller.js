@@ -7,6 +7,15 @@
 
 var learnPatternCtrls = angular.module('learnPatternCtrls', []);
 
+learnPatternCtrls.controller('HighLightCtrl', ['$scope', function($scope){
+    $scope.highlight = function(){
+        console.log("aaaaaa")
+        SyntaxHighlighter.highlight();
+    };
+
+    SyntaxHighlighter.highlight();
+}]);
+
 //PrefaceCtrl
 learnPatternCtrls.controller('PrefaceCtrl', ['$scope', function($scope){}]);
 

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html ng-app="NameApp">
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <script type="text/javascript" src="../framework/1.3.0.14/angular.js"></script>
+</head>
+<body>
+    <div ng-controller="MainCtrl">
+        <input type="text" ng-model="filterText"/>
+        <ul>
+            <li ng-repeat="info in names | filter:filterText">{{$index+1}}、今年{{info.name}}已经{{info.age}}岁了</li>
+        </ul>
+        <button ng-click="addNewPerson()">add new person</button>
+    </div>
+    <script>
+        var app = angular.module('NameApp', []);
+
+        app.factory('mainFactory', function(){
+            var factory = {};
+            var names = [
+                {name: 'a乔乐', age:'25'},
+                {name: 'b周迅', age:'40'},
+                {name: 'c魏瑞', age:'25'},
+                {name: 'd展昭', age:'98'}
+            ];
+            factory.getNames = function(){
+                return names;
+            };
+            factory.addNewPerson = function(){
+                names.push({
+                    name:'zhubajie',
+                    age : 88
+                });
+            };
+            return factory;
+        });
+
+        app.controller('MainCtrl', ['$scope', 'mainFactory', function($scope, mainFactory){
+            console.log($scope);
+            $scope.addNewPerson = function(){
+                mainFactory.addNewPerson();
+            };
+            $scope.names = mainFactory.getNames();
+        }]);
+    </script>
+</body>
+</html>

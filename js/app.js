@@ -5,7 +5,12 @@
  * Change by derek on 15/5/16.
  */
 
-var learnPatternApp = angular.module('learnPatternApp', ['ui.router']);
+var learnPatternApp = angular.module('learnPatternApp', ['ui.router', 'learnPatternCtrls']);
+
+learnPatternApp.run(function($rootScope, $state, $stateParams) {
+    $rootScope.$state = $state;
+    $rootScope.$stateParams = $stateParams;
+});
 
 //路由
 learnPatternApp.config(function($stateProvider, $urlRouterProvider){
@@ -152,32 +157,52 @@ learnPatternApp.config(function($stateProvider, $urlRouterProvider){
         })
         .state('index.jspattern.designpatterncate', {
             url: '/designpatterncate',
-            templateUrl: 'tpls/designpatterncate.html'
+            templateUrl: 'tpls/designpatterncate.html',
+            controller: function($scope, $state){
+                SyntaxHighlighter.highlight();
+            }
         })
         .state('index.jspattern.javascriptdesignpattern', {
             url: '/javascriptdesignpattern',
             templateUrl: 'tpls/javascriptdesignpattern.html',
-            controller: function($scope, $state){}
+            controller: function($scope, $state){
+                SyntaxHighlighter.highlight();
+            }
         })
         .state('index.jspattern.javascriptmvpattern', {
             url: '/javascriptmvpattern',
-            templateUrl: 'tpls/javascriptmvpattern.html'
+            templateUrl: 'tpls/javascriptmvpattern.html',
+            controller: function($scope, $state){
+                SyntaxHighlighter.highlight();
+            }
         })
         .state('index.jspattern.modernmodular', {
             url: '/modernmodular',
-            templateUrl: 'tpls/modernmodular.html'
+            templateUrl: 'tpls/modernmodular.html',
+            controller: function($scope, $state){
+                SyntaxHighlighter.highlight();
+            }
         })
         .state('index.jspattern.designpatterninjquery', {
             url: '/designpatterninjquery',
-            templateUrl: 'tpls/designpatterninjquery.html'
+            templateUrl: 'tpls/designpatterninjquery.html',
+            controller: function($scope, $state){
+                SyntaxHighlighter.highlight();
+            }
         })
         .state('index.jspattern.jqueryplugin', {
             url: '/jqueryplugin',
-            templateUrl: 'tpls/jqueryplugin.html'
+            templateUrl: 'tpls/jqueryplugin.html',
+            controller: function($scope, $state){
+                SyntaxHighlighter.highlight();
+            }
         })
         .state('index.jspattern.namespacingpattern', {
             url: '/namespacingpattern',
-            templateUrl: 'tpls/namespacingpattern.html'
+            templateUrl: 'tpls/namespacingpattern.html',
+            controller: function($scope, $state){
+                SyntaxHighlighter.highlight();
+            }
         })
         .state('index.jspattern.conclusion', {
             url: '/conclusion',
