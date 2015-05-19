@@ -5,12 +5,7 @@
  * Change by derek on 15/5/16.
  */
 
-var learnPatternApp = angular.module('learnPatternApp', ['ui.router', 'learnPatternCtrls']);
-
-learnPatternApp.run(function($rootScope, $state, $stateParams) {
-    $rootScope.$state = $state;
-    $rootScope.$stateParams = $stateParams;
-});
+var learnPatternApp = angular.module('learnPatternApp', ['ui.router']);
 
 //路由
 learnPatternApp.config(function($stateProvider, $urlRouterProvider){
