@@ -150,33 +150,33 @@
 
 <p>这要谢谢 ECMAScript3和ECMAScript5-兼容的构造对象，解决这样的限制，小菜一碟。</p>
 
-<h3>Constructors With Prototypes</h3>
+<h3>原型的构造函数</h3>
 
-<p>Functions, like almost all objects in JavaScript, contain a "prototype" object. When we call a JavaScript constructor to create an object, all the properties of the constructor's prototype are then made available to the new object. In this fashion, multiple Car objects can be created which access the same prototype. We can thus extend the original example as follows:</p>
-<p></p><pre class="brush: js">
-function Car( model, year, miles ) {
-  this.model = model;
-  this.year = year;
-  this.miles = miles;
-}
-// Note here that we are using Object.prototype.newMethod rather than
-// Object.prototype so as to avoid redefining the prototype object
-Car.prototype.toString = function () {
-  return this.model + " has done " + this.miles + " miles";
-};
-// Usage:
-var civic = new Car( "Honda Civic", 2009, 20000 );
-var mondeo = new Car( "Ford Mondeo", 2010, 5000 );
-console.log( civic.toString() );
-console.log( mondeo.toString() );
-</pre><p></p>
-<p>Above, a single instance of toString() will now be shared between all of the Car objects.</p>
-<p>&nbsp;</p>
-<h2 id="modulepatternjavascript">
-<a href="#modulepatternjavascript" class="subhead-link">#</a>
-The Module Pattern
-</h2>
-<h2 id="detailmodule">Modules</h2>
+<p>在JavaScript中几乎所有包含一个“prototype”属性的对象。当我们调用Javascript的构造器创建一个对象时，构造函数prototype上的属性对于所创建的对象来说是可用的。照这样，就可以创建多个访问相同prototype的Car对象了。因此，下面我们来扩展一下原来的例子：</p>
+
+<pre class="brush: js">
+    function Car( model, year, miles ) {
+        this.model = model;
+        this.year = year;
+        this.miles = miles;
+    }
+    // Note here that we are using Object.prototype.newMethod rather than
+    // Object.prototype so as to avoid redefining the prototype object
+    Car.prototype.toString = function () {
+        return this.model + " has done " + this.miles + " miles";
+    };
+    // Usage:
+    var civic = new Car( "Honda Civic", 2009, 20000 );
+    var mondeo = new Car( "Ford Mondeo", 2010, 5000 );
+    console.log( civic.toString() );
+    console.log( mondeo.toString() );
+</pre>
+
+<p>以上的 tostring () 的单个实例现将在所有的汽车对象之间共享。</p>
+
+<h2>模块化模式</h2>
+<h2>模块</h2>
+
 <p>
 Modules are an integral piece of any robust application's architecture and typically help in keeping the units of code for a project both cleanly separated and organized.</p>
 <p>In JavaScript, there are several options for implementing modules. These include:</p>
