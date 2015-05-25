@@ -184,7 +184,7 @@
 
 <ul>
     <li>模块化模式</li>
-    <li>对象文本表示法</li>
+    <li>对象表示法</li>
     <li>AMD 模块</li>
     <li>CommonJS 模块</li>
     <li>ECMAScript Harmony 模块</li>
@@ -192,65 +192,69 @@
 
 <p>稍后，在这本书中部分现代模块化JavaScript模式设计中，我们将探讨，后面三个选项。</p>
 
-<p>基于对象文本的模块化模式，所以首先，它有道理去更新我们的知识。</p>
+<p>基于对象的模块化模式，所以首先，它有道理去更新我们的知识。</p>
 
-<h3>对象文本</h3>
+<h3>对象</h3>
 
-<p>在对象文本的表示法里, an object is described as a set of comma-separated name/value pairs enclosed in curly braces (<code>{}</code>). Names inside the object may be either strings or identifiers that are followed by a colon. There should be no comma used after the final name/value pair in the object as this may result in errors.</p>
-<p>
-</p><pre class="brush: js">var myObjectLiteral = {
-    variableKey: variableValue,
-    functionKey: function () {
-      // ...
-    }
-};
+<p>在对象的表示法里, 一个对象 不需要用new操作符创建。 例：var obj = {"key":"value","key2":"value2"} 最后一组键值对后不能加","。</p>
+
+<pre class="brush: js">
+    var myObjectLiteral = {
+        variableKey: variableValue,
+        functionKey: function () {
+          // ...
+        }
+    };
 </pre>
-<p>
-Object literals don't require instantiation using the <code>new</code> operator but shouldn't be used at the start of a statement as the opening <code>{</code> may be interpreted as the beginning of a block. Outside of an object, new members may be added to it using assignment as follows <code>myModule.property = "someValue";</code>
-</p>
-<p>Below we can see a more complete example of a module defined using object literal notation:</p>
-<p>
-</p><pre class="brush: js">var myModule = {
-  myProperty: "someValue",
-  // object literals can contain properties and methods.
-  // e.g we can define a further object for module configuration:
-  myConfig: {
-    useCaching: true,
-    language: "en"
-  },
-  // a very basic method
-  saySomething: function () {
-    console.log( "Where in the world is Paul Irish today?" );
-  },
-  // output a value based on the current configuration
-  reportMyConfig: function () {
-    console.log( "Caching is: " + ( this.myConfig.useCaching ? "enabled" : "disabled") );
-  },
-  // override the current configuration
-  updateMyConfig: function( newConfig ) {
-    if ( typeof newConfig === "object" ) {
-      this.myConfig = newConfig;
-      console.log( this.myConfig.language );
-    }
-  }
-};
-// Outputs: Where in the world is Paul Irish today?
-myModule.saySomething();
-// Outputs: Caching is: enabled
-myModule.reportMyConfig();
-// Outputs: fr
-myModule.updateMyConfig({
-  language: "fr",
-  useCaching: false
-});
-// Outputs: Caching is: disabled
-myModule.reportMyConfig();
+
+<p>下面我们可以看到一个更完整的使用对象定义一个模块的例子：</p>
+
+<pre class="brush: js">
+    var myModule = {
+        myProperty: "someValue",
+        // object literals can contain properties and methods.
+        // e.g we can define a further object for module configuration:
+        myConfig: {
+            useCaching: true,
+            language: "en"
+        },
+        // a very basic method
+        saySomething: function () {
+            console.log( "Where in the world is Paul Irish today?" );
+        },
+        // output a value based on the current configuration
+        reportMyConfig: function () {
+            console.log( "Caching is: " + ( this.myConfig.useCaching ? "enabled" : "disabled") );
+        },
+        // override the current configuration
+        updateMyConfig: function( newConfig ) {
+            if ( typeof newConfig === "object" ) {
+              this.myConfig = newConfig;
+              console.log( this.myConfig.language );
+            }
+        }
+    };
+    // Outputs: Where in the world is Paul Irish today?
+    myModule.saySomething();
+    // Outputs: Caching is: enabled
+    myModule.reportMyConfig();
+    // Outputs: fr
+    myModule.updateMyConfig({
+        language: "fr",
+        useCaching: false
+    });
+    // Outputs: Caching is: disabled
+    myModule.reportMyConfig();
 </pre>
-<p></p>
-<p>Using object literals can assist in encapsulating and organizing your code and Rebecca Murphey has previously written about this topic in <a href="http://rmurphey.com/blog/2009/10/15/using-objects-to-organize-your-code/">depth</a> should you wish to read into object literals further.</p>
-<p>That said, if we're opting for this technique, we may be equally as interested in the Module pattern. It still uses object literals but only as the return value from a scoping function. </p>
-<h3>The Module Pattern</h3>
+
+<p>用对象可以辅助封装和组织你的代码、Rebecca Murphey 以前写过关于这样的话题 <a href="http://rmurphey.com/blog/2009/10/15/using-objects-to-organize-your-code/">depth</a> 你应该进一步深入了解一下对象。</p>
+
+<p>也就是说, 如果我们选用这个技术，That said, if we're opting for this technique, we may be equally as interested in the Module pattern. It still uses object literals but only as the return value from a scoping function. </p>
+
+<h3>模块模式</h3>
+
 <p>The Module pattern was originally defined as a way to provide both private and public encapsulation for classes in conventional software engineering.</p>
+
 <p>
 In JavaScript, the Module pattern is used to further <em>emulate</em> the concept of classes in such a way that we're able to include both public/private methods and variables inside a single object, thus shielding particular parts from the global scope. What this results in is a reduction in the likelihood of our function names conflicting with other functions defined in additional scripts on the page.</p>
 <h4>Privacy</h4>
